@@ -1,5 +1,5 @@
 {
-  "name": "Founder Connect",
+  "name": "Founder-Connect",
   "version": "1.0.0",
   "description": "A place to connect Technical and Non-technical Founders",
   "main": "index.js",
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/chingu-voyage6/Bears-Team-02#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chalk": "^2.4.1",
     "express": "^4.16.3",
     "mongoose": "^5.1.5"
   },
