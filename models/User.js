@@ -11,7 +11,7 @@ const userSchema = new Schema({
     state: { type: String, required: true },
     countryCode: { type: String, required: true }
   },
-  isTechnical: { type: Boolean, required: true },
+  isTechnical: { type: Boolean, required: true, default: false },
   connections: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
 });
 
@@ -19,7 +19,6 @@ const User = mongoose.model("User", userSchema);
 
 module.exports = User;
 
- 
 /* 
     * This will be the initial User model for each user profile.  In Mongoose, we use Schemas
     * to create Documents (MongoDB term) to add to our Collection.  In this case a 'Collection of Users.'
