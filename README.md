@@ -34,8 +34,9 @@ mongoDB
 
 ### Future User Stories
 This is a list of proposed features to add after MVP is completed.
+
 | Goal | Status |
-| ---- | ------ |
+| ----- | ------ |
 | Incorporate Django into the project | Not yet started |
 | Add a discussion forum | Not yet started |
 | Enable direct messaging among founders | Not yet started |
