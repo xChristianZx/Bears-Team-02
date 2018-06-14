@@ -9,14 +9,19 @@ This is set up for React only, we can add other things as they go along.
 First, an explanation of the npm dependencies in `package.json`:
 
 babel-core: The actual package that has Babel inside of it
-babel-loader: This configures babel to run with Webpack. **Anything named *-loader at the end is a package to allow it to run with Webpack.**
-Babel-preset-*: These are like "plugins" for Babel. You can look at the documentation, but basically `env` is for compiling modern JavaScript (ES8+) and `react` is for React. This helps define what is in the "public" file. (See folder structure for more.)
-react & reactDOM: Obviously, these are the packages for React. I'm not sure if there are any others. 
+
+babel-loader: This configures babel to run with Webpack. **Anything named -loader at the end is a package to allow it to run with Webpack.**
+
+Babel-preset-: These are like "plugins" for Babel. You can look at the documentation, but basically `env` is for compiling modern JavaScript (ES8+) and `react` is for React. This helps define what is in the "public" file. (See folder structure for more.)
+
+react & reactDOM: Obviously, these are the packages for React. I'm not sure if there are any others.
+
 CSS & style-loader: Same as babel-loader, helps CSS & Styling build with Webpack. There's a Sass-loader in npm as well.
 webpack & webpack-CLI: Just webpack.
+
 webpack-dev-server: This runs a dev server that checks dependencies, builds React, and hosts it on local host. This is the best dev server to be using for React & Webpack. I don't know how copatible it is with Node & the back-end. It'll update on every save for quick, live editing without having to actually require Webpack to manually "build" your page each time.
 
-These are the bare minimum dependencies for just about any React app. Webpack runs babel and anything else with *-loader at the end to do the work in one line of code rather than running Babel manually each time. `create-react-app` is just this, but don't build it yourself.
+These are the bare minimum dependencies for just about any React app. Webpack runs babel and anything else with -loader at the end to do the work in one line of code rather than running Babel manually each time. `create-react-app` is just this, but don't build it yourself.
 
 In the scripts section, I have `npm build` just as a shorthand for `npm webpack-dev-server` because I always type _web_ server.
 
