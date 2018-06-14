@@ -10,9 +10,13 @@ Non-technical startup founders often lament a lack of funding for their projects
 ### Development Stack
 #### Front End
 HTML
+
 CSS
+
 JavaScript
+
 BootStrap
+
 React
 
 #### Back End
