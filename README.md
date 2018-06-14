@@ -21,6 +21,14 @@ Nodejs
 #### Database
 mongoDB
 
+## Starting the App
+### Full App - `npm run dev` - Served on `localhost://8080`
+
+### Server Only - `npm run server` - Served on `localhost://5000`
+
+### Client Only - `npm run client` - Served on `localhost://8080`
+
+
 ### MVP User Stories
 | Goal | Status |
 | -----| ------ |
