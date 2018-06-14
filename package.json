@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "A place to connect Technical and Non-technical Founders",
   "main": "index.js",
-    "scripts": {
+  "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "client": "npm run build --prefix client",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
