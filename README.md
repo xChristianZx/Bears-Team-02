@@ -10,9 +10,13 @@ Non-technical startup founders often lament a lack of funding for their projects
 ### Development Stack
 #### Front End
 HTML
+
 CSS
+
 JavaScript
+
 BootStrap
+
 React
 
 #### Back End
@@ -20,6 +24,14 @@ Nodejs
 
 #### Database
 mongoDB
+
+## Starting the App
+### Full App - `npm run dev` - Served on `localhost://8080`
+
+### Server Only - `npm run server` - Served on `localhost://5000`
+
+### Client Only - `npm run client` - Served on `localhost://8080`
+
 
 ### MVP User Stories
 | Goal | Status |
