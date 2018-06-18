@@ -8,13 +8,10 @@ const app = express();
 
 /* Mongoose connection to mLab */
 mongoose.Promise = global.Promise;
-mongoose.connect(keys.mLabURI);
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function() {
-  console.log("Connected to mLab Database");
-});
+mongoose
+  .connect(keys.mLabURI)
+  .then(() => console.log("Connected to mLab DB"))
+  .catch(err => console.log("Error connecting to mLab", err));
 
 /* Temporary Home Route */
 app.get("/", (req, res) => {
