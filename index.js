@@ -5,9 +5,9 @@ const chalk = require("chalk");
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello Monica, Radhika, and Christian!')
-})
+/* Express Middleware */
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 const PORT = process.env.PORT || 5000;
