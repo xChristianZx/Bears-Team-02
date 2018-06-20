@@ -1,0 +1,21 @@
+/*****************
+ ABOUT
+*****************/
+
+#main-section {
+    width: 80%;
+}
+
+#about {
+    font-size: 28px;
+    display: flex;
+    flex-direction: row;
+    width: 40%; 
+    float: right;
+}
+
+
+#description p {
+    float: right;
+    padding-top: 60px;
+}

@@ -2,7 +2,7 @@
 
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import styles from "../Home/Home.css";
+import styles from "./Header.css";
 
 console.log('connected to home.js');
 
