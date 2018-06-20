@@ -6,6 +6,7 @@ const keys = require("./config/keys");
 
 const indexRoutes = require("./routes/index");
 const founderRoutes = require("./routes/founderRoute");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /* Routes */
 app.use("/", indexRoutes);
 app.use("/founders", founderRoutes);
+app.use("/user", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
