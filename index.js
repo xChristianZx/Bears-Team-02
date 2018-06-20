@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const chalk = require("chalk");
 
 const indexRoutes = require("./routes/index");
+const founderRoutes = require("./routes/founderRoute");
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 /* Routes */
 app.use("/", indexRoutes);
+app.use("/founders", founderRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
