@@ -1,21 +1,48 @@
-/*****************
- ABOUT
-*****************/
 
-#main-section {
-    width: 80%;
+#site-title {
+    margin-left: 50px;
+    margin-right: 300px;
+    width: 300px;
+    font-weight: bold;
 }
 
-#about {
-    font-size: 28px;
+.flexbox-container {
+    padding: 20px 100px 70px 50px;
+    background-color:#0737ea;
     display: flex;
-    flex-direction: row;
-    width: 40%; 
-    float: right;
+    align-items: center;
+    padding-left: 250px;
+    padding-right: 100px;  
+    color: white;  
 }
 
+.flexbox-container h1 {
+    font-size: 6em;
+}
 
-#description p {
-    float: right;
-    padding-top: 60px;
+#logo-image {
+    display: flex;
+    vertical-align: middle;
+}
+
+/****************
+ LOG IN AREA
+****************/
+
+#username, #password {
+    width: 500px;
+    margin: 20px;  
+    line-height: 40px;
+    font-size: 28px; 
+    padding-left: 20px;
+    border-radius: 5px;
+}
+
+#log-in button {
+    font-size: 28px;
+    border-radius: 5px;
+}
+
+#log-in h2 {
+    margin-top: 50px;
 }

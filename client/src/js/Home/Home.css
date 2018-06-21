@@ -1,35 +1,34 @@
+html, 
 body {
-    /*background-image: url("https://unsplash.com/photos/mcLpPD36-2k");*/
     height: 100%;
+    position: relative;
 }
 
-#site-title {
-    margin-left: 50px;
-    margin-right: 300px;
-    width: 300px;
-    font-weight: bold;
+/*****************
+ ABOUT
+*****************/
+
+#main-section {
+    width: 80%;
+    min-height: 100%; /* will cover the 100% of viewport */
+    overflow: auto;
+    display: block;
+    position: relative;
+    padding-bottom: 100px; /* height of your footer */
 }
 
-.flexbox-container {
-    padding: 50px 100px 50px 50px;
-    background-color:#0737ea;
-    /* padding-left: 50px; */
+#about {
+    font-size: 28px;
     display: flex;
-    align-items: center;
-    padding-left: 250px;
-    padding-right: 100px;  
-    color: white;  
-}
-
-.flexbox-container h1 {
-    font-size: 6em;
+    flex-direction: row;
+    width: 40%; 
+    float: right;
 }
 
 
-#logo-image {
-    /* justify-content: middle; */
-    display: flex;
-    vertical-align: middle;
+#description p {
+    float: right;
+    padding-top: 60px;
 }
 
 #create-profile {
@@ -48,37 +47,14 @@ body {
     margin: 20px;
 }
 
-/****************
- LOG IN AREA
-****************/
-.container {
+#log-in {
     display: flex;
     flex-direction: column;
     width: 40%;  
-    /* height: 50%; */
     justify-content: center;
     align-items: center;
     font-size: 36px;
     float: left;
     vertical-align: middle;
-}
-
-#username, #password {
-    width: 500px;
-    margin: 20px;  
-    line-height: 40px;
-    font-size: 28px;
-    /* align-self: center; */
-    
-    padding-left: 20px;
-    border-radius: 5px;
-}
-
-#log-in button {
-    font-size: 28px;
-    border-radius: 5px;
-}
-
-#log-in h2 {
-    margin-top: 50px;
+    overflow: hidden;
 }
