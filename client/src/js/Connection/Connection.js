@@ -1,5 +1,6 @@
 import React from "react";
 import "./Connection.css";
+import FaBeer from 'react-icons/lib/fa/beer';
 
 const Connection = () => {
     return (
@@ -19,7 +20,7 @@ const Connection = () => {
     
         <nav>
             <ul className="flexbox-container" role="navigation">
-                <li><a href="#">Home</a></li>
+                <li><a href="#"><FaBeer />Home</a></li>
                 <li><a href="#">My Profile</a></li>
                 <li><a href="#">Messages</a></li>
                 <li><a href="#">Notifications</a></li>
