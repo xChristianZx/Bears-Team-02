@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 // Before only runs once during test
+// localhost/users_test is a fake db that is created for testing
 before(done => {
   mongoose.connect("mongodb://localhost/users_test");
   mongoose.connection
