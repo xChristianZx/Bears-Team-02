@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new Schema({
   firstName: { type: String, required: true },
@@ -15,6 +16,10 @@ const userSchema = new Schema({
   isTechnical: { type: Boolean, required: true, default: false },
   connections: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
 });
+
+userSchema.plugin(passportLocalMongoose);
+/* * This hashes and salts the user password */
+
 
 const User = mongoose.model("User", userSchema);
 
