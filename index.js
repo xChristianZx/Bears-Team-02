@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const chalk = require("chalk");
 const keys = require("./config/keys");
+const passport = require("passport");
+const cookieSession = require("cookie-session");
 
 const indexRoutes = require("./routes/index");
 const founderRoutes = require("./routes/founderRoute");
@@ -20,6 +22,14 @@ mongoose
 /* Express Middleware */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    keys: [keys.cookieKey]
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 /* Routes */
 app.use("/", indexRoutes);
