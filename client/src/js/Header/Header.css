@@ -1,3 +1,6 @@
+/* html, body {
+    width: 100%;
+} */
 
 #site-title {
     margin-left: 50px;
@@ -6,7 +9,7 @@
     font-weight: bold;
 }
 
-.flexbox-container {
+.container-fluid {
     padding: 20px 100px 70px 50px;
     background-color:#0737ea;
     display: flex;
@@ -14,9 +17,10 @@
     padding-left: 250px;
     padding-right: 100px;  
     color: white;  
+    width: 100%;
 }
 
-.flexbox-container h1 {
+.container-fluid h1 {
     font-size: 6em;
 }
 

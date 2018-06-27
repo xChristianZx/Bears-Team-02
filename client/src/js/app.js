@@ -9,10 +9,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* <Header />
-        <Home /> */}
+        <Header />
+        <Home />
        
-        <Connection />
+        {/* <Connection /> */}
         <Footer />
       </div>
     );
@@ -20,3 +20,5 @@ class App extends Component {
 }
 
 ReactDOM.render(<App />, document.getElementById("app"));
+
+export default App;
