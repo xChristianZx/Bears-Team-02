@@ -3,19 +3,12 @@
 import React from "react";
 import "./Header.css";
 
-console.log("connected to home.js");
-
-const technicalFounder = () => {
-  console.log("You selected technical");
-};
-
-const nonTechnicalFounder = () => {
-  console.log("You selected nontechnical");
-};
+console.log("connected to header.js");
 
 const Header = () => {
   return (
-    <div className="flexbox-container">
+   
+    <div className="container-fluid">
       <figure className="image" id="logo-image">
         <img src="https://bulma.io/images/placeholders/256x256.png" />
       </figure>
@@ -29,6 +22,7 @@ const Header = () => {
         </h2>
       </div>
     </div>
+   
   );
 };
 
