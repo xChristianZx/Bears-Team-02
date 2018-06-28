@@ -1,5 +1,8 @@
+/*  eslint-disable */
+// Temporary eslint disable
+
 import React from "react";
-import "./Connection.css";
+import "./Connections.css";
 
 // create onClick{} for search box
 
