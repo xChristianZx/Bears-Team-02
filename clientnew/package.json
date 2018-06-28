@@ -1,7 +1,9 @@
 {
   "name": "clientnew",
   "version": "0.1.0",
+  "description": "A place to connect Technical and Non-technical Founders",
   "private": true,
+  "proxy": "localhost://5000",
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
