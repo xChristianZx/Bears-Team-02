@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <div className="container-fluid">
       <figure className="image" id="logo-image">
-        <img src="https://bulma.io/images/placeholders/256x256.png" />
+        <img src="https://bulma.io/images/placeholders/256x256.png" alt="placeholder"/>
       </figure>
       <h1 id="site-title">Founder Connect</h1>
       <div id="log-in">
