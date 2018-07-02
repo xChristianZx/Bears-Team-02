@@ -6,12 +6,13 @@ const userSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   userName: { type: String, required: true },
+  password: { type: String, required: true },
   userPhotoURL: { type: String, required: false },
   email: { type: String, required: true },
   location: {
-    city: { type: String, required: true },
-    state: { type: String, required: true },
-    countryCode: { type: String, required: true }
+    city: { type: String, required: false },
+    state: { type: String, required: false },
+    countryCode: { type: String, required: false }
   },
   isTechnical: { type: Boolean, required: true, default: false },
   connections: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
@@ -19,7 +20,6 @@ const userSchema = new Schema({
 
 userSchema.plugin(passportLocalMongoose);
 /* * This hashes and salts the user password */
-
 
 const User = mongoose.model("User", userSchema);
 
