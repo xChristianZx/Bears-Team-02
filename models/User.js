@@ -26,6 +26,10 @@ const userSchema = new Schema({
 
 userSchema.plugin(passportLocalMongoose);
 /* * This hashes and salts the user password */
+/* 
+  ? could use email instead of username for auth 
+  ? - https://github.com/saintedlama/passport-local-mongoose#main-options 
+*/
 
 const User = mongoose.model("User", userSchema);
 
