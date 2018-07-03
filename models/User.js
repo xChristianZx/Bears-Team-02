@@ -3,12 +3,18 @@ const { Schema } = mongoose;
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  userName: { type: String, required: true },
-  password: { type: String, required: true },
+  firstName: { type: String, required: false },
+  lastName: { type: String, required: false },
+  username: {
+    type: String,
+    validate: {
+      validator: username => username.length > 2,
+      message: "username must be longer than 2 characters"
+    },
+    required: [true, "Username is required"]
+  },
   userPhotoURL: { type: String, required: false },
-  email: { type: String, required: true },
+  email: { type: String, required: false },
   location: {
     city: { type: String, required: false },
     state: { type: String, required: false },
@@ -35,7 +41,7 @@ module.exports = User;
     * Also note, the 'connections' will be an array of Users that maps to each unique ObjectID that 
     * MongoDB automatically creates upon each new model/Schema that is created.
     *
-    * Line 18 is where most of Mongoose's magic happens, where we add it to the 
+    * Line 30 is where most of Mongoose's magic happens, where we add it to the 
     * mongoose .model constructor, which will allow us to reference the User collection 
     * (via the module.exports = User statement)
     * throughout our Express server/ router where we can search/query the collection, create new
