@@ -31,6 +31,9 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+require("./services/passport");
+
+app.set("view engine", "ejs"); //temp
 
 /* Routes */
 app.use("/", indexRoutes);
