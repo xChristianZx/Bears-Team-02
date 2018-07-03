@@ -31,13 +31,14 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+require("./services/passport");
 
-app.set("view engine", "ejs");
+app.set("view engine", "ejs"); //temp
 
 /* Routes */
-// app.use("/", indexRoutes);
-// app.use("/founders", founderRoutes);
-// app.use("/user", userRoutes);
+app.use("/", indexRoutes);
+app.use("/founders", founderRoutes);
+app.use("/user", userRoutes);
 app.use("/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
