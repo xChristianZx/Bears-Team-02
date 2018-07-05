@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "client": "npm run build --prefix client",
+    "client": "npm run start --prefix client",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "test": "nodemon --exec 'mocha --recursive'"
   },
@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
+    "ejs": "^2.6.1",
     "mocha": "^5.2.0",
     "nodemon": "^1.17.5"
   }
