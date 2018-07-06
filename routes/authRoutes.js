@@ -48,8 +48,13 @@ router.post("/register", (req, res) => {
 // == Login == //
 router.post("/login", passport.authenticate("local"), (req, res) => {
   console.log(`User Logged In - ${req.user.username}`);
-  res.redirect("secret");
+  return res.status(200).send({ msg: "User Logged In", user: req.user });
 });
+// router.post("/login", (req, res) => {
+//   // console.log(`User Logged In - ${req.user.username}`);
+//   const { username, password } = req.body;
+//   console.log(`User Logged In - ${username} & ${password}`);
+// });
 
 // == Logout == //
 router.get("/logout", (req, res) => {
