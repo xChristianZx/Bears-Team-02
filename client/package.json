@@ -1,10 +1,11 @@
 {
-  "name": "clientnew",
+  "name": "client",
   "version": "0.1.0",
   "description": "A place to connect Technical and Non-technical Founders",
   "private": true,
-  "proxy": "http://localhost://5000",
+  "proxy": "http://localhost:5000",
   "dependencies": {
+    "axios": "^0.18.0",
     "history": "^4.7.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

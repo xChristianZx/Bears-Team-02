@@ -16,7 +16,10 @@ const app = express();
 /* Mongoose connection to mLab */
 mongoose.Promise = global.Promise;
 mongoose
-  .connect(keys.mLabURI)
+  .connect(
+    keys.mLabURI,
+    { useNewUrlParser: true }
+  )
   .then(() => console.log("Connected to mLab DB"))
   .catch(err => console.log("Error connecting to mLab", err));
 

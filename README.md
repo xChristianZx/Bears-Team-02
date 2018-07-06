@@ -22,19 +22,19 @@ Node, Express, mongoDB, passport
 
 ## Starting the App
 
-### Full App - [localhost://3000](http://localhost:3000)
+### Full App - [localhost:3000](http://localhost:3000)
 
 ```
 npm run dev
 ```
 
-### Server Only - [localhost://5000](http://localhost:5000)
+### Server Only - [localhost:5000](http://localhost:5000)
 
 ```
 npm run server  
 ```
 
-### Client Only - [localhost://3000](http://localhost:3000)
+### Client Only - [localhost:3000](http://localhost:3000)
 
 ```
 npm run client
