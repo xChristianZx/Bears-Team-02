@@ -18,7 +18,7 @@ class SignUp extends Component {
                   name="firstName"
                   type="text"
                   onChange={context.handleChange}
-                  value={context.state.register.firstName}
+                  value={context.state.firstName}
                 />
               </label>
 
@@ -28,7 +28,7 @@ class SignUp extends Component {
                   name="lastName"
                   type="text"
                   onChange={context.handleChange}
-                  value={context.state.register.lastName}
+                  value={context.state.lastName}
                 />
               </label>
 
@@ -38,7 +38,7 @@ class SignUp extends Component {
                   name="username"
                   type="text"
                   onChange={context.handleChange}
-                  value={context.state.register.username}
+                  value={context.state.username}
                 />
               </label>
 
@@ -48,7 +48,7 @@ class SignUp extends Component {
                   name="email"
                   type="text"
                   onChange={context.handleChange}
-                  value={context.state.register.email}
+                  value={context.state.email}
                 />
               </label>
 
@@ -58,7 +58,7 @@ class SignUp extends Component {
                   name="password"
                   type="password"
                   onChange={context.handleChange}
-                  value={context.state.register.password}
+                  value={context.state.password}
                 />
               </label>
               <Errors errors={context.state.errors} />

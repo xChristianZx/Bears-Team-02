@@ -9,6 +9,7 @@ import SignUp from "./containers/SignUp/SignUp";
 
 import { UserProvider } from "./Providers/UserProvider";
 import Logout from "./components/User/Logout";
+import Login from "./containers/User/Login/Login";
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
             <Route path="/connect" component={Connections} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/logout" component={Logout} />
+            <Route exact path="/login" component={Login} />
           </Switch>
 
           <Footer />
