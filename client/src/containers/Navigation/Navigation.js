@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Links from "../../components/UI/Links";
 import "./Navigation.css";
 import { UserConsumer } from "../../Providers/UserProvider";

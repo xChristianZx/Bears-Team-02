@@ -1,24 +1,56 @@
 import React, { Component } from "react";
-import Aux from "../../hoc/aux";
-import { UserProvider, UserConsumer } from "../../Providers/UserProvider";
+import { UserConsumer } from "../../Providers/UserProvider";
+import Errors from "../../components/UI/Errors";
+
+const validate = value => {
+   console.log(!value ? 'Field is required' : null)
+}
 
 class SignUp extends Component {
   render() {
     return (
-      //  {/* <UserProvider>
-      //  <Aux> */}
       <div>
         <h1>Sign Up</h1>
         <UserConsumer>
           {context => (
             <form onSubmit={context.handleSubmit}>
               <label>
+                First Name:
+                <input
+                  name="firstName"
+                  type="text"
+                  onChange={context.handleChange}
+                  value={context.state.register.firstName}
+                />
+              </label>
+
+              <label>
+                Last Name:
+                <input
+                  name="lastName"
+                  type="text"
+                  onChange={context.handleChange}
+                  value={context.state.register.lastName}
+                />
+              </label>
+
+              <label>
                 Username:
                 <input
                   name="username"
                   type="text"
                   onChange={context.handleChange}
-                  value={context.state.username}
+                  value={context.state.register.username}
+                />
+              </label>
+
+              <label>
+                Email:
+                <input
+                  name="email"
+                  type="text"
+                  onChange={context.handleChange}
+                  value={context.state.register.email}
                 />
               </label>
 
@@ -28,17 +60,18 @@ class SignUp extends Component {
                   name="password"
                   type="password"
                   onChange={context.handleChange}
-                  value={context.state.password}
+                  value={context.state.register.password}
                 />
               </label>
               <p>I'm inside the consumer - {context.state.username}</p>
+
+              {/* Errors from ther server, not validation errors */}
+              <Errors errors={context.state.errors} />
               <button type="submit">Sign Up</button>
             </form>
           )}
         </UserConsumer>
       </div>
-      //  </Aux>
-      //  </UserProvider>
     );
   }
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import Aux from "../../hoc/aux";
 import { Link } from "react-router-dom";
 import "./Links.css";
 
