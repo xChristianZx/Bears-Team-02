@@ -61,7 +61,6 @@ class SignUp extends Component {
                   value={context.state.register.password}
                 />
               </label>
-              {/* Errors from ther server, not validation errors */}
               <Errors errors={context.state.errors} />
               <button type="submit">Sign Up</button>
             </form>
