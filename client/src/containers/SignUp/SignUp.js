@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { UserConsumer } from "../../Providers/UserProvider";
 import Errors from "../../components/UI/Errors";
-
-const validate = value => {
-   console.log(!value ? 'Field is required' : null)
-}
+import './SignUp.css'
 
 class SignUp extends Component {
   render() {
@@ -14,6 +11,7 @@ class SignUp extends Component {
         <UserConsumer>
           {context => (
             <form onSubmit={context.handleSubmit}>
+              <p className='error'>{context.state.error}</p>
               <label>
                 First Name:
                 <input
@@ -63,8 +61,6 @@ class SignUp extends Component {
                   value={context.state.register.password}
                 />
               </label>
-              <p>I'm inside the consumer - {context.state.username}</p>
-
               {/* Errors from ther server, not validation errors */}
               <Errors errors={context.state.errors} />
               <button type="submit">Sign Up</button>
