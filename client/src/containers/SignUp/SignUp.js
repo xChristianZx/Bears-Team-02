@@ -3,6 +3,8 @@ import { UserConsumer } from "../../Providers/UserProvider";
 import Errors from "../../components/UI/Errors";
 import './SignUp.css'
 
+// TODO: Figue out how to clear the context for inputs on load, so they don't persist.
+
 class SignUp extends Component {
   render() {
     return (
@@ -10,7 +12,7 @@ class SignUp extends Component {
         <h1>Sign Up</h1>
         <UserConsumer>
           {context => (
-            <form onSubmit={context.handleSubmit}>
+            <form onSubmit={context.handleSignUp}>
               <p className='error'>{context.state.error}</p>
               <label>
                 First Name:
