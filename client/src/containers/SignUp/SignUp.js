@@ -1,76 +1,38 @@
-import React, { Component } from "react";
-import { UserConsumer } from "../../Providers/UserProvider";
-import Errors from "../../components/UI/Errors";
-import './SignUp.css'
+import React, { Component } from 'react';
+import { UserConsumer } from '../../Providers/UserProvider';
+import './SignUp.css';
+import FormBuilder from '../../components/UI/FormBuilder';
 
 // TODO: Figue out how to clear the context for inputs on load, so they don't persist.
+const fields = [
+	{ label: 'First Name', name: 'firstName', type: 'text' },
+	{ label: 'Last Name', name: 'lastName', type: 'text' },
+	{ label: 'Username', name: 'username', type: 'text' },
+	{ label: 'Email', name: 'email', type: 'text' },
+	{ label: 'Password', name: 'password', type: 'password' },
+];
 
 class SignUp extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Sign Up</h1>
-        <UserConsumer>
-          {context => (
-            <form onSubmit={context.handleSignUp}>
-              <p className='error'>{context.state.error}</p>
-              <label>
-                First Name:
-                <input
-                  name="firstName"
-                  type="text"
-                  onChange={context.handleChange}
-                  value={context.state.firstName}
-                />
-              </label>
-
-              <label>
-                Last Name:
-                <input
-                  name="lastName"
-                  type="text"
-                  onChange={context.handleChange}
-                  value={context.state.lastName}
-                />
-              </label>
-
-              <label>
-                Username:
-                <input
-                  name="username"
-                  type="text"
-                  onChange={context.handleChange}
-                  value={context.state.username}
-                />
-              </label>
-
-              <label>
-                Email:
-                <input
-                  name="email"
-                  type="text"
-                  onChange={context.handleChange}
-                  value={context.state.email}
-                />
-              </label>
-
-              <label>
-                Password:
-                <input
-                  name="password"
-                  type="password"
-                  onChange={context.handleChange}
-                  value={context.state.password}
-                />
-              </label>
-              <Errors errors={context.state.errors} />
-              <button type="submit">Sign Up</button>
-            </form>
-          )}
-        </UserConsumer>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<h1>Sign Up</h1>
+				<UserConsumer>
+					{context => (
+							<FormBuilder
+								fields={fields}
+                handleChange={context.handleChange}
+                handleSubmit={context.handleSignUp}
+								currentState={context.state}
+								errors={context.state.errors}
+								error={context.state.error}
+								buttonText="Sign Up"
+							/>
+					)}
+				</UserConsumer>
+			</div>
+		);
+	}
 }
 
 export default SignUp;
