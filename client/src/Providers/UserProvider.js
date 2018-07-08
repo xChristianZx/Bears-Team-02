@@ -15,7 +15,7 @@ class UserProvider extends Component {
 		error: '',
 		errors: {},
 		token: null,
-		currentUser: '',
+		currentUser: {},
 		currentTechnical: null,
 		isLoggedIn: false,
 	};
