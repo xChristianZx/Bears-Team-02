@@ -7,19 +7,22 @@ import { Route, Switch } from "react-router-dom";
 import Navigation from "./containers/Navigation/Navigation";
 import SignUp from "./containers/SignUp/SignUp";
 
+import { UserProvider } from "./Providers/UserProvider";
+
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navigation />
+        <UserProvider>
+          <Navigation />
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route path="/connect" component={Connections} />
+            <Route exact path="/signup" component={SignUp} />
+          </Switch>
 
-        <Switch>
-          <Route exact path="/" component={Landing} />
-          <Route path="/connect" component={Connections} />
-          <Route exact path="/signup" component={SignUp} />
-        </Switch>
-
-        <Footer />
+          <Footer />
+        </UserProvider>
       </div>
     );
   }

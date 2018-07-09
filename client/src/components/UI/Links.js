@@ -1,17 +1,17 @@
-import React from 'react'
-import Aux from '../../hoc/aux';
-import './Links.css'
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Links.css";
 
 const Links = props => {
-  const Link = props.links.map(link => {
-    return <a href={link.url} className={link.class}>{link.name}</a>
-  })
+  const NavLink = props.links.map((link, i) => {
+    return (
+      <Link to={`${link.url}`} className={link.class} key={i}>
+        {link.name}
+      </Link>
+    );
+  });
 
-  return (
-    <Aux>
-      {Link}
-    </Aux>
-  )
-}
+  return NavLink;
+};
 
-export default Links
+export default Links;

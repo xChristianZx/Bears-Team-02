@@ -1,36 +1,74 @@
-import React, { Component } from 'react'
-import Aux from '../../hoc/aux'
-import UserProvider, { UserContext } from '../../Providers/UserProvider';
+import React, { Component } from "react";
+import { UserConsumer } from "../../Providers/UserProvider";
+import Errors from "../../components/UI/Errors";
+import './SignUp.css'
 
+class SignUp extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Sign Up</h1>
+        <UserConsumer>
+          {context => (
+            <form onSubmit={context.handleSubmit}>
+              <p className='error'>{context.state.error}</p>
+              <label>
+                First Name:
+                <input
+                  name="firstName"
+                  type="text"
+                  onChange={context.handleChange}
+                  value={context.state.register.firstName}
+                />
+              </label>
 
-  class SignUp extends Component {
-    render() {
-      return (
-       <UserProvider>
-        <Aux>
-          <h1>Sign Up</h1>
+              <label>
+                Last Name:
+                <input
+                  name="lastName"
+                  type="text"
+                  onChange={context.handleChange}
+                  value={context.state.register.lastName}
+                />
+              </label>
 
-          <UserContext.Consumer>
-            {(context) => (
-              <form onSubmit='test'>
-                <label>
-                  Username:
-                  <input name="userName" type='text' onChange={context.handleChange} />
-                </label>
+              <label>
+                Username:
+                <input
+                  name="username"
+                  type="text"
+                  onChange={context.handleChange}
+                  value={context.state.register.username}
+                />
+              </label>
 
-                <label>
-                  Password:
-                  <input name="password" type="password" onChange={context.handleChange} />
-                </label>
-                    <p>I'm inside the consumer - {context.state.userName}</p>
-                <button type="submit" onClick={context.handleSubmit} >Sign Up</button>
-              </form>
-            )}
-          </UserContext.Consumer>
-        </Aux>
-       </UserProvider>
-      )
-    }
+              <label>
+                Email:
+                <input
+                  name="email"
+                  type="text"
+                  onChange={context.handleChange}
+                  value={context.state.register.email}
+                />
+              </label>
+
+              <label>
+                Password:
+                <input
+                  name="password"
+                  type="password"
+                  onChange={context.handleChange}
+                  value={context.state.register.password}
+                />
+              </label>
+              <Errors errors={context.state.errors} />
+              <button type="submit">Sign Up</button>
+            </form>
+          )}
+        </UserConsumer>
+      </div>
+    );
   }
+}
 
-export default SignUp
+export default SignUp;
