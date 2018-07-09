@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import { UserConsumer } from '../../../Providers/UserProvider'
 import Errors from '../../../components/UI/Errors'
+import FormBuilder from '../../../components/UI/FormBuilder';
+
+const fields = [
+	{ label: 'Username', name: 'username', type: 'text' },
+	{ label: 'Password', name: 'password', type: 'password' },
+];
 
   class Login extends Component {
     render() {
@@ -10,31 +16,15 @@ import Errors from '../../../components/UI/Errors'
 
           <UserConsumer>
             {context => (
-              <form onSubmit={context.handleLogin}>
-                <p className='error'>{context.state.error}</p>
-
-                <label>
-                  Username:
-                  <input 
-                    type="text"
-                    name="username"
-                    onChange={context.handleChange}
-                    value={context.state.username}
-                  />
-                  </label>
-
-                  <label>
-                  Password:
-                  <input 
-                    type="password"
-                    name="password"
-                    onChange={context.handleChange}
-                    value={context.state.password}
-                  />
-                  </label>
-                  <Errors errors={context.state.errors} />
-                  <button type="submit">Log In</button>
-              </form>
+              <FormBuilder
+                fields={fields}
+                handleChange={context.handleChange}
+                handleSubmit={context.handleLogin}
+                currentState={context.state}
+                errors={context.state.errors}
+                error={context.state.error}
+                buttonText="Log In"
+              />
             )}
           </UserConsumer>
         </div>

@@ -14,20 +14,6 @@ const linksOut = [
   { name: "Log In", url: "/login", class: "Item" }
 ];
 
-// class Navigation extends Component {
-//   render() {
-//     return (
-//       <nav className="Nav">
-//         <UserConsumer>
-//           {({ isLoggedIn }) =>
-//             isLoggedIn ? <Links links={linksIn} /> : <Links links={linksOut} />
-//           }
-//         </UserConsumer>
-//       </nav> 
-//     );
-//   }
-// }
-
 const Navigation = () => {
   return (
     <nav className="Nav">

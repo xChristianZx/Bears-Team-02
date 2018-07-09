@@ -32,13 +32,12 @@ class UserProvider extends Component {
 		this.setState({ state });
 	};
 
-	// TODO: Rename this function name to handleSignUp
-	handleSubmit = e => {
+	handleSignUp = e => {
 		e.preventDefault();
 		const { firstName, lastName, username, email, password } = this.state;
 		Axios.post(`${ROOT_URL}/auth/register`, { firstName, lastName, username, email, password })
 			.then(res => {
-				console.log('UserProvider[handleSubmit axios.post] - res.data', res.data);
+				console.log('UserProvider[handleSignUp axios.post] - res.data', res.data);
 				// const { firstName, isTechnical } = res.data.user;
 				this.setState({
 					//  Hashed password is returned with User. Fix this on server.
@@ -87,8 +86,7 @@ class UserProvider extends Component {
 		});
 	};
 
-	// TODO: Rename to handle logout
-	logout = () => {
+	handleLogout = () => {
 		localStorage.removeItem('token');
 		this.setState({ isLoggedIn: false });
 	};
@@ -100,9 +98,9 @@ class UserProvider extends Component {
 					state: this.state,
 					isLoggedIn: this.state.isLoggedIn,
 					handleChange: this.handleChange,
-					handleSubmit: this.handleSubmit,
+					handleSignUp: this.handleSignUp,
 					handleLogin: this.handleLogin,
-					logout: this.logout,
+					handleLogout: this.handleLogout,
 				}}
 			>
 				{this.props.children}

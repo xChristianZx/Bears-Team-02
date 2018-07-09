@@ -8,7 +8,7 @@ import Navigation from "./containers/Navigation/Navigation";
 import SignUp from "./containers/SignUp/SignUp";
 
 import { UserProvider } from "./Providers/UserProvider";
-import Logout from "./components/User/Logout";
+import Logout from "./containers/User/Logout/Logout";
 import Login from "./containers/User/Login/Login";
 
 class App extends Component {
