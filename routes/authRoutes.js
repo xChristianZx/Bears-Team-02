@@ -60,6 +60,7 @@ router.post('/register', (req, res) => {
 router.post('/login', passport.authenticate('local'), (req, res) => {
 	console.log(`User Logged In - ${req.user.username}`);
 	return res.status(200).send({ 
+		user: req.user,
     msg: 'User Logged In', 
     token: userToken(req.user)
   });

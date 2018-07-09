@@ -10,6 +10,7 @@ import SignUp from "./containers/SignUp/SignUp";
 import { UserProvider } from "./Providers/UserProvider";
 import Logout from "./containers/User/Logout/Logout";
 import Login from "./containers/User/Login/Login";
+import Dashboard from "./components/UI/Dashboard";
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/user" component={Dashboard} />
           </Switch>
 
           <Footer />

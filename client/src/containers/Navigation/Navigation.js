@@ -18,8 +18,8 @@ const Navigation = () => {
   return (
     <nav className="Nav">
       <UserConsumer>
-        {({ isLoggedIn }) =>
-          isLoggedIn ? <Links links={linksIn} /> : <Links links={linksOut} />
+        {(context) =>
+          context.isLoggedIn ? <Links links={linksIn} user={context.state.currentUser} /> : <Links links={linksOut} />
         }
       </UserConsumer>
     </nav>
