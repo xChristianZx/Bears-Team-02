@@ -1,5 +1,6 @@
 import React, { createContext, Component } from 'react';
 import Axios from 'axios';
+import history from '../hoc/history'
 
 const UserContext = createContext();
 const ROOT_URL = 'http://localhost:5000';
@@ -48,6 +49,7 @@ class UserProvider extends Component {
 					currentTechnical: false,
 					isLoggedIn: true,
 				});
+				history.push('/user')
 			})
 			.catch(err => {
 				let msg = err.response.data.message;
@@ -55,8 +57,14 @@ class UserProvider extends Component {
 				this.setState({
 					error: msg,
 				});
+				history.push('/signup')
 			});
 	};
+
+	logout = () => {
+		localStorage.removeItem('token')
+		this.setState({ isLoggedIn: false })
+	}
 
 	render() {
 		return (
@@ -66,6 +74,7 @@ class UserProvider extends Component {
 					isLoggedIn: this.state.isLoggedIn,
 					handleChange: this.handleChange,
 					handleSubmit: this.handleSubmit,
+					logout: this.logout
 				}}
 			>
 				{this.props.children}
