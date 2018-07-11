@@ -3,9 +3,9 @@ import Errors from "./Errors";
 import "./FormBuilder.css";
 
 const FormBuilder = props => {
-  const fields = props.fields.map(field => {
+  const fields = props.fields.map((field, i) => {
     return (
-      <React.Fragment>
+      <React.Fragment key={i}>
         <div className="field">
           <p className="control has-icons-left">
             <label>
