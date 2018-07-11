@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { UserConsumer } from '../../Providers/UserProvider';
+import { UserConsumer, UserProvider } from '../../Providers/UserProvider';
 import './SignUp.css';
 import FormBuilder from '../../components/UI/FormBuilder';
 
-// TODO: Figue out how to clear the context for inputs on load, so they don't persist.
+// TODO: clear the context for inputs on load, so they don't persist.
 const fields = [
 	{ label: 'First Name', name: 'firstName', type: 'text' },
 	{ label: 'Last Name', name: 'lastName', type: 'text' },
@@ -11,7 +11,7 @@ const fields = [
 	{ label: 'Email', name: 'email', type: 'text' },
 	{ label: 'Password', name: 'password', type: 'password' },
 ];
-
+ 
 class SignUp extends Component {
 	render() {
 		return (
@@ -24,6 +24,7 @@ class SignUp extends Component {
                 handleChange={context.handleChange}
                 handleSubmit={context.handleSignUp}
 								currentState={context.state}
+								clearForm={context.clearForm}
 								errors={context.state.errors}
 								error={context.state.error}
 								buttonText="Sign Up"
