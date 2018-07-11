@@ -32,6 +32,19 @@ class UserProvider extends Component {
 		this.setState({ state });
 	};
 
+	clearForm = e => {
+		console.log('clear');
+		e.preventDefault();
+		const resetState = {
+			firstName: '',
+			lastName: '',
+			username: '',
+			email: '',
+			password: '',
+		};
+		this.setState({ ...resetState });
+	};
+
 	handleSignUp = e => {
 		e.preventDefault();
 		const { firstName, lastName, username, email, password } = this.state;
@@ -40,13 +53,19 @@ class UserProvider extends Component {
 				console.log('UserProvider[handleSignUp axios.post] - res.data', res.data);
 				// const { firstName, isTechnical } = res.data.user;
 				this.setState({
-					//  Hashed password is returned with User. Fix this on server.
+					// TODO! Hashed password is returned with User. Fix this on server.
+					// TODO this setState is getting a little verbose, look at managing it more succinct.
+					firstName: '',
+					lastName: '',
+					username: '',
+					email: '',
+					password: '',
 					currentUser: res.data.user,
 					token: res.data.token,
 					// currentTechnical: isTechnical,
 					currentTechnical: false,
 					isLoggedIn: true,
-					password: ''
+					password: '',
 				});
 				history.push('/user');
 			})
@@ -62,7 +81,7 @@ class UserProvider extends Component {
 
 	handleLogin = e => {
 		e.preventDefault();
-		console.log('HANDLE LOGIN')
+		console.log('HANDLE LOGIN');
 		const { username, password } = this.state;
 		Axios.post(`${ROOT_URL}/auth/login`, { username, password })
 			.then(res => {
@@ -73,17 +92,17 @@ class UserProvider extends Component {
 					// currentTechnical: isTechnical,
 					currentTechnical: false,
 					isLoggedIn: true,
-					password: ''
+					password: '',
 				});
 				history.push('/user');
-		})
-		.catch(err => {
-			// TODO: Figure out how error messages are returned from server. - See signIn for reference.
-			this.setState({
-				error: 'Something went wrong',
+			})
+			.catch(err => {
+				// TODO: Figure out how error messages are returned from server. - See signIn for reference.
+				this.setState({
+					error: 'Something went wrong',
+				});
+				history.push('/login');
 			});
-			history.push('/login');
-		});
 	};
 
 	handleLogout = () => {
@@ -101,6 +120,7 @@ class UserProvider extends Component {
 					handleSignUp: this.handleSignUp,
 					handleLogin: this.handleLogin,
 					handleLogout: this.handleLogout,
+					clearForm: this.clearForm,
 				}}
 			>
 				{this.props.children}

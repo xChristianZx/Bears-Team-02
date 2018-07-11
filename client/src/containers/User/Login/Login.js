@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { UserConsumer } from '../../../Providers/UserProvider'
-import Errors from '../../../components/UI/Errors'
 import FormBuilder from '../../../components/UI/FormBuilder';
 
 const fields = [

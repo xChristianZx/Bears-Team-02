@@ -1,0 +1,9 @@
+.Form {
+	width: 600px;
+	margin: 0 auto;
+}
+
+.Form > .is-grouped {
+	justify-content: center;
+	padding-bottom: 40px;
+}
