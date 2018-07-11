@@ -52,8 +52,7 @@ class UserProvider extends Component {
 			.then(res => {
 				console.log('UserProvider[handleSignUp axios.post] - res.data', res.data);
 				// const { firstName, isTechnical } = res.data.user;
-				this.setState({
-					// TODO! Hashed password is returned with User. Fix this on server.
+				this.setState({					
 					// TODO this setState is getting a little verbose, look at managing it more succinct.
 					firstName: '',
 					lastName: '',
@@ -65,7 +64,6 @@ class UserProvider extends Component {
 					// currentTechnical: isTechnical,
 					currentTechnical: false,
 					isLoggedIn: true,
-					password: '',
 				});
 				history.push('/user');
 			})
@@ -85,8 +83,7 @@ class UserProvider extends Component {
 		const { username, password } = this.state;
 		Axios.post(`${ROOT_URL}/auth/login`, { username, password })
 			.then(res => {
-				this.setState({
-					//  Hashed password is returned with User. Fix this on server.
+				this.setState({					
 					currentUser: res.data.user,
 					token: res.data.token,
 					// currentTechnical: isTechnical,
