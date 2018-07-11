@@ -65,7 +65,6 @@ class UserProvider extends Component {
 					// currentTechnical: isTechnical,
 					currentTechnical: false,
 					isLoggedIn: true,
-					password: '',
 				});
 				history.push('/user');
 			})
