@@ -1,9 +1,6 @@
-/* landing page view */
-
 import React from "react";
 import "./Home.css";
-
-console.log("connected to home.js");
+import { NavLink } from "react-router-dom";
 
 const technicalFounder = () => {
   console.log("You selected technical");
@@ -15,27 +12,32 @@ const nonTechnicalFounder = () => {
 
 const Home = () => {
   return (
-    <div id="main-section">
-      <div id="user-role">
-        <h1 id="create-profile"> Create your profile </h1>
-        <a onClick={technicalFounder} className="button is-dark is-large">
+    <div className="columns section">
+      <div className="column has-text-centered">
+        <h1 className="title is-1"> Create your profile </h1>
+        <NavLink
+          to="/signup"
+          onClick={technicalFounder}
+          className="button is-dark is-large"
+        >
           I'm a technical founder
-        </a>
-        <a onClick={nonTechnicalFounder} className="button is-dark is-large">
+        </NavLink>
+        <NavLink
+          to="/signup"
+          onClick={nonTechnicalFounder}
+          className="button is-dark is-large"
+        >
           I'm a non-technical founder
-        </a>
+        </NavLink>
       </div>
-      <aside id="about">
-        <div id="description">
-          <p>
-            Founder Connect is a social networking site that connects technical
-            and non-technical startup founders.
-          </p>
-          <p>
-            Find your future partner by creating a Founder Connect profile
-            today.
-          </p>
-        </div>
+      <aside className="column">
+        <p className="subtitle is-4 has-text-justified">
+          Founder Connect is a social networking site that connects technical
+          and non-technical startup founders.
+        </p>
+        <p className="subtitle is-4 has-text-justified">
+          Find your future partner by creating a Founder Connect profile today.
+        </p>
       </aside>
     </div>
   );
