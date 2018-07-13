@@ -1,12 +1,11 @@
 import React from "react";
 import Header from "../Header/Header";
 import Home from "../Home/Home";
-
-/* Temporary component to render the Home page */
+import "./Landing.css";
 
 const Landing = () => {
   return (
-    <div>
+    <div className="layout-wrapper">
       <Header />
       <Home />
     </div>
