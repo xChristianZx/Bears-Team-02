@@ -1,7 +1,7 @@
 /* Bulma Override */
 
 .hero.is-info {
-  background-color: #0737ea;
+  background-image: #0737ea;
 }
 
 .hero.is-info .title {
@@ -36,4 +36,3 @@
   display: flex;
   vertical-align: middle;
 } */
-

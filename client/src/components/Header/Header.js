@@ -1,9 +1,5 @@
-/* landing page view */
-
 import React from "react";
 import "./Header.css";
-
-console.log("connected to header.js");
 
 const Header = () => {
   return (
