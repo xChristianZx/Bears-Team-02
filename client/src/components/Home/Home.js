@@ -13,7 +13,7 @@ const nonTechnicalFounder = () => {
 const Home = () => {
   return (
     <div className="columns section">
-      <div className="column">
+      <div className="column has-text-centered">
         <h1 className="title is-1"> Create your profile </h1>
         <NavLink
           to="/signup"
@@ -31,11 +31,11 @@ const Home = () => {
         </NavLink>
       </div>
       <aside className="column">
-        <p className="subtitle is-4">
+        <p className="subtitle is-4 has-text-justified">
           Founder Connect is a social networking site that connects technical
           and non-technical startup founders.
         </p>
-        <p className="subtitle is-4">
+        <p className="subtitle is-4 has-text-justified">
           Find your future partner by creating a Founder Connect profile today.
         </p>
       </aside>

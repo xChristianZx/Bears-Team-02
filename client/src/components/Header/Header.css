@@ -7,32 +7,3 @@
 .hero.is-info .title {
   font-size: 4rem;
 }
-
-/* 
-#site-title {
-   margin-left: 5%;
-  margin-right: 30%;
-  width: 10%; 
-  font-weight: bold;
-}
-
-.container-fluid {
-  display: flex;
-  background-color: #0737ea;
-  align-items: center;
-  justify-content: center;
-  /* padding-left: 5rem;
-  padding-right: 1rem;
-  padding-bottom: 3rem; 
-  margin: 0;
-  color: white;
-}
-*/
-/* .container-fluid h1 {
-  font-size: 6em;
-} */
-
-/* #logo-image {
-  display: flex;
-  vertical-align: middle;
-} */
