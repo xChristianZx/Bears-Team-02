@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component , Fragment} from "react";
 import "./App.css";
 import Connections from "./components/Connections/Connections";
 import Landing from "./components/Landing/Landing";
@@ -7,16 +7,15 @@ import { Route, Switch } from "react-router-dom";
 import Navigation from "./containers/Navigation/Navigation";
 import SignUp from "./containers/SignUp/SignUp";
 
-import { UserProvider } from "./Providers/UserProvider";
 import Logout from "./containers/User/Logout/Logout";
 import Login from "./containers/User/Login/Login";
-import Dashboard from "./components/UI/Dashboard";
+import Dashboard from "./containers/User/Dashboard/Dashboard";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <UserProvider>
+        <Fragment>
           <Navigation />
           <Switch>
             <Route exact path="/" component={Landing} />
@@ -28,7 +27,7 @@ class App extends Component {
           </Switch>
 
           <Footer />
-        </UserProvider>
+        </Fragment>
       </div>
     );
   }
