@@ -15,6 +15,10 @@ const linksOut = [
 ];
 
 class Navigation extends Component {
+  componentWillMount() {
+    console.log('CWM', this.props)
+  }
+
   render() {
     return (
       <nav className="Nav">
@@ -36,4 +40,4 @@ const mapStateToProps = (state) => {
   return { authenticated: state.User.authenticated }
 }
 
-export default connect(mapStateToProps)(Navigation);
+export default connect(mapStateToProps, null, null, {pure:true})(Navigation);

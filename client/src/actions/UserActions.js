@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../hoc/history';
 
-import { SIGN_UP, LOG_IN, USER_DASHBOARD } from './types';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT } from './types';
 
 const ROOT_URL = 'http://localhost:5000';
 
@@ -46,4 +46,12 @@ export function dashboard() {
 			dispatch({ type: USER_DASHBOARD, payload: response.data.user })
 		});
 	};
+}
+
+export function logout() {
+	return dispatch => {
+		localStorage.removeItem('token')
+		dispatch({ type: LOGGED_OUT })
+		history.push('/')
+	}
 }
