@@ -17,3 +17,8 @@ body {
 *:after {
   box-sizing: inherit;
 }
+
+/* Needed to maintain full page layout of flex */
+#root {
+  height: 100%;
+}

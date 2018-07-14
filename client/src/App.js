@@ -18,14 +18,16 @@ class App extends Component {
       <div className="App">
         <UserProvider>
           <Navigation />
-          <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route path="/connect" component={Connections} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/logout" component={Logout} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/user" component={Dashboard} />
-          </Switch>
+          <div className="content-layout-wrapper">
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route path="/connect" component={Connections} />
+              <Route exact path="/signup" component={SignUp} />
+              <Route exact path="/logout" component={Logout} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/user" component={Dashboard} />
+            </Switch>
+          </div>
 
           <Footer />
         </UserProvider>
