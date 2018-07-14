@@ -1,3 +1,13 @@
 .App {
+  display: flex;
+  flex-direction: column;
   height: 100%;
+}
+
+/* 
+Important:  Needed to maintain proper growth ratio for main content on page
+throughout different views/ routes
+*/
+.content-layout-wrapper {
+  flex: 1 0 auto;
 }
