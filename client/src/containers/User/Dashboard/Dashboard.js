@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import * as userActions from '../../../actions/UserActions'
 
   class Dashboard extends Component {
-    componentWillMount(){
+    componentDidMount(){
       this.props.actions.dashboard()
     }
 

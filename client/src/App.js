@@ -5,7 +5,7 @@ import Landing from "./components/Landing/Landing";
 import Footer from "./components/Footer/Footer";
 import { Route, Switch } from "react-router-dom";
 import Navigation from "./containers/Navigation/Navigation";
-import SignUp from "./containers/SignUp/SignUp";
+import SignUp from "./containers/User/SignUp/SignUp";
 
 import Logout from "./containers/User/Logout/Logout";
 import Login from "./containers/User/Login/Login";
