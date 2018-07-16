@@ -3,13 +3,22 @@ import { reduxForm, Field, Form } from 'redux-form';
 import './FormBuilder.css';
 
 const formFieldRender = ({ input, label, type, meta: { touched, error }}) => (
-  <div className='InputGroup'>
-    <label className='Label'>{label}</label>
-    <input type={type} className='Input' { ...input } required />
-    <div className={(touched && error) ? (['Validation', 'Error']).join(' ') : 'Validation'}>
-      {touched && ((error && <span>{error}</span>))}
-    </div>
-  </div>
+	<div class="field">
+		<label class="label">{label}</label>
+		<div class="control">
+			<input class="input" type={type} { ...input } />
+		</div>
+		<p class="help is-danger">{touched && ((error && <span>{error}</span> ))}</p>
+	</div>
+
+
+  // <div className='InputGroup'>
+  //   <label className='Label'>{label}</label>
+  //   <input type={type} className='Input' { ...input } required />
+  //   <div className={(touched && error) ? (['Validation', 'Error']).join(' ') : 'Validation'}>
+  //     {touched && ((error && <span>{error}</span>))}
+  //   </div>
+  // </div>
 )
 
 let errorFields = [];
@@ -31,10 +40,11 @@ const FormBuilder = props => {
 	});
 
 	return (
-		<Form onSubmit={handleSubmit}>
+		<Form className='Form' onSubmit={handleSubmit}>
       <h1>{props.formTitle}</h1>
 			{fields}
-			<button type="submit">{props.buttonText}</button>
+			<button className='button is-success' type="submit">{props.buttonText}</button>
+			<button className='button is-danger'>Clear</button>
 			{props.errors}
 		</Form>
 	);
