@@ -1,15 +1,15 @@
-import React, { Component , Fragment} from "react";
-import "./App.css";
-import Connections from "./components/Connections/Connections";
-import Landing from "./components/Landing/Landing";
-import Footer from "./components/Footer/Footer";
-import { Route, Switch } from "react-router-dom";
-import Navigation from "./containers/Navigation/Navigation";
-import SignUp from "./containers/User/SignUp/SignUp";
+import React, { Component, Fragment } from 'react';
+import './App.css';
+import Landing from './components/Landing/Landing';
+import Footer from './components/Footer/Footer';
+import { Route, Switch } from 'react-router-dom';
 
-import Logout from "./containers/User/Logout/Logout";
-import Login from "./containers/User/Login/Login";
-import Dashboard from "./containers/User/Dashboard/Dashboard";
+import Navigation from './containers/Navigation/Navigation';
+import SignUp from './containers/User/SignUp/SignUp';
+import Logout from './containers/User/Logout/Logout';
+import Login from './containers/User/Login/Login';
+import Dashboard from './containers/User/Dashboard/Dashboard';
+import Connections from './containers/User/Connections/Connections';
 
 class App extends Component {
   render() {
@@ -27,12 +27,11 @@ class App extends Component {
               <Route exact path="/user" component={Dashboard} />
             </Switch>
           </div>
-
-          <Footer />
-        </Fragment>
-      </div>
-    );
-  }
+					<Footer />
+				</Fragment>
+			</div>
+		);
+	}
 }
 
 export default App;

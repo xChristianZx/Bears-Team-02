@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../hoc/history';
 
-import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, ERROR } from './types';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, ERROR, CONNECTIONS } from './types';
 
 const ROOT_URL = 'http://localhost:5000';
 
@@ -40,7 +40,7 @@ export function login({ username, password }) {
 			.catch(error => {
 				// TODO Improve error handling from server. Similar to signUp
 				const err = 'Username or Password incorrect'
-				dispatch({ type: ERROR, payload: err})
+				dispatch({ type: ERROR, payload: err, error: error})
 					history.push('/login')
 			});
 	};
@@ -60,5 +60,16 @@ export function logout() {
 		localStorage.removeItem('token')
 		dispatch({ type: LOGGED_OUT })
 		history.push('/')
+	}
+}
+
+export function getConnections() {
+	return dispatch => {
+		let token = localStorage.getItem('token');
+		axios.get(`${ROOT_URL}/founders/`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
+			dispatch({ type: CONNECTIONS, payload: response.data })
+		}).catch(error => {
+				// TODO! Improve errors here. See what is returned from server and use action type ERROR.
+		})
 	}
 }
