@@ -12,20 +12,21 @@ import Dashboard from './containers/User/Dashboard/Dashboard';
 import Connections from './containers/User/Connections/Connections';
 
 class App extends Component {
-	render() {
-		return (
-			<div className="App">
-				<Fragment>
-					<Navigation />
-					<Switch>
-						<Route exact path="/" component={Landing} />
-						<Route path="/connect" component={Connections} />
-						<Route exact path="/signup" component={SignUp} />
-						<Route exact path="/logout" component={Logout} />
-						<Route exact path="/login" component={Login} />
-						<Route exact path="/user" component={Dashboard} />
-					</Switch>
-
+  render() {
+    return (
+      <div className="App">
+        <Fragment>
+          <Navigation />
+          <div className="content-layout-wrapper">
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route path="/connect" component={Connections} />
+              <Route exact path="/signup" component={SignUp} />
+              <Route exact path="/logout" component={Logout} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/user" component={Dashboard} />
+            </Switch>
+          </div>
 					<Footer />
 				</Fragment>
 			</div>
