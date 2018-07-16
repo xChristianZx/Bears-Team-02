@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../hoc/history';
 
-import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT } from './types';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, ERROR } from './types';
 
 const ROOT_URL = 'http://localhost:5000';
 
@@ -14,10 +14,14 @@ export function signUp({ firstName, lastName, username, email, password }) {
 					localStorage.setItem('token', response.data.token);
 					dispatch({ type: SIGN_UP, payload: response.data });
 					history.push('/');
+				} else {
+					dispatch({ type: ERROR, payload: response.message })
+          history.push('/signup')
 				}
 			})
 			.catch(error => {
-				console.log('ERROR', error);
+					dispatch({ type: ERROR, payload: error.response.data })
+          history.push('/signup')
 			});
 	};
 }
@@ -34,7 +38,10 @@ export function login({ username, password }) {
 				}
 			})
 			.catch(error => {
-				console.log('ERROR', error);
+				// TODO Improve error handling from server. Similar to signUp
+				const err = 'Username or Password incorrect'
+				dispatch({ type: ERROR, payload: err})
+					history.push('/login')
 			});
 	};
 }

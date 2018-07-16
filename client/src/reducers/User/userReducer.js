@@ -1,4 +1,4 @@
-import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, AUTHENTICATED } from '../../actions/types';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, AUTHENTICATED, ERROR } from '../../actions/types';
 
 export default function(state = {}, action) {
 	switch (action.type) {
@@ -8,6 +8,8 @@ export default function(state = {}, action) {
 			return { ...state, authenticated: true };
 		case AUTHENTICATED:
 				return { ...state, authenticated: true };
+		case ERROR:
+			return { ...state, error: action.payload };
 		case USER_DASHBOARD:
 			return { ...state, user: action.payload };
 		case LOGGED_OUT:

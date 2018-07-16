@@ -15,7 +15,7 @@ const linksOut = [
 ];
 
 class Navigation extends Component {
-  componentWillMount() {
+  componentDidMount() {
     console.log('CWM', this.props)
   }
 

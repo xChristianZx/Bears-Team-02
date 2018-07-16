@@ -17,13 +17,14 @@ class SignUp extends Component {
 			<div>
 				<FormBuilder fields={Fields} onSubmit={this.onSubmit} buttonText='Sign Up' formTitle='Sign Up' />
 
-				<p style={{ color: 'red' }}>{this.props.error}</p>
+				<p style={{ color: 'red' }}>{this.props.error ? this.props.error.message : null}</p>
 			</div>
 		)
 	}
 }
 
 const mapStateToProps = (state) => {
+	console.log(state.User.error)
 	return { error: state.User.error }
 }
 
