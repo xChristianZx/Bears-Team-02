@@ -6,5 +6,3 @@ const Fields = [
   { label: 'Password', name: 'password', type: 'password', errorMsg: 'Password is required' },
   { label: 'Confirm Password', name: 'confirmPassword', type: 'password', errorMsg: 'Passwords do not match' }
 ]
- 
-export default Fields
