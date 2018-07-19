@@ -5,7 +5,7 @@ import "./Landing.css";
 
 const Landing = () => {
   return (
-    <div className="layout-wrapper">
+    <div>
       <Header />
       <Home />
     </div>

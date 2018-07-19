@@ -3,12 +3,12 @@ import { reduxForm, Field, Form } from 'redux-form';
 import './FormBuilder.css'; 
 
 const formFieldRender = ({ input, label, type, meta: { touched, error }}) => (
-	<div class="field">
-		<label class="label">{label}</label>
-		<div class="control">
-			<input class="input" type={type} { ...input } />
+	<div className="field">
+		<label className="label">{label}</label>
+		<div className="control">
+			<input className="input" type={type} { ...input } />
 		</div>
-		<p class="help is-danger">{touched && ((error && <span>{error}</span> ))}</p>
+		<p className="help is-danger">{touched && ((error && <span>{error}</span> ))}</p>
 	</div>
 )
 
@@ -31,7 +31,7 @@ const FormBuilder = props => {
 
 	return (
 		<Form className='Form' onSubmit={handleSubmit}>
-      <h1>{props.formTitle}</h1>
+      <h1 className="title" >{props.formTitle}</h1>
 			{fields}
 			<button className='button is-success' type="submit">{props.buttonText}</button>
 			<button className='button is-danger'>Clear</button>
