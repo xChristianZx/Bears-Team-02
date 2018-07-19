@@ -1,6 +1,6 @@
 import React from 'react';
 import { reduxForm, Field, Form } from 'redux-form';
-import './FormBuilder.css';
+import './FormBuilder.css'; 
 
 const formFieldRender = ({ input, label, type, meta: { touched, error }}) => (
 	<div class="field">
@@ -10,15 +10,6 @@ const formFieldRender = ({ input, label, type, meta: { touched, error }}) => (
 		</div>
 		<p class="help is-danger">{touched && ((error && <span>{error}</span> ))}</p>
 	</div>
-
-
-  // <div className='InputGroup'>
-  //   <label className='Label'>{label}</label>
-  //   <input type={type} className='Input' { ...input } required />
-  //   <div className={(touched && error) ? (['Validation', 'Error']).join(' ') : 'Validation'}>
-  //     {touched && ((error && <span>{error}</span>))}
-  //   </div>
-  // </div>
 )
 
 let errorFields = [];
@@ -26,7 +17,6 @@ let errorFields = [];
 const FormBuilder = props => {
 	const { handleSubmit } = props;
 	const fields = props.fields.map(field => {
-		errorFields.push(field);
 
 		return (
 			<Field
@@ -69,5 +59,5 @@ const validate = values => {
 
 export default reduxForm({
   form: 'SignUp', // TODO See about dynamic name here
-  validate
+	validate
 })(FormBuilder)
