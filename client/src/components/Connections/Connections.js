@@ -75,9 +75,9 @@ const Connection = () => {
           <ul id="results-list">
             {/* template for results */}
             <li className="box" id="results-item">
-              <article class="media">
-                <div class="media-left">
-                  <figure class="image is-64x64" id="avatar">
+              <article className="media">
+                <div className="media-left">
+                  <figure className="image is-64x64" id="avatar">
                     <img
                       src="https://bulma.io/images/placeholders/128x128.png"
                       alt="Image"
@@ -85,8 +85,8 @@ const Connection = () => {
                   </figure>
                 </div>
               </article>
-              <div class="media-content">
-                <div class="content">
+              <div className="media-content">
+                <div className="content">
                   <p>
                     <strong>John Smith</strong> <small>@johnsmith</small>{" "}
                     <small>31m</small>
@@ -104,9 +104,9 @@ const Connection = () => {
             {/* end template */}
 
             <li className="box" id="results-item">
-              <article class="media">
-                <div class="media-left">
-                  <figure class="image is-64x64" id="avatar">
+              <article className="media">
+                <div className="media-left">
+                  <figure className="image is-64x64" id="avatar">
                     <img
                       src="https://bulma.io/images/placeholders/128x128.png"
                       alt="Image"
@@ -114,8 +114,8 @@ const Connection = () => {
                   </figure>
                 </div>
               </article>
-              <div class="media-content">
-                <div class="content">
+              <div className="media-content">
+                <div className="content">
                   <p>
                     <strong>John Smith</strong> <small>@johnsmith</small>{" "}
                     <small>31m</small>
@@ -131,9 +131,9 @@ const Connection = () => {
               </div>
             </li>
             <li className="box" id="results-item">
-              <article class="media">
-                <div class="media-left">
-                  <figure class="image is-64x64" id="avatar">
+              <article className="media">
+                <div className="media-left">
+                  <figure className="image is-64x64" id="avatar">
                     <img
                       src="https://bulma.io/images/placeholders/128x128.png"
                       alt="Image"
@@ -141,8 +141,8 @@ const Connection = () => {
                   </figure>
                 </div>
               </article>
-              <div class="media-content">
-                <div class="content">
+              <div className="media-content">
+                <div className="content">
                   <p>
                     <strong>John Smith</strong> <small>@johnsmith</small>{" "}
                     <small>31m</small>
@@ -158,9 +158,9 @@ const Connection = () => {
               </div>
             </li>
             <li className="box" id="results-item">
-              <article class="media">
-                <div class="media-left">
-                  <figure class="image is-64x64" id="avatar">
+              <article className="media">
+                <div className="media-left">
+                  <figure className="image is-64x64" id="avatar">
                     <img
                       src="https://bulma.io/images/placeholders/128x128.png"
                       alt="Image"
@@ -168,8 +168,8 @@ const Connection = () => {
                   </figure>
                 </div>
               </article>
-              <div class="media-content">
-                <div class="content">
+              <div className="media-content">
+                <div className="content">
                   <p>
                     <strong>John Smith</strong> <small>@johnsmith</small>{" "}
                     <small>31m</small>

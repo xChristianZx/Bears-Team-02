@@ -40,6 +40,19 @@ npm run server
 npm run client
 ```
 
+### Testing - 
+##### *Currently only on server* 
+
+Before running script, in a separate terminal tab, run a local instance of 
+MongoDb - 
+```
+$ mongod
+```
+Then in a separate terminal run - 
+```
+$ npm run test
+```
+
 ## MVP User Stories
 
 | Goal                                                                     | Status         |
@@ -63,10 +76,14 @@ This is a list of proposed features to add after MVP is completed.
 | Enable direct messaging among founders | Not yet started |
 | Display data visualization features    | Not yet started |
 
-### Authors
+### Contributors
+
+@AdamSackfield
 
 @xChristianZx
 
 @mbabaian
 
 @rmorabia
+
+@adamsackfield
