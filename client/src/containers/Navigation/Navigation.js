@@ -42,7 +42,7 @@ class Navigation extends Component {
             </Link>
             <a
               role="button"
-              class={navBurger}
+              className={navBurger}
               aria-label="menu"
               aria-expanded="false"
               data-target="navMenu"
