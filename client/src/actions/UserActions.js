@@ -68,7 +68,8 @@ export function getUsers() {
 		let token = localStorage.getItem('token');
 		axios.get(`${ROOT_URL}/founders`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
 			dispatch({ type: GET_USERS, payload: response.data })
-			console.log('getConnections', response.data)
+		}).catch(error => {
+			console.log('error', error)
 		})
 	};
 }
