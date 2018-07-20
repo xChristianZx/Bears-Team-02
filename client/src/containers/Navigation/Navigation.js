@@ -7,7 +7,7 @@ import classNames from "classnames";
 
 const linksIn = [
   { name: "Connections", url: "/connect", class: "navbar-item" },
-  { name: "User", url: "/user", class: "navbar-item" },
+  { name: "Dashboard", url: "/dashboard", class: "navbar-item" },
   { name: "Log Out", url: "/logout", class: "navbar-item" }
 ];
 const linksOut = [
