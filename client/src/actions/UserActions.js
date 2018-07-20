@@ -73,3 +73,14 @@ export function getUsers() {
 		})
 	};
 }
+
+export function getConnections() {
+	return dispatch => {
+		let token = localStorage.getItem('token');
+		axios.get(`${ROOT_URL}/founders/`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
+			dispatch({ type: GET_USERS, payload: response.data })
+		}).catch(error => {
+				// TODO! Improve errors here. See what is returned from server and use action type ERROR.
+		})
+	}
+}

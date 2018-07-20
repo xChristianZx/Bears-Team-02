@@ -1,4 +1,2 @@
-.Nav {
-  display: flex;
-  flex-shrink: 0;
-}
+.navbar {
+  flex-shrink: 0; }

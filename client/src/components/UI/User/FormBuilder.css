@@ -1,4 +1,6 @@
 .Form {
-	width: 40%;
-	margin: 0 auto;
-}
+  width: 40%;
+  margin: 1rem auto; }
+  .Form h1.title {
+    text-align: center;
+    margin: 1rem auto; }
