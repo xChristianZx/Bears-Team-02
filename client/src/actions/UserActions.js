@@ -34,7 +34,7 @@ export function login({ username, password }) {
 				if (response.status === 200) {
 					localStorage.setItem('token', response.data.token);
 					dispatch({ type: LOG_IN, payload: response.data });
-					history.push('/user');
+					history.push('/dashboard');
 				}
 			})
 			.catch(error => {
