@@ -1,38 +1,43 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as userActions from '../../../actions/UserActions';
-import ConnectComp from '../../../components/ConnectComp/ConnectComp';
+import React, { Component } from "react";
+import "./Connect.css";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as userActions from "../../../actions/UserActions";
+import ConnectComp from "../../../components/ConnectComp/ConnectComp";
 
 class Connect extends Component {
-	componentDidMount() {
-		this.props.actions.getUsers();
-	}
+  componentDidMount() {
+    this.props.actions.getUsers();
+  }
+  renderConnectionList = () => {
+    const { users } = this.props;
+    if (users === null || users === undefined) {
+      // TODO - Add loading spinner/animation
+      return <div>Loading...</div>;
+    }
+    return <ConnectComp users={users} />;
+  };
 
-	render() {
-		if (!this.props.users) {
-			return <div>Loading...</div>;
-		}
-
-		if(this.props.users) {
-			return (
-				<ConnectComp users={this.props.users} />
-			)
-		}
-	}
+  render() {
+    return (
+      <div className="container connect-container columns is-centered">
+        {this.renderConnectionList()}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => {
-	return { users: state.User.users };
+  return { users: state.User.users };
 };
 
 const mapDispatchToProps = dispatch => {
-	return {
-		actions: bindActionCreators(Object.assign(userActions), dispatch),
-	};
+  return {
+    actions: bindActionCreators(Object.assign(userActions), dispatch)
+  };
 };
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Connect);
