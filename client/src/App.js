@@ -1,4 +1,4 @@
-import React, { Component , Fragment} from "react";
+import React, { Component, Fragment } from "react";
 import "./App.css";
 import Landing from "./components/Landing/Landing";
 import Footer from "./components/Footer/Footer";
@@ -32,7 +32,6 @@ class App extends Component {
       </div>
     );
   }
-
 }
 
 export default App;
