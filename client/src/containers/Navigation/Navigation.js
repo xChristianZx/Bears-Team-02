@@ -6,14 +6,13 @@ import { Link } from "react-router-dom";
 import classNames from "classnames";
 
 const linksIn = [
-	{ name: 'LOGO', url: '/', class: 'Logo' },
-	{ name: 'Log Out', url: '/logout', class: 'Item' },
-	{ name: 'Dashboard', url: '/dashboard', class: 'Item' },
+  { name: "Connections", url: "/connect", class: "navbar-item" },
+  { name: "Dashboard", url: "/dashboard", class: "navbar-item" },
+  { name: "Log Out", url: "/logout", class: "navbar-item" }
 ];
 const linksOut = [
-	{ name: 'LOGO', url: '/', class: 'Logo' },
-	{ name: 'Sign Up', url: '/signup', class: 'Item' },
-	{ name: 'Log In', url: '/login', class: 'Item' },
+  { name: "Sign Up", url: "/signup", class: "navbar-item" },
+  { name: "Log In", url: "/login", class: "navbar-item" }
 ];
 
 class Navigation extends Component {
