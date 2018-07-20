@@ -1,7 +1,8 @@
 .footer {
-  background: grey;
-  /* Temp color for debugging layout */
-  flex-shrink: 0; }
+  background: grey; /* Temp color for debugging layout */
+  flex-shrink: 0;
+}
+ 
 
 /* .footer {
   position: static; 

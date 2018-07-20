@@ -1,0 +1,16 @@
+.Profile {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.Profile img {
+  max-width: 100%;
+  height: 100px;
+  float: left;
+  margin-right: 10px;
+}
+
+.Profile h1 {
+  font-size: 1.4em;
+  padding-left: 10px;
+}

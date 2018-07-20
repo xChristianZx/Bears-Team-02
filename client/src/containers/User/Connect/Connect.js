@@ -19,14 +19,6 @@ class Connect extends Component {
 				<ConnectComp users={this.props.users} />
 			)
 		}
-		// return this.props.users.map(user => {
-		// 	return (
-		// 		<div>
-		// 			<h1>{user.firstName}</h1>
-		// 		</div>
-
-		// 	);
-		// });
 	}
 }
 
