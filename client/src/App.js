@@ -23,7 +23,7 @@ class App extends Component {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/user" component={Dashboard} />
+            <Route exact path="/dashboard" component={Dashboard} />
           </Switch>
 
           <Footer />
