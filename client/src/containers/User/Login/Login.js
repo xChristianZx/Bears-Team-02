@@ -17,9 +17,9 @@ const Fields = [
     }
 
     componentDidUpdate(prevProps) {
-      if(prevProps.error !== this.props.error){
+      if(prevProps.flashMessage !== this.props.flashMessage){
         //Perform some operation here
-        this.props.alert.show(this.props.error)
+        this.props.alert.show(this.props.flashMessage)
       }
     }
 
@@ -33,7 +33,7 @@ const Fields = [
   }
 
   const mapStateToProps = (state) => {
-    return { error: state.User.error }
+    return { flashMessage: state.User.flashMessage }
   }
 
   const mapDispatchToProps = (dispatch) => {
