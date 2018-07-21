@@ -1,10 +1,41 @@
 import React from "react";
 import "./ConnectComp.css";
 
-const ConnectComp = ({ users, addConnection }) => {
+const ConnectComp = ({ users, addConnection, user }) => {
   /* Renders the list of potential connections */
+  console.log("user", user);
+  const loggedInUserId = user._id;
+
   const connectionList = users.map(user => {
-    const { _id, firstName, lastName, username } = user;
+    const {
+      _id,
+      firstName,
+      lastName,
+      username,
+      pendingConnectionRequests
+    } = user;
+    const { requestingUser } = pendingConnectionRequests;
+
+    const renderConnectBtn = () => {
+      // if pendingConnectionRequests.length > 0
+      if (pendingConnectionRequests.length > 0) {
+        // then filter and see if current request exists from logged in user
+        if (
+          pendingConnectionRequests.some(
+            request => request.requestingUser.toString() === loggedInUserId.toString()
+          )
+        ) {
+          // if true - return pending btn
+          return true;
+        } else {
+          return false;
+        }
+        // else false - render request btn
+      } else {
+        return false;
+      }
+    };
+
     return (
       <li className="list-item-container" key={_id}>
         <div className="media">
@@ -21,11 +52,26 @@ const ConnectComp = ({ users, addConnection }) => {
               <div className="media-content">
                 <p className="title is-4">{`${firstName} ${lastName}`}</p>
                 <p className="subtitle is-6">Username: {username}</p>
+                <p className="subtitle is-6">ID: {_id}</p>
               </div>
             </div>
           </div>
           <div className="media-right">
-            <button className="button is-primary" onClick={() => addConnection(_id)}>CONNECT</button>
+            {renderConnectBtn() ? (
+              <button
+                className="button is-info is-outlined"
+                onClick={() => console.log("Connection Pending")}
+              >
+                PENDING
+              </button>
+            ) : (
+              <button
+                className="button is-primary"
+                onClick={() => addConnection(_id)}
+              >
+                CONNECT
+              </button>
+            )}
           </div>
         </div>
       </li>
