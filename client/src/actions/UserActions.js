@@ -15,11 +15,14 @@ export function signUp({ firstName, lastName, username, email, password }) {
 					dispatch({ type: SIGN_UP, payload: response.data });
 					history.push('/');
 				} else {
-					dispatch({ type: ERROR, payload: response.message });
+					console.log('DATA', response.data)
+					dispatch({ type: ERROR, payload: response.data.message });
 					history.push('/signup');
 				}
 			})
 			.catch(error => {
+				console.log('DATA2', error.response.data)
+
 				dispatch({ type: ERROR, payload: error.response.data });
 				history.push('/signup');
 			});

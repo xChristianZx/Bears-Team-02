@@ -8,6 +8,10 @@ import registerServiceWorker from "./registerServiceWorker";
 import { Router } from "react-router-dom";
 import history from "./hoc/history"; // Allows us to programmatically redirect the user, on signIn for example.
 
+// Flash Messages
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from './hoc/flashMessageTemplate'
+
 // Redux
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
@@ -40,10 +44,20 @@ if (token) {
   store.dispatch({ type: LOGGED_OUT });
 }
 
+// Flash Messages Options
+const options = {
+  position: 'top center',
+  timeout: 5000,
+  offset: '30px',
+  transition: 'scale'
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <App />
+      <AlertProvider template={AlertTemplate} { ...options }>
+        <App />
+      </AlertProvider>
     </Router>
   </Provider>,
   document.getElementById("root")
