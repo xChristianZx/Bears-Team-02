@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userActions from '../../../actions/UserActions';
-// import * as errorActions from '../../actions/ErrorActions'
 
-import FormBuilder from '../../../components/UI/User/FormBuilder';
+import FormBuilder from '../../../components/UI/Form/FormBuilder';
 import Fields from '../../../misc/signUpFields'
 
 class SignUp extends Component {
@@ -24,7 +23,6 @@ class SignUp extends Component {
 }
 
 const mapStateToProps = (state) => {
-	// console.log(state.User.error)
 	return { error: state.User.error }
 }
 

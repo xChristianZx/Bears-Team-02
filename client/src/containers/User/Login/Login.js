@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as userActions from '../../../actions/UserActions'
 
-import FormBuilder from '../../../components/UI/User/FormBuilder';
+import FormBuilder from '../../../components/UI/Form/FormBuilder';
 
 const Fields = [
 	{ label: 'Username', name: 'username', type: 'text', errorMsg: 'Username is required' },

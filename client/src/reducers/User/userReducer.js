@@ -11,7 +11,7 @@ export default function(state = {}, action) {
 		case ERROR:
 			return { ...state, error: action.payload };
 		case USER_DASHBOARD:
-			return { ...state, user: action.payload };
+			return { ...state, user: action.payload.user, connections: action.payload.user.connections };
 		case LOGGED_OUT:
 			return { ...state, authenticated: false };
 		case GET_USERS: 

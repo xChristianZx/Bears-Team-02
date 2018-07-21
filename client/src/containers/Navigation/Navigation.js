@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Links from "../../components/UI/Links";
+import Links from "../../components/UI/Navigation/Links";
 import "./Navigation.css";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
