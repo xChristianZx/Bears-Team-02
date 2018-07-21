@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactLoading from 'react-loading';
-import classes from './Loader.css';
+import './Loader.css';
 
 const Loader = props => {
 	return (
