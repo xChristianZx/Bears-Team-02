@@ -65,7 +65,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 	const { _id, firstName, lastName, username, email, connections, isTechnical } = req.user;
 	const foundUser = { _id, firstName, lastName, username, email, connections, isTechnical };
 	return res.status(200).send({
-		user: foundUser,
+		user: req.user,
 		msg: 'User Logged In',
 		token: userToken(req.user),
 	});

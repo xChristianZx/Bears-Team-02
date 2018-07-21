@@ -21,7 +21,7 @@ class Connect extends Component {
     if (users === null || users === undefined) {
       return <Loader />
     }
-    return <ConnectComp users={users} addConnection={this.addConnection} />;
+    return <ConnectComp user={this.props.user} users={users} addConnection={this.addConnection} />;
   };
 
 
@@ -35,7 +35,8 @@ class Connect extends Component {
 }
 
 const mapStateToProps = state => {
-  return { users: state.User.users };
+  console.log('STATE', state)
+  return { users: state.User.users, user: state.User.user };
 };
 
 const mapDispatchToProps = dispatch => {

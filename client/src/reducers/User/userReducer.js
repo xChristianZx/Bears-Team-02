@@ -3,9 +3,9 @@ import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, AUTHENTICATED, ERROR, GET_
 export default function(state = {}, action) {
 	switch (action.type) {
 		case SIGN_UP:
-			return { ...state, authenticated: true };
+			return { ...state, authenticated: true, user: action.payload.user };
 		case LOG_IN:
-			return { ...state, authenticated: true };
+			return { ...state, authenticated: true, user: action.payload.user };
 		case AUTHENTICATED:
 				return { ...state, authenticated: true };
 		case ERROR:
@@ -19,6 +19,6 @@ export default function(state = {}, action) {
 		case FLASH_MESSAGE: 
 			return { ...state, flashMessage: action.payload };
 		default:
-			return state;
+			return state; 
 	}
 }
