@@ -97,3 +97,12 @@ export function toggleTechnical(isTechnical) {
 		})
 	}
 }
+
+export function addConnection(requestedUser) {
+	return dispatch => {
+		let token = localStorage.getItem('token');
+		axios.post(`${ROOT_URL}/auth/addconnection`, { requestedUser }, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
+			console.log('AddConnection', response)
+		})
+	}
+}

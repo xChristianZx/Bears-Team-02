@@ -1,7 +1,7 @@
 import React from "react";
 import "./ConnectComp.css";
 
-const ConnectComp = ({ users }) => {
+const ConnectComp = ({ users, addConnection }) => {
   /* Renders the list of potential connections */
   const connectionList = users.map(user => {
     const { _id, firstName, lastName, username } = user;
@@ -25,7 +25,7 @@ const ConnectComp = ({ users }) => {
             </div>
           </div>
           <div className="media-right">
-            <button className="button is-primary">CONNECT</button>
+            <button className="button is-primary" onClick={() => addConnection(_id)}>CONNECT</button>
           </div>
         </div>
       </li>
