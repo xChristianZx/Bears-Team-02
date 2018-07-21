@@ -1,21 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userActions from '../../../actions/UserActions';
 import { reduxForm, Field } from 'redux-form';
 
 import './Dashboard.css';
-import Fields from '../../../misc/signUpFields';
 
-const formFieldRender = ({ input, label, type, meta: { touched, error } }) => (
-	<div className="field">
-		<label className="label">{label}</label>
-		<div className="control">
-			<input className="input" type={type} {...input} />
-		</div>
-		<p className="help is-danger">{touched && (error && <span>{error}</span>)}</p>
-	</div>
-);
+import Fields from '../../../misc/signUpFields';
+import formFieldRender from '../../../components/UI/Form/formFieldRender';
+import DashboardComp from '../../../components/UI/User/Dashboard/Dashboard';
+import Loader from '../../../components/UI/Enhancements/Loader';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -32,6 +26,11 @@ class Dashboard extends Component {
 	onSubmit = values => {
 		this.props.actions.updateProfile(values);
 	};
+
+	toggleTechnical = (e) => {
+		e.preventDefault()
+		this.props.actions.toggleTechnical()
+	}
 
 	render() {
 		const fields = Fields.map(field => {
@@ -58,32 +57,26 @@ class Dashboard extends Component {
 			);
 		}
 
-    if(this.props.user) {
-      return (
-        <section className="section centered">
-          <div className="container">
-            <div className="Profile">
-              <img src="http://placehold.it/300x225" alt=""/>
-              <div>
-                <h1 className="title">{this.props.user.firstName} {this.props.user.lastName}</h1>
-                <h1 className="title">Username: {this.props.user.username}</h1>
-                <button className="button is-primary is-outlined" onClick={() => this.setState({ editProfile: true })}>Edit Profile</button>
-              </div>
-            </div>
+		if (this.props.user) {
+			return (
+				<Fragment>
+					<DashboardComp user={this.props.user} toggleEditProfile={() => this.setState({ editProfile: true })} connections={this.props.connections} toggleTechnical={this.toggleTechnical} />
+				</Fragment>
+			);
+		}
 
-            <div>Connections: {this.props.user.connections.length}</div>
-          </div>
-        </section>
-      );
-    }
-
-    return <div>Loading...</div>
-		
+		return (
+			<Loader />
+		);
 	}
 }
 
 const mapStateToProps = state => {
-	return { user: state.User.user, initialValues: state.User.user };
+	return { 
+		user: state.User.user, 
+		initialValues: state.User.user,
+		connections: state.User.connections
+	};
 };
 
 const mapDispatchToProps = dispatch => {

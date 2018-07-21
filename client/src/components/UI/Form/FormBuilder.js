@@ -1,23 +1,15 @@
 import React from 'react';
 import { reduxForm, Field, Form } from 'redux-form';
-import './FormBuilder.css'; 
 
-const formFieldRender = ({ input, label, type, meta: { touched, error }}) => (
-	<div className="field">
-		<label className="label">{label}</label>
-		<div className="control">
-			<input className="input" type={type} { ...input } />
-		</div>
-		<p className="help is-danger">{touched && ((error && <span>{error}</span> ))}</p>
-	</div>
-)
+import './FormBuilder.css'; 
+import formFieldRender from './formFieldRender';
 
 let errorFields = [];
 
 const FormBuilder = props => {
 	const { handleSubmit } = props;
 	const fields = props.fields.map(field => {
-
+		errorFields.push(field)
 		return (
 			<Field
 				key={field.name}

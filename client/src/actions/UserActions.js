@@ -50,7 +50,9 @@ export function dashboard() {
 	return dispatch => {
 		let token = localStorage.getItem('token');
 		axios.get(`${ROOT_URL}/auth/dashboard`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
-			dispatch({ type: USER_DASHBOARD, payload: response.data.user });
+			console.log('dispatch', response.data)
+
+			dispatch({ type: USER_DASHBOARD, payload: response.data });
 		});
 	};
 }
@@ -81,6 +83,17 @@ export function getConnections() {
 			dispatch({ type: GET_USERS, payload: response.data })
 		}).catch(error => {
 				// TODO! Improve errors here. See what is returned from server and use action type ERROR.
+		})
+	}
+}
+
+export function toggleTechnical(isTechnical) {
+	return dispatch => {
+		let token = localStorage.getItem('token');
+		axios.get(`${ROOT_URL}/auth/istechnical`, { headers: { Authorization: `Bearer ${token}`} }).then(response => {
+			dispatch({ type: USER_DASHBOARD, payload: response.data });
+		}).catch(error => {
+			console.log('toggleTechnical:error', error) // TODO ERRORS
 		})
 	}
 }

@@ -12,8 +12,7 @@ const userToken = user => {
 	return jwt.encode({ sub: user, iat: timeStamp }, 'secret');
 };
 
-const requireAuth = passport.authenticate('jwt', { session: false })
-
+const requireAuth = passport.authenticate('jwt', { session: false });
 
 /* 
   * TEMP Routing
@@ -87,9 +86,18 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/dashboard', requireAuth, (req, res) => {
-	res.status(200).send({
-		user: req.user
-	});
+	User.findById(req.user._id).populate('connections').exec((err, user) => {
+		if (err) { console.log(err) }
+		res.status(200).send({
+			user
+		});
+	})
 });
+
+router.get('/istechnical', requireAuth, (req, res) => {
+	 let updateIsTechnical = req.user
+	 updateIsTechnical.isTechnical = !updateIsTechnical.isTechnical
+	 updateIsTechnical.save(() => res.status(200).send({ user: updateIsTechnical }))
+})
 
 module.exports = router;

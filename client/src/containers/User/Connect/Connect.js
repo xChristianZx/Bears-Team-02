@@ -3,7 +3,8 @@ import "./Connect.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as userActions from "../../../actions/UserActions";
-import ConnectComp from "../../../components/ConnectComp/ConnectComp";
+import ConnectComp from "../../../components/UI/User/ConnectComp/ConnectComp";
+import Loader from '../../../components/UI/Enhancements/Loader';
 
 class Connect extends Component {
   componentDidMount() {
@@ -13,7 +14,7 @@ class Connect extends Component {
     const { users } = this.props;
     if (users === null || users === undefined) {
       // TODO - Add loading spinner/animation
-      return <div>Loading...</div>;
+      return <Loader />
     }
     return <ConnectComp users={users} />;
   };
