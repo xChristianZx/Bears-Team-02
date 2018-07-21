@@ -24,8 +24,16 @@ const Dashbaord = props => {
 					</div>
 
 					<div>
-						Location: {props.user.location.city}, {props.user.location.state}, {props.user.location.countryCode}
-						Email: {props.user.email}
+						{props.user.location ? 
+							(
+								<React.Fragment>
+									<div>Location - {props.user.location.city}, {props.user.location.state}, {props.user.location.countryCode}</div>
+							<div>Email - {props.user.email}</div>
+								</React.Fragment>
+							)
+						:
+							<div>Location - unspecified</div>
+						}
 					</div>
 				</div>
 

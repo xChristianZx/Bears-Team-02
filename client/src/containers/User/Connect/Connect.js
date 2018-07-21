@@ -10,14 +10,20 @@ class Connect extends Component {
   componentDidMount() {
     this.props.actions.getUsers();
   }
+
+  addConnection = (requestedUser) => {
+    this.props.actions.addConnection(requestedUser)
+  }
+
   renderConnectionList = () => {
+
     const { users } = this.props;
     if (users === null || users === undefined) {
-      // TODO - Add loading spinner/animation
       return <Loader />
     }
-    return <ConnectComp users={users} />;
+    return <ConnectComp users={users} addConnection={this.addConnection} />;
   };
+
 
   render() {
     return (
