@@ -1,4 +1,4 @@
-import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, AUTHENTICATED, ERROR, GET_USERS } from '../../actions/types';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, AUTHENTICATED, ERROR, GET_USERS, FLASH_MESSAGE } from '../../actions/types';
 
 export default function(state = {}, action) {
 	switch (action.type) {
@@ -16,6 +16,8 @@ export default function(state = {}, action) {
 			return { ...state, authenticated: false };
 		case GET_USERS: 
 			return { ...state, users: action.payload };
+		case FLASH_MESSAGE: 
+			return { ...state, flashMessage: action.payload };
 		default:
 			return state;
 	}
