@@ -5,10 +5,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const { isLoggedIn } = require('../middleware/helper');
 const jwt = require('jwt-simple');
-const connectionRequest = require('../models/connectionRequest');
 
-
-// TODO: Create token from userId rather than whole user object
 const userToken = user => {
 	const timeStamp = new Date().getTime();
 	return jwt.encode({ sub: user, iat: timeStamp }, 'secret');
