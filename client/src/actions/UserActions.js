@@ -1,7 +1,8 @@
 import axios from 'axios';
 import history from '../hoc/history';
 
-import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, ERROR, GET_USERS } from './types';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, ERROR, GET_USERS, FLASH_MESSAGE } from './types';
+import chalk from '../../../node_modules/chalk';
 
 const ROOT_URL = 'http://localhost:5000';
 
@@ -13,14 +14,19 @@ export function signUp({ firstName, lastName, username, email, password }) {
 				if (response.status === 200) {
 					localStorage.setItem('token', response.data.token);
 					dispatch({ type: SIGN_UP, payload: response.data });
+					console.log(chalk.red(response.data))
+					dispatch({ type: FLASH_MESSAGE, payload: response.data.message })
 					history.push('/');
 				} else {
-					dispatch({ type: ERROR, payload: response.message });
+					console.log('DATA', response.data)
+					// dispatch({ type: ERROR, payload: response.data.message });
+					dispatch({ type: FLASH_MESSAGE, payload: response.data.message })
 					history.push('/signup');
 				}
 			})
 			.catch(error => {
-				dispatch({ type: ERROR, payload: error.response.data });
+				console.log('DATA2', error.response.data)
+				dispatch({ type: FLASH_MESSAGE, payload: error.response.data.message })
 				history.push('/signup');
 			});
 	};
@@ -34,13 +40,13 @@ export function login({ username, password }) {
 				if (response.status === 200) {
 					localStorage.setItem('token', response.data.token);
 					dispatch({ type: LOG_IN, payload: response.data });
+					dispatch({ type: FLASH_MESSAGE, payload: response.data.message })
 					history.push('/dashboard');
 				}
 			})
 			.catch(error => {
-				// TODO Improve error handling from server. Similar to signUp
 				const err = 'Username or Password incorrect';
-				dispatch({ type: ERROR, payload: err });
+				dispatch({ type: FLASH_MESSAGE, payload: err })
 				history.push('/login');
 			});
 	};
