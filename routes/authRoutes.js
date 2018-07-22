@@ -85,8 +85,13 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/dashboard', requireAuth, (req, res) => {
-	User.findById(req.user._id).populate('connections').exec((err, user) => {
+	User.findById(req.user._id)
+		.populate('connections')
+		.populate('pendingConnectionRequests.requestedUser')
+		.populate('pendingConnectionRequests.requestingUser')
+		.exec((err, user) => {
 		if (err) { console.log(err) }
+		console.log('userr', user)
 		res.status(200).send({
 			user
 		});
