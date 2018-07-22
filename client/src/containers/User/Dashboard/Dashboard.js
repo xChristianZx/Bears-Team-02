@@ -16,6 +16,7 @@ class Dashboard extends Component {
 		super(props);
 		this.state = {
 			editProfile: false,
+			displayingSection: 'Connections'
 		};
 	}
 
@@ -30,6 +31,10 @@ class Dashboard extends Component {
 	toggleTechnical = (e) => {
 		e.preventDefault()
 		this.props.actions.toggleTechnical()
+	}
+
+	toggleSection = (section) => {
+		this.setState({ displayingSection: section })
 	}
 
 	render() {
@@ -60,7 +65,7 @@ class Dashboard extends Component {
 		if (this.props.user) {
 			return (
 				<Fragment>
-					<DashboardComp user={this.props.user} toggleEditProfile={() => this.setState({ editProfile: true })} connections={this.props.connections} toggleTechnical={this.toggleTechnical} />
+					<DashboardComp user={this.props.user} toggleEditProfile={() => this.setState({ editProfile: true })} connections={this.props.connections} toggleTechnical={this.toggleTechnical} toggleSection={this.toggleSection} displayingSection={this.state.displayingSection} acceptConnection={this.acceptConnection} />
 				</Fragment>
 			);
 		}

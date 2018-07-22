@@ -2,7 +2,7 @@ import React from 'react';
 import './Dashboard.css';
 import PendingConnections from './PendingConnections/PendingConnections';
 
-const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections }) => {
+const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, acceptConnection }) => {
 	return (
     <React.Fragment>
 
@@ -61,7 +61,7 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections }) =>
                   <span class="icon">
                     <i class="fa fa-list" />
                   </span>
-                  <span>Connections</span>
+                  <span onClick={() => toggleSection('Connections')}>Connections</span>
                 </a>
               </li>
               <li class="link is-active">
@@ -69,7 +69,7 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections }) =>
                   <span class="icon">
                     <i class="fa fa-thumbs-up" />
                   </span>
-                  <span>Messages</span>
+                  <span onClick={() => toggleSection('Messages')}>Messages</span>
                 </a>
               </li>
               <li class="link">
@@ -77,7 +77,7 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections }) =>
                   <span class="icon">
                     <i class="fa fa-search" />
                   </span>
-                  <span>Profile</span>
+                  <span onClick={() => toggleSection('Profile')}>Profile</span>
                 </a>
               </li>
               <li class="link">
@@ -85,7 +85,7 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections }) =>
                   <span class="icon">
                     <i class="fa fa-balance-scale" />
                   </span>
-                  <span>Pending</span>
+                  <span onClick={() => toggleSection('Pending')}>Pending</span>
                 </a>
               </li>
             </ul>
@@ -95,7 +95,21 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections }) =>
       </div>
 
       <div>
-        <PendingConnections userId={user._id} pendingConnections={user.pendingConnectionRequests} />
+        <div hidden={displayingSection !== 'Pending'}>
+          <PendingConnections userId={user._id} pendingConnections={user.pendingConnectionRequests} acceptConnection={acceptConnection} />
+        </div>
+
+        <div hidden={displayingSection !== 'Connections'}>
+          Connections
+        </div>
+
+        <div hidden={displayingSection !== 'Messages'}>
+          Messages
+        </div>
+
+        <div hidden={displayingSection !== 'Profile'}>
+          Profile
+        </div>
       </div>
 
     </React.Fragment>
