@@ -14,7 +14,6 @@ const ConnectComp = ({ users, addConnection, user }) => {
       username,
       pendingConnectionRequests
     } = user;
-    const { requestingUser } = pendingConnectionRequests;
 
     const renderConnectBtn = () => {
       // if pendingConnectionRequests.length > 0
@@ -53,18 +52,23 @@ const ConnectComp = ({ users, addConnection, user }) => {
               <div className="media-content">
                 <p className="title is-4">{`${firstName} ${lastName}`}</p>
                 <p className="subtitle is-6">Username: {username}</p>
-                <p className="subtitle is-6">ID: {_id}</p>
+                {/* <p className="subtitle is-6">ID: {_id}</p> */}
               </div>
             </div>
           </div>
           <div className="media-right">
             {renderConnectBtn() ? (
-              <button
-                className="button is-info is-outlined"
-                onClick={() => console.log("Connection Pending")}
-              >
-                PENDING
-              </button>
+              <div className="button-container">
+                <span className="button is-info is-inverted is-static">
+                  Pending Response
+                </span>
+                <button
+                  className="button is-danger"
+                  onClick={() => console.log("Remove Request")}
+                >
+                  Remove request
+                </button>
+              </div>
             ) : (
               <button
                 className="button is-primary"
