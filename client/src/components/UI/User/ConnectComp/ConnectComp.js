@@ -22,15 +22,16 @@ const ConnectComp = ({ users, addConnection, user }) => {
         // then filter and see if current request exists from logged in user
         if (
           pendingConnectionRequests.some(
-            request => request.requestingUser.toString() === loggedInUserId.toString()
+            request =>
+              request.requestingUser.toString() === loggedInUserId.toString()
           )
         ) {
           // if true - return pending btn
           return true;
         } else {
+          // if false - render request btn
           return false;
         }
-        // else false - render request btn
       } else {
         return false;
       }
