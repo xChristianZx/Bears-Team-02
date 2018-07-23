@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import Links from "../../components/UI/Navigation/Links";
 import "./Navigation.css";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import classNames from "classnames";
+import NavigationComp from "../../components/UI/Navigation/Navigation";
 
 const linksIn = [
   { name: "Connections", url: "/connect", class: "navbar-item" },
@@ -27,44 +25,10 @@ class Navigation extends Component {
   };
 
   render() {
-    let navBurger = classNames("navbar-burger", {
-      "is-active": this.state.toggleBurger
-    });
-    let navMenu = classNames("navbar-menu", {
-      "is-active": this.state.toggleBurger
-    });
+
     return (
-      <nav className="navbar is-info is-spaced">
-        <div className="container">
-          <div className="navbar-brand">
-            <Link to="/" className="navbar-item">
-              FC
-            </Link>
-            <a
-              role="button"
-              className={navBurger}
-              aria-label="menu"
-              aria-expanded="false"
-              data-target="navMenu"
-              onClick={this.handleBurgerClick}
-            >
-              <span aria-hidden="true" />
-              <span aria-hidden="true" />
-              <span aria-hidden="true" />
-            </a>
-          </div>
-          <div id="navMenu" className={navMenu}>
-            <div className="navbar-end">
-              {this.props.authenticated ? (
-                <Links links={linksIn} />
-              ) : (
-                <Links links={linksOut} />
-              )}
-            </div>
-          </div>
-        </div>
-      </nav>
-    );
+      <NavigationComp handleBurgerClick={this.handleBurgerClick} toggleBurger={this.state.toggleBurger} authenticated={this.props.authenticated} linksIn={linksIn} linksOut={linksOut} />
+    )
   }
 }
 
