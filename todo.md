@@ -13,6 +13,7 @@
 *Done* Style 
 * List pending connections
 * Accept / Decline
+* Add Active class when Active
 
 * Error Handling
 *Done* - Implement flash messages for errors
