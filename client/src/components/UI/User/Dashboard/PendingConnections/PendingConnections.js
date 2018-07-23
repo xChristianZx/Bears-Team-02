@@ -2,15 +2,14 @@ import React from "react";
 
 const PendingConnections = ({ pendingConnections, userId }) => {
   return pendingConnections.map((connection, i) => {
+    const { requestedUser, requestingUser } = connection;
+    const { firstName, lastName } = requestedUser;
     return (
-      // TODO - Temp key fix, add different unique key id
-      <div key={i}>
-        <p>
-          Name: {connection.requestedUser.firstName}{" "}
-          {connection.requestedUser.lastName}
-        </p>
-        <button>
-          {connection.requestingUser._id === userId ? "Pending" : "Accept"}
+      // Using requestedUser Id as unique key iterable
+      <div key={requestedUser._id}>
+        <p>Name: {`${firstName} ${lastName}`}</p>
+        <button onClick={() => console.log('Need to add handler!')}>
+          {connection.requestingUser._id === userId ? "Pending Response" : "Accept"}
         </button>
       </div>
     );
