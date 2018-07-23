@@ -13,21 +13,6 @@ const userToken = user => {
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 
-/* 
-  * TEMP Routing
-*/
-router.get('/register', (req, res) => {
-	res.render('register');
-});
-
-router.get('/login', (req, res) => {
-	res.render('login');
-});
-
-router.get('/secret', isLoggedIn, (req, res) => {
-	res.render('secret');
-});
-
 // == Register == //
 router.post('/register', (req, res) => {
 	const { firstName, lastName, username, email, password } = req.body;
@@ -49,7 +34,7 @@ router.post('/register', (req, res) => {
 		passport.authenticate('local')(req, res, () => {
 			console.log('authRoutes[passport.authenticate] - req.user', req.user);
 			const { _id, firstName, lastName, username, email, connections } = req.user;
-			const foundUser = { _id, firstName, lastName, username, email, connections };
+			const foundUser = { _id, firstName, lastName, username, email, connections, pendingConnectionRequests };
 			return res.status(200).send({
 				user: foundUser,
 				msg: 'User successfully created',
@@ -62,19 +47,17 @@ router.post('/register', (req, res) => {
 // == Login == //
 router.post('/login', passport.authenticate('local'), (req, res) => {
 	console.log(`User Logged In - ${req.user.username}`);
-	const { _id, firstName, lastName, username, email, connections, isTechnical } = req.user;
-	const foundUser = { _id, firstName, lastName, username, email, connections, isTechnical };
+	const { _id, firstName, lastName, username, email, location, isTechnical, connections, pendingConnectionRequests } = req.user;
+	// using founderUser to prevent exposure of password salt/hash
+	const foundUser = { _id, firstName, lastName, username, email, connections, isTechnical, pendingConnectionRequests, location };
+	console.log('req.user', req.user)
+	console.log('Found User', foundUser)
 	return res.status(200).send({
-		user: req.user,
+		user: foundUser,
 		msg: 'User Logged In',
 		token: userToken(req.user),
 	});
 });
-// router.post("/login", (req, res) => {
-//   // console.log(`User Logged In - ${req.user.username}`);
-//   const { username, password } = req.body;
-//   console.log(`User Logged In - ${username} & ${password}`);
-// });
 
 // == Logout == //
 router.get('/logout', (req, res) => {
@@ -138,3 +121,18 @@ router.post('/addconnection', requireAuth, (req, res) => {
 })
 
 module.exports = router;
+
+/* 
+  * TEMP Routing
+  router.get('/register', (req, res) => {
+	  res.render('register');
+	});
+	
+	router.get('/login', (req, res) => {
+		res.render('login');
+	});
+	
+	router.get('/secret', isLoggedIn, (req, res) => {
+		res.render('secret');
+	});
+*/
