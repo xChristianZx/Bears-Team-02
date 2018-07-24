@@ -44,15 +44,9 @@ const Dashbaord = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, 
             <p className="stat-val">{connections.length}</p>
             <p className="stat-key">Connections</p>
           </div>
-<<<<<<< HEAD
-          <div className="column is-2-tablet is-4-mobile has-text-centered">
-            <p className="stat-val">{user.pendingConnectionRequests.length}</p>
-            <p className="stat-key">Pending Connections</p>
-=======
           <div class="column is-2-tablet is-4-mobile has-text-centered">
             <p class="stat-val">{pendingRequests}</p>
             <p class="stat-key">Pending Connections</p>
->>>>>>> newconnectionrequest
           </div>
           <div className="column is-2-tablet is-4-mobile has-text-centered">
             <p className="stat-val">0</p>
