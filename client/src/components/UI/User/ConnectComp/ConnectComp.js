@@ -89,6 +89,16 @@ const ConnectComp = ({ users, addConnection, user }) => {
         <h1 className="title">Connect</h1>
         <p className="subtitle is-6">Make new connections</p>
       </div>
+      <div className="level">
+        <div className="level-left">
+          <p className="level-item subtitle">{users.length} Founders</p>
+        </div>
+        <div className="level-right">
+          <p className="level-item"><a>All</a></p>
+          <p className="level-item"><a>Technical</a></p>
+          <p className="level-item "><a>Non-Technical</a></p>
+        </div>
+      </div>
       <ul className="">{connectionList}</ul>
     </div>
   );
