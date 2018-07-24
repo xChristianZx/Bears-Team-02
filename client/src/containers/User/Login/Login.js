@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as userActions from '../../../actions/UserActions'
 
-import FormBuilder from '../../../components/UI/User/FormBuilder';
+import FormBuilder from '../../../components/UI/Form/FormBuilder';
+import { withAlert } from 'react-alert'
 
 const Fields = [
 	{ label: 'Username', name: 'username', type: 'text', errorMsg: 'Username is required' },
@@ -15,19 +16,24 @@ const Fields = [
       this.props.actions.login(values)
     }
 
+    componentDidUpdate(prevProps) {
+      if(prevProps.flashMessage !== this.props.flashMessage){
+        //Perform some operation here
+        this.props.alert.show(this.props.flashMessage)
+      }
+    }
+
     render() {
       return (
-        <div>
+        <Fragment>
           <FormBuilder fields={Fields} onSubmit={this.onSubmit} buttonText='Log In' formTitle='Log In' />
-
-          <p style={{ color: 'red' }}>{this.props.error}</p>
-        </div>
+        </Fragment>
       )
     }
   }
 
   const mapStateToProps = (state) => {
-    return { error: state.User.error }
+    return { flashMessage: state.User.flashMessage }
   }
 
   const mapDispatchToProps = (dispatch) => {
@@ -35,5 +41,7 @@ const Fields = [
       actions: bindActionCreators(Object.assign(userActions), dispatch)
     }
   }
+
+  Login = withAlert(Login)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -1,30 +1,100 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as userActions from '../../../actions/UserActions'
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as userActions from '../../../actions/UserActions';
+import { reduxForm, Field } from 'redux-form';
 
-  class Dashboard extends Component {
-    componentDidMount(){
-      this.props.actions.dashboard()
-    }
+import './Dashboard.css';
 
-    render() {
-      if(this.props.user) {
-        return <div>Username: {this.props.user.username}</div>
-      } else {
-          return <div>Loading...</div>
-      }
-    }
-  }
+import Fields from '../../../misc/signUpFields';
+import formFieldRender from '../../../components/UI/Form/formFieldRender';
+import DashboardComp from '../../../components/UI/User/Dashboard/Dashboard';
+import Loader from '../../../components/UI/Enhancements/Loader';
 
-  const mapStateToProps = (state) => {
-    return { user: state.User.user }
-  }
+class Dashboard extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			editProfile: false,
+			displayingSection: 'Connections'
+		};
+	}
 
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      actions: bindActionCreators(Object.assign(userActions), dispatch)
-    }
-  }
+	componentDidMount() {
+		this.props.actions.dashboard();
+	}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+	onSubmit = values => {
+		this.props.actions.updateProfile(values);
+	};
+
+	toggleTechnical = (e) => {
+		e.preventDefault()
+		this.props.actions.toggleTechnical()
+	}
+
+	toggleSection = (section) => {
+		this.setState({ displayingSection: section })
+	}
+
+	render() {
+		const fields = Fields.map(field => {
+			return (
+				<Field
+					key={field.name}
+					label={field.label}
+					name={field.name}
+					type={field.type}
+					component={formFieldRender}
+				/>
+			);
+		});
+
+		if (this.state.editProfile) {
+			return (
+				<form className="Form">
+					{fields}
+					<button className="button is-success" type="submit">
+						Update Profile
+					</button>
+					<button onClick={() => this.setState({ editProfile: false })}>Cancel Edit</button>
+				</form>
+			);
+		}
+
+		if (this.props.user) {
+			return (
+				<Fragment>
+					<DashboardComp user={this.props.user} toggleEditProfile={() => this.setState({ editProfile: true })} connections={this.props.connections} toggleTechnical={this.toggleTechnical} toggleSection={this.toggleSection} displayingSection={this.state.displayingSection} acceptConnection={this.acceptConnection} />
+				</Fragment>
+			);
+		}
+
+		return (
+			<Loader />
+		);
+	}
+}
+
+const mapStateToProps = state => {
+	return { 
+		user: state.User.user, 
+		initialValues: state.User.user,
+		connections: state.User.connections
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		actions: bindActionCreators(Object.assign(userActions), dispatch),
+	};
+};
+
+Dashboard = reduxForm({
+	form: 'Update',
+})(Dashboard);
+
+export default (Dashboard = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Dashboard));

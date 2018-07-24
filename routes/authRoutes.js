@@ -6,14 +6,12 @@ const LocalStrategy = require('passport-local').Strategy;
 const { isLoggedIn } = require('../middleware/helper');
 const jwt = require('jwt-simple');
 
-// TODO: Create token from userId rather than whole user object
 const userToken = user => {
 	const timeStamp = new Date().getTime();
 	return jwt.encode({ sub: user, iat: timeStamp }, 'secret');
 };
 
-const requireAuth = passport.authenticate('jwt', { session: false })
-
+const requireAuth = passport.authenticate('jwt', { session: false });
 
 /* 
   * TEMP Routing
@@ -87,9 +85,56 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/dashboard', requireAuth, (req, res) => {
-	res.status(200).send({
-		user: req.user
-	});
+	User.findById(req.user._id)
+		.populate('connections')
+		.populate('pendingConnectionRequests.requestedUser')
+		.populate('pendingConnectionRequests.requestingUser')
+		.exec((err, user) => {
+		if (err) { console.log(err) }
+		console.log('userr', user)
+		res.status(200).send({
+			user
+		});
+	})
 });
+
+router.get('/istechnical', requireAuth, (req, res) => {
+	 let updateIsTechnical = req.user
+	 updateIsTechnical.isTechnical = !updateIsTechnical.isTechnical
+	 updateIsTechnical.save(() => res.status(200).send({ user: updateIsTechnical }))
+})
+
+// Will be refactored once it functional on client side
+router.post('/addconnection', requireAuth, (req, res) => {
+	let requestingUser = req.user
+	let requestedUser = req.body.requestedUser // ID
+
+	let connectionRequest = {
+		requestedUser,
+		requestingUser
+	}
+
+	User.findById(req.user._id, (err, user) => {
+		if(user) {
+			user.pendingConnectionRequests.push(connectionRequest)
+			console.log('User Req', user)
+			user.save()
+		}
+			console.log('findbyid', err)
+	})
+
+	User.findById(requestedUser, (err, user) => {
+		if(user) {
+			user.pendingConnectionRequests.push(connectionRequest)
+			console.log('User Reqee', user)
+			user.save()
+		}
+		console.log('findbyid2', err)
+	})
+
+	res.json({
+		success: true
+	})
+})
 
 module.exports = router;
