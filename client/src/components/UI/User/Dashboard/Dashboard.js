@@ -2,7 +2,7 @@ import React from 'react';
 import './Dashboard.css';
 import PendingConnections from './PendingConnections/PendingConnections';
 
-const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, acceptConnection }) => {
+const Dashbaord = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections }) => {
 	return (
     <React.Fragment>
 
@@ -44,9 +44,9 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, togg
             <p className="stat-val">{connections.length}</p>
             <p className="stat-key">Connections</p>
           </div>
-          <div className="column is-2-tablet is-4-mobile has-text-centered">
-            <p className="stat-val">{user.pendingConnectionRequests.length}</p>
-            <p className="stat-key">Pending Connections</p>
+          <div class="column is-2-tablet is-4-mobile has-text-centered">
+            <p class="stat-val">{pendingRequests}</p>
+            <p class="stat-key">Pending Connections</p>
           </div>
           <div className="column is-2-tablet is-4-mobile has-text-centered">
             <p className="stat-val">0</p>
@@ -96,7 +96,35 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, togg
 
       <div>
         <div hidden={displayingSection !== 'Pending'}>
-          <PendingConnections userId={user._id} pendingConnections={user.pendingConnectionRequests} acceptConnection={acceptConnection} />
+         Pending
+         {
+           pendingConnections ? (
+           <div>
+            {
+              pendingConnections.pending.map(conn => {
+                console.log('conn - pending', conn.requestedUser.username)
+                return (
+                  <div>
+                    {conn.requestedUser.username}
+                    <button disabled>Pending</button>
+                  </div>
+                ) 
+              })
+            }
+            {
+              pendingConnections.acceptable.map(conn => {
+                console.log('conn - acceptable', conn.requestingUser.username)
+                return (
+                  <div>
+                    {conn.requestingUser.username}
+                    <button>Accept</button>
+                  </div>
+                )
+              })
+            }
+           </div>
+           ) : <div>False</div>
+         }
         </div>
 
         <div hidden={displayingSection !== 'Connections'}>
