@@ -2,7 +2,7 @@ import React from 'react';
 import './Dashboard.css';
 import PendingConnections from './PendingConnections/PendingConnections';
 
-const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, acceptConnection }) => {
+const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections }) => {
 	return (
     <React.Fragment>
 
@@ -45,7 +45,7 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, togg
             <p class="stat-key">Connections</p>
           </div>
           <div class="column is-2-tablet is-4-mobile has-text-centered">
-            <p class="stat-val">{user.pendingConnectionRequests.length}</p>
+            <p class="stat-val">0</p>
             <p class="stat-key">Pending Connections</p>
           </div>
           <div class="column is-2-tablet is-4-mobile has-text-centered">
@@ -96,7 +96,23 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, togg
 
       <div>
         <div hidden={displayingSection !== 'Pending'}>
-          <PendingConnections userId={user._id} pendingConnections={user.pendingConnectionRequests} acceptConnection={acceptConnection} />
+         Pending
+         {
+           pendingConnections ? (
+           <div>
+            {
+              pendingConnections.pending.map(conn => {
+                console.log('conn', conn.requestedUser.username)
+                return (
+                  <div>
+                    {conn.requestedUser.username}
+                  </div>
+                ) 
+              })
+            }
+           </div>
+           ) : <div>False</div>
+         }
         </div>
 
         <div hidden={displayingSection !== 'Connections'}>

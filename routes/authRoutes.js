@@ -161,54 +161,47 @@ router.post('/connectionrequest', requireAuth, (req, res) => {
 });
 
 router.get('/pendingconnections', requireAuth, (req, res) => {
-	let pendingConnections = {
-		acceptable: [],
+	let connectionRequests = {
 		pending: [],
-		rejected: [],
-	};
+		acceptable: []
+	}
 
-	ConnectionRequest.find({ requestedUser: req.user._id }, (err, connection) => {
-		if (connection) {
-			console.log('Hit')
-			pendingConnections.acceptable.push(connection);
-			console.log(pendingConnections)
-		}
-	});
+	ConnectionRequest.find({ requestingUser: req.user._id })
+		.populate('requestedUser')
+		.exec((err, connReqs) => {
+		let error = null
 
-	ConnectionRequest.find({ requestingUser: req.user._id }, (err, connection) => {
-		if (connection) {
-			console.log('Hit')
-			pendingConnections.pending.push(connection);
+		if(err) {
+			error = err
 		}
-	});
-	res.json({
-		success: true,
-		pendingConnections
+		
+		connReqs.map(connReq => {
+			connectionRequests.pending.push(connReq)
+		})
+
+		ConnectionRequest.find({ requestedUser: req.user._id })
+		.populate('requestingUser')
+		.exec((err, connReqs) => {
+			if(err) {
+				error = err
+			}
+			connReqs.map(connReq => {
+				connectionRequests.acceptable.push(connReq)
+			})
+
+			if(error) {
+				res.json({
+					success: false,
+					error
+				})
+			} else {
+					res.json({
+						success: true,
+						connectionRequests
+					})
+			}
+		})
 	})
 });
-
-const getPendingConnections = userId => {
-	let pendingConnections = {
-		acceptable: [],
-		pending: [],
-		rejected: [],
-	};
-
-	ConnectionRequest.find({ requestedUser: userId }, (err, connection) => {
-		if (connection) {
-			console.log('Hit')
-			pendingConnections.acceptable.push(connection);
-		}
-	});
-
-	ConnectionRequest.find({ requestingUser: userId }, (err, connection) => {
-		if (connection) {
-			console.log('Hit')
-			pendingConnections.pending.push(connection);
-		}
-	});
-
-	return pendingConnections;
-};
 
 module.exports = router;
