@@ -5,3 +5,18 @@
 .connect-header-container {
   margin: 1.5rem auto;
 }
+
+/* Handles the switch between pending view and remove request */
+.button-container {
+  & :nth-child(2) {
+    display: none;
+  }
+  &:hover {
+    :nth-child(1) {
+      display: none;
+    }
+    :nth-child(2) {
+      display: inherit;
+    }
+  }
+}

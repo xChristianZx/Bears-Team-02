@@ -63,7 +63,7 @@ class Dashboard extends Component {
 			);
 		}
 
-		if (this.props.user) {
+		if (this.props.user && this.props.connections) {
 			return (
 				<Fragment>
 					<DashboardComp user={this.props.user} toggleEditProfile={() => this.setState({ editProfile: true })} connections={this.props.connections} pendingConnections={this.props.pendingConnections} pendingRequests={this.props.pendingRequests} toggleTechnical={this.toggleTechnical} toggleSection={this.toggleSection} displayingSection={this.state.displayingSection} acceptConnection={this.acceptConnection} />
