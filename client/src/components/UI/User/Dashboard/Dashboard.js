@@ -102,12 +102,24 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, togg
            <div>
             {
               pendingConnections.pending.map(conn => {
-                console.log('conn', conn.requestedUser.username)
+                console.log('conn - pending', conn.requestedUser.username)
                 return (
                   <div>
                     {conn.requestedUser.username}
+                    <button disabled>Pending</button>
                   </div>
                 ) 
+              })
+            }
+            {
+              pendingConnections.acceptable.map(conn => {
+                console.log('conn - acceptable', conn.requestingUser.username)
+                return (
+                  <div>
+                    {conn.requestingUser.username}
+                    <button>Accept</button>
+                  </div>
+                )
               })
             }
            </div>
