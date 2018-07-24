@@ -1,10 +1,41 @@
 import React from "react";
 import "./ConnectComp.css";
 
-const ConnectComp = ({ users, addConnection }) => {
+const ConnectComp = ({ users, addConnection, user }) => {
   /* Renders the list of potential connections */
+  console.log("user", user);
+  const loggedInUserId = user._id;
+
   const connectionList = users.map(user => {
-    const { _id, firstName, lastName, username } = user;
+    const {
+      _id,
+      firstName,
+      lastName,
+      username,
+      pendingConnectionRequests
+    } = user;
+
+    const renderConnectBtn = () => {
+      // if pendingConnectionRequests.length > 0
+      if (pendingConnectionRequests.length > 0) {
+        // then filter and see if current request exists from logged in user
+        if (
+          pendingConnectionRequests.some(
+            request =>
+              request.requestingUser.toString() === loggedInUserId.toString()
+          )
+        ) {
+          // if true - return pending btn
+          return true;
+        } else {
+          // if false - render request btn
+          return false;
+        }
+      } else {
+        return false;
+      }
+    };
+
     return (
       <li className="list-item-container" key={_id}>
         <div className="media">
@@ -21,11 +52,31 @@ const ConnectComp = ({ users, addConnection }) => {
               <div className="media-content">
                 <p className="title is-4">{`${firstName} ${lastName}`}</p>
                 <p className="subtitle is-6">Username: {username}</p>
+                {/* <p className="subtitle is-6">ID: {_id}</p> */}
               </div>
             </div>
           </div>
           <div className="media-right">
-            <button className="button is-primary" onClick={() => addConnection(_id)}>CONNECT</button>
+            {renderConnectBtn() ? (
+              <div className="button-container">
+                <span className="button is-info is-inverted is-static">
+                  Pending Response
+                </span>
+                <button
+                  className="button is-danger"
+                  onClick={() => console.log("Remove Request")}
+                >
+                  Remove request
+                </button>
+              </div>
+            ) : (
+              <button
+                className="button is-primary"
+                onClick={() => addConnection(_id)}
+              >
+                CONNECT
+              </button>
+            )}
           </div>
         </div>
       </li>
@@ -37,6 +88,16 @@ const ConnectComp = ({ users, addConnection }) => {
       <div className="connect-header-container has-text-centered">
         <h1 className="title">Connect</h1>
         <p className="subtitle is-6">Make new connections</p>
+      </div>
+      <div className="level">
+        <div className="level-left">
+          <p className="level-item subtitle">{users.length} Founders</p>
+        </div>
+        <div className="level-right">
+          <p className="level-item"><a>All</a></p>
+          <p className="level-item"><a>Technical</a></p>
+          <p className="level-item "><a>Non-Technical</a></p>
+        </div>
       </div>
       <ul className="">{connectionList}</ul>
     </div>
