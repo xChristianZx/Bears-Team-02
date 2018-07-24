@@ -19,7 +19,7 @@ export default function(state = {}, action) {
 		case FLASH_MESSAGE: 
 			return { ...state, flashMessage: action.payload };
 		case GET_CONNECTIONS:
-			return { ...state, pendingConnections: action.payload }
+			return { ...state, pendingConnections: action.payload.connectionRequests, pendingRequests: action.payload.pendingRequests }
 		default:
 			return state;
 	}

@@ -119,8 +119,8 @@ export function getPendingConnections() {
 	return dispatch => {
 		let token = localStorage.getItem('token');
 		axios.get(`${ROOT_URL}/auth/pendingconnections`, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
-			console.log('pendingConnections', response.data.connectionRequests) 
-			dispatch({ type: GET_CONNECTIONS, payload: response.data.connectionRequests })
+			console.log('pendingConnections', response.data.pendingRequests) 
+			dispatch({ type: GET_CONNECTIONS, payload: response.data })
 			// dispatch({ type: FLASH_MESSAGE, payload: 'Connected Added - first/last name' })
 		})
 	}

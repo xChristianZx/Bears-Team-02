@@ -2,7 +2,7 @@ import React from 'react';
 import './Dashboard.css';
 import PendingConnections from './PendingConnections/PendingConnections';
 
-const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections }) => {
+const Dashbaord = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections }) => {
 	return (
     <React.Fragment>
 
@@ -45,7 +45,7 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, togg
             <p class="stat-key">Connections</p>
           </div>
           <div class="column is-2-tablet is-4-mobile has-text-centered">
-            <p class="stat-val">0</p>
+            <p class="stat-val">{pendingRequests}</p>
             <p class="stat-key">Pending Connections</p>
           </div>
           <div class="column is-2-tablet is-4-mobile has-text-centered">

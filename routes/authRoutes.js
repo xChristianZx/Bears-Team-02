@@ -189,6 +189,7 @@ router.get('/pendingconnections', requireAuth, (req, res) => {
 				connectionRequests.acceptable.push(connReq)
 			})
 
+			let count = connectionRequests.pending.length + connectionRequests.acceptable.length
 			if(error) {
 				res.json({
 					success: false,
@@ -197,7 +198,8 @@ router.get('/pendingconnections', requireAuth, (req, res) => {
 			} else {
 					res.json({
 						success: true,
-						connectionRequests
+						connectionRequests,
+						pendingRequests: count
 					})
 			}
 		})
