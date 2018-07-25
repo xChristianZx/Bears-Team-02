@@ -135,15 +135,16 @@ router.post('/connectionrequest', requireAuth, (req, res) => {
 		requestedUser: req.body.requestedUser,
 	};
 console.log("newConnectionRequest", newConnectionRequest)
-	// ConnectionRequest.create(newConnectionRequest, (err, conReq) => {
-	// 	if (conReq) {
-	// 		console.log('conReq', conReq);
-	// 		res.json({
-	// 			success: true,
-	// 			conReq,
-	// 		});
-	// 	}
-	// });
+// console.log(`NOTE to self: newConnectionRequest .create is commented out; not creating new requests`)
+	ConnectionRequest.create(newConnectionRequest, (err, conReq) => {
+		if (conReq) {
+			console.log('conReq', conReq);
+			res.json({
+				success: true,
+				conReq,
+			});
+		}
+	});
 });
 
 /*  Endpoint for getPendingConnections() Action Creator*/
