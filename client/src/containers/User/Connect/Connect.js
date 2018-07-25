@@ -2,28 +2,47 @@ import React, { Component } from "react";
 import "./Connect.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as userActions from "../../../actions/UserActions";
+import {
+  getUsers,
+  addConnection,
+  dashboard,
+  getPendingConnections
+} from "../../../actions/UserActions";
 import ConnectComp from "../../../components/UI/User/ConnectComp/ConnectComp";
-import Loader from '../../../components/UI/Enhancements/Loader';
+import Loader from "../../../components/UI/Enhancements/Loader";
 
 class Connect extends Component {
   componentDidMount() {
-    this.props.actions.getUsers();
+    // * Temp fix for error caused on reload to /connect with user state not populating
+    // this.props.getUsers();
   }
 
-  addConnection = (requestedUser) => {
-    this.props.actions.addConnection(requestedUser)
-  }
-
-  renderConnectionList = () => {
-
-    const { users } = this.props;
-    if (users === null || users === undefined) {
-      return <Loader />
-    }
-    return <ConnectComp user={this.props.user} users={users} addConnection={this.addConnection} />;
+  addConnection = requestedUser => {
+    this.props.addConnection(requestedUser);
   };
 
+  renderConnectionList = () => {
+    const { users, user } = this.props;
+    // * Temp fix for error caused on reload to /connect with user state not populating
+    if (user === undefined) {
+      this.props.dashboard();
+      this.props.getPendingConnections();
+      return <Loader />;
+    }
+    
+    if (users === null || users === undefined) {
+      this.props.getUsers();
+      return <Loader />;
+    }
+    return (
+      <ConnectComp
+        pendingConnections={this.props.pendingConnections}
+        user={this.props.user}
+        users={users}
+        addConnection={this.addConnection}
+      />
+    );
+  };
 
   render() {
     return (
@@ -36,13 +55,18 @@ class Connect extends Component {
 
 const mapStateToProps = state => {
   // console.log('STATE', state)
-  return { users: state.User.users, user: state.User.user };
+  return {
+    users: state.User.users,
+    user: state.User.user,
+    pendingConnections: state.User.pendingConnections
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
-    actions: bindActionCreators(Object.assign(userActions), dispatch)
-  };
+  return bindActionCreators(
+    { getUsers, addConnection, dashboard, getPendingConnections },
+    dispatch
+  );
 };
 
 export default connect(
