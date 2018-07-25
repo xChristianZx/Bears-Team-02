@@ -69,6 +69,7 @@ router.get('/logout', (req, res) => {
 	res.status(200).send({ message: logoutmessage });
 });
 
+// == Dashboard == //
 router.get('/dashboard', requireAuth, (req, res) => {
 	User.findById(req.user._id)
 		.populate('connections')
@@ -78,7 +79,7 @@ router.get('/dashboard', requireAuth, (req, res) => {
 			if (err) {
 				console.log(err);
 			}
-			console.log('userr', user);
+			console.log('[ /dashboard ] - user', user);
 			res.status(200).send({
 				message: 'User Dashboard',
 				user,
@@ -86,6 +87,7 @@ router.get('/dashboard', requireAuth, (req, res) => {
 		});
 });
 
+// == isTechnical Handler == //
 router.get('/istechnical', requireAuth, (req, res) => {
 	let updateIsTechnical = req.user;
 	updateIsTechnical.isTechnical = !updateIsTechnical.isTechnical;
@@ -127,22 +129,24 @@ router.get('/istechnical', requireAuth, (req, res) => {
 
 // Send Connection Request
 router.post('/connectionrequest', requireAuth, (req, res) => {
+	console.log(req.body);
 	let newConnectionRequest = {
-		requestingUser: req.user._id.toString(),
-		requestedUser: req.body.requestedUserId.toString(),
+		requestingUser: req.user._id,
+		requestedUser: req.body.requestedUser,
 	};
-
-	ConnectionRequest.create(newConnectionRequest, (err, conReq) => {
-		if (conReq) {
-			console.log('conReq', conReq);
-			res.json({
-				success: true,
-				conReq,
-			});
-		}
-	});
+console.log("newConnectionRequest", newConnectionRequest)
+	// ConnectionRequest.create(newConnectionRequest, (err, conReq) => {
+	// 	if (conReq) {
+	// 		console.log('conReq', conReq);
+	// 		res.json({
+	// 			success: true,
+	// 			conReq,
+	// 		});
+	// 	}
+	// });
 });
 
+/*  Endpoint for getPendingConnections() Action Creator*/
 router.get('/pendingconnections', requireAuth, (req, res) => {
 	let connectionRequests = {
 		pending: [],
