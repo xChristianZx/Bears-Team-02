@@ -3,37 +3,77 @@ import "./ConnectComp.css";
 
 const ConnectComp = ({ users, pendingConnections, addConnection, user }) => {
   /* Renders the list of potential connections */
-  console.log("ConnectComp, pendingConnections", pendingConnections);
+  // console.log("ConnectComp, pendingConnections", pendingConnections);
 
   const loggedInUserId = user._id;
+  const { acceptable, pending } = pendingConnections;
 
   const connectionList = users.map((user, i) => {
-    console.log(`USER ${i}`);
+    // console.log(`USER ${i} ${user._id}`);
     const { _id, firstName, lastName, username } = user;
     const renderConnectBtn = () => {
-      if (pendingConnections.pending.length > 0) {
+      if (pending.length > 0 || acceptable.length > 0) {
         // then filter and see if current request exists from logged in user
         if (
-          pendingConnections.pending.some(request => {
-            console.log(`Here i am ${i} ${request.requestingUser}`);
+          pending.some(request => {
+            // console.log(`Pending Req ${i} ${request.requestingUser}`);
+            /* 
+            * 1. checks if loggedInUser is === requestingUser  && 
+            * 2. if current requestedUser === current user that is being mapped through 
+            */
+
             return (
-              request.requestingUser.toString() === loggedInUserId.toString() &&
+              request.requestingUser === loggedInUserId &&
               request.requestedUser._id === _id
             );
           })
         ) {
-          // if true - return pending btn
-          // return <div>Pending Button</div>;
-          return true;
+          //* if true - return pending btn - currently disabled
+          return (
+            <button disabled className="button is-info is-inverted is-static">
+              Pending Response
+            </button>
+          );
+        } else if (
+          pendingConnections.acceptable.some(request => {
+            // console.log(`Acceptable Req ${i} ${request.requestedUser}`);
+            return (
+              request.requestingUser._id === _id &&
+              request.requestedUser === loggedInUserId
+            );
+          })
+        ) {
+          // if true - return acceptance button;
+          // * Not sure if we'll actually render 'acceptable' in /connect, but using this as a placeholder for now
+          return (
+            <button
+              className="button is-success is-outlined"
+              onClick={() => console.log("ACCEPTING")}
+            >
+              Accept Request
+            </button>
+          );
         } else {
           // if false - render request btn
-          // return <div>Request Button</div>;
-          return false;
+          return (
+            <button
+              className="button is-primary"
+              onClick={() => addConnection(_id)}
+            >
+              CONNECT
+            </button>
+          );
         }
       } else {
-        //Return 'Send Connect request button'
-        // return <div>Request Button</div>;
-        return false;
+        // Connect Request Btn
+        return (
+          <button
+            className="button is-primary"
+            onClick={() => addConnection(_id)}
+          >
+            CONNECT
+          </button>
+        );
       }
     };
 
@@ -53,44 +93,16 @@ const ConnectComp = ({ users, pendingConnections, addConnection, user }) => {
               <div className="media-content">
                 <p className="title is-4">{`${firstName} ${lastName}`}</p>
                 <p className="subtitle is-6">Username: {username}</p>
-                <p className="subtitle is-6">ID: (for testing): {_id}</p>
+                {/* <p className="subtitle is-6">ID: (for testing): {_id}</p> */}
               </div>
             </div>
           </div>
-          <div className="media-right">
-            {/* {renderConnectBtn()} */}
-            {renderConnectBtn() ? (
-              <div className="button-container">
-                <span className="button is-info is-inverted is-static">
-                  Pending Response
-                </span>
-                <button
-                  className="button is-danger"
-                  onClick={() => console.log("Remove Request")}
-                >
-                  Remove request
-                </button>
-              </div>
-            ) : (
-              <button
-                className="button is-primary"
-                onClick={() => addConnection(_id)}
-              >
-                CONNECT
-              </button>
-            )}
-            {/* <button
-                className="button is-primary"
-                onClick={() => addConnection(_id)}
-              >
-                CONNECT
-              </button> */}
-          </div>
+          <div className="media-right">{renderConnectBtn()}</div>
         </div>
       </li>
     );
   });
-  // Returns both Header component and List
+  /* Returns both Header Component, Filter, and List */
   return (
     <div className="column is-three-quarters">
       <div className="connect-header-container has-text-centered">
@@ -119,34 +131,3 @@ const ConnectComp = ({ users, pendingConnections, addConnection, user }) => {
 };
 
 export default ConnectComp;
-
-/* 
-const renderConnectBtn = () => {
-  if (
-    pendingConnections.pending.length > 0 ||
-    pendingConnections.acceptable.length > 0
-  ) {
-    // then filter and see if current request exists from logged in user
-    if (
-      pendingConnections.pending.some(request => request.requestingUser.toString() === loggedInUserId.toString())
-    ) {
-      // if true - return pending btn
-      // return <div>Pending Button</div>;
-      return true;
-    } else if (
-      pendingConnections.acceptable.some(request => request.requestingUser.toString() === loggedInUserId.toString())
-    ) {
-      //return accept button
-      // return <div>Accept Button</div>;
-      return true;
-    } else {
-      // if false - render request btn
-      // return <div>Request Button</div>;
-      return false;
-    }
-  } else {
-    //Return 'Send Connect request button'
-    // return <div>Request Button</div>;
-    return false;
-  }
-}; */
