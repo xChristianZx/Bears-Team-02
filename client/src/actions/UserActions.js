@@ -115,6 +115,8 @@ export function toggleTechnical(isTechnical) {
 // 	}
 // }
 
+// * NOTE: Copied from above, using as a connectionRequest action creator for the time being
+// ? Should this be renamed to requestConnection to match endpoint
 export function addConnection(requestedUser) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
