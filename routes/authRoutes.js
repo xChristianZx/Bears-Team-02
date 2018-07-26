@@ -34,11 +34,13 @@ router.post('/register', (req, res) => {
 			return res.status(400).send(err);
 		}
 		passport.authenticate('local')(req, res, () => {
-			console.log('authRoutes[passport.authenticate] - req.user', req.user);
-			const { _id, firstName, lastName, username, email, connections } = req.user;
+			console.log('authRoutes[passport.authenticate] - REQ.USER', req.user);			
+			
+			const { _id, firstName, lastName, username, email, connections, pendingConnectionRequests } = req.user;
 			const foundUser = { _id, firstName, lastName, username, email, connections, pendingConnectionRequests };
+
 			return res.status(200).send({
-				user: req.user,
+				user: foundUser,
 				message: 'User successfully created',
 				token: userToken(user),
 			});
