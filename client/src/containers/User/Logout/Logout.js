@@ -7,6 +7,7 @@ import * as userActions from '../../../actions/UserActions'
     componentWillMount() {
       this.props.actions.logout()
     }
+
     render() {
       return(
         <div>Goodbye!</div>
@@ -19,5 +20,6 @@ import * as userActions from '../../../actions/UserActions'
       actions: bindActionCreators(Object.assign(userActions), dispatch)
     }
   }
+
 
 export default connect(null, mapDispatchToProps)(Logout)
