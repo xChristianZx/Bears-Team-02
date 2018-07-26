@@ -5,9 +5,9 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="content has-text-centered">
-        <h3>
-          <strong>Founder Connect</strong> was created by a Chingu cohort.
-        </h3>
+        <p className="subtitle is-6">
+          Founder Connect was created by a Chingu cohort.
+        </p>
       </div>
     </footer>
   );

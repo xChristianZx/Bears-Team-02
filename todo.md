@@ -1,26 +1,33 @@
 * Connect
-* Finish wiring together the connect request to model and routing
-* Handle pending requests
+* Wire the connect request to model and routing (pending new model schema)
 * Test user connections list in model
-* change connect button text to pending while req is pending (not sure how, yet)
 * ability to accept / decline pending connection
+
 * Add flash messages when connect is clicked - Dispatch flash message
+
+* Add filter for technical and non-technical
+
+*Done* change connect button text to pending while req is pending (not sure how, yet)
+*Done* Add flash messages when connect is clicked - Dispatch flash message
 *Done*	- UserActions[logout]	dispatch({ type: FLASH_MESSAGE, payload: 'Successfully Logged Out' })
 *Done*	- UserActions[addConnection] dispatch({ type: FLASH_MESSAGE, payload: 'Connected Added - first/last name' })
 
 * Dashboard
-*Done* Add pending connection count
-*Done* Style 
 * List pending connections
 * Accept / Decline
 * Add Active class when Active
 
 * Error Handling
-*Done* - Implement flash messages for errors
 * Check all endpoints error handing - client side
+*Done* - Implement flash messages for errors
 
 * Miscellaneous
 * Todos in files
 *Done* Create Navigation component and move jsx from Navigation container - check all other containers
 
+
 ConnectionRequest.findById -> requestedUser, requestingUser -> Add to opposite user.connections connectionRequest.pop()
+
+- Authentication
+  - Fix Authentication problem where AUTHENTICATED is dispatched but User state does not persist
+
