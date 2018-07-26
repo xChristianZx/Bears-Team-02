@@ -20,13 +20,13 @@ router.post('/register', (req, res) => {
 	const { firstName, lastName, username, email, password } = req.body;
 	const isTechnical = req.body.isTechnical ? true : false;
 
-	const newUser = {
+	const newUser = new User({
 		firstName,
 		lastName,
 		username,
 		email,
 		isTechnical,
-	};
+	});
 
 	User.register(newUser, password, (err, user) => {
 		if (err) {
