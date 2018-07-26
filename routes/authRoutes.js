@@ -20,13 +20,13 @@ router.post('/register', (req, res) => {
 	const { firstName, lastName, username, email, password } = req.body;
 	const isTechnical = req.body.isTechnical ? true : false;
 
-	const newUser = {
+	const newUser = new User({
 		firstName,
 		lastName,
 		username,
 		email,
 		isTechnical,
-	};
+	});
 
 	User.register(newUser, password, (err, user) => {
 		if (err) {
@@ -34,11 +34,13 @@ router.post('/register', (req, res) => {
 			return res.status(400).send(err);
 		}
 		passport.authenticate('local')(req, res, () => {
-			console.log('authRoutes[passport.authenticate] - req.user', req.user);
-			const { _id, firstName, lastName, username, email, connections } = req.user;
+			console.log('authRoutes[passport.authenticate] - REQ.USER', req.user);
+
+			const { _id, firstName, lastName, username, email, connections, pendingConnectionRequests } = req.user;
 			const foundUser = { _id, firstName, lastName, username, email, connections, pendingConnectionRequests };
+
 			return res.status(200).send({
-				user: req.user,
+				user: foundUser,
 				message: 'User successfully created',
 				token: userToken(user),
 			});
@@ -49,11 +51,31 @@ router.post('/register', (req, res) => {
 // == Login == //
 router.post('/login', passport.authenticate('local'), (req, res) => {
 	console.log(`User Logged In - ${req.user.username}`);
-	const { _id, firstName, lastName, username, email, location, isTechnical, connections, pendingConnectionRequests } = req.user;
+	const {
+		_id,
+		firstName,
+		lastName,
+		username,
+		email,
+		location,
+		isTechnical,
+		connections,
+		pendingConnectionRequests,
+	} = req.user;
 	// using founderUser to prevent exposure of password salt/hash
-	const foundUser = { _id, firstName, lastName, username, email, connections, isTechnical, pendingConnectionRequests, location };
-	console.log('req.user', req.user)
-	console.log('Found User', foundUser)
+	const foundUser = {
+		_id,
+		firstName,
+		lastName,
+		username,
+		email,
+		connections,
+		isTechnical,
+		pendingConnectionRequests,
+		location,
+	};
+	console.log('req.user', req.user);
+	console.log('Found User', foundUser);
 	return res.status(200).send({
 		user: foundUser,
 		message: 'User Logged In',
@@ -69,6 +91,7 @@ router.get('/logout', (req, res) => {
 	res.status(200).send({ message: logoutmessage });
 });
 
+// == Dashboard == //
 router.get('/dashboard', requireAuth, (req, res) => {
 	User.findById(req.user._id)
 		.populate('connections')
@@ -78,7 +101,7 @@ router.get('/dashboard', requireAuth, (req, res) => {
 			if (err) {
 				console.log(err);
 			}
-			console.log('userr', user);
+			console.log('[ /dashboard ] - user', user);
 			res.status(200).send({
 				message: 'User Dashboard',
 				user,
@@ -86,6 +109,7 @@ router.get('/dashboard', requireAuth, (req, res) => {
 		});
 });
 
+// == isTechnical Handler == //
 router.get('/istechnical', requireAuth, (req, res) => {
 	let updateIsTechnical = req.user;
 	updateIsTechnical.isTechnical = !updateIsTechnical.isTechnical;
@@ -127,11 +151,13 @@ router.get('/istechnical', requireAuth, (req, res) => {
 
 // Send Connection Request
 router.post('/connectionrequest', requireAuth, (req, res) => {
+	console.log(req.body);
 	let newConnectionRequest = {
-		requestingUser: req.user._id.toString(),
-		requestedUser: req.body.requestedUserId.toString(),
+		requestingUser: req.user._id,
+		requestedUser: req.body.requestedUser,
 	};
-
+	console.log('newConnectionRequest', newConnectionRequest);
+	// console.log(`NOTE to self: newConnectionRequest .create is commented out; not creating new requests`)
 	ConnectionRequest.create(newConnectionRequest, (err, conReq) => {
 		if (conReq) {
 			console.log('conReq', conReq);
@@ -143,50 +169,108 @@ router.post('/connectionrequest', requireAuth, (req, res) => {
 	});
 });
 
+/*  Endpoint for getPendingConnections() Action Creator*/
 router.get('/pendingconnections', requireAuth, (req, res) => {
 	let connectionRequests = {
 		pending: [],
-		acceptable: []
-	}
+		acceptable: [],
+	};
 
 	ConnectionRequest.find({ requestingUser: req.user._id })
 		.populate('requestedUser')
 		.exec((err, connReqs) => {
-		let error = null
+			let error = null;
 
-		if(err) {
-			error = err
-		}
-		
-		connReqs.map(connReq => {
-			connectionRequests.pending.push(connReq)
-		})
-
-		ConnectionRequest.find({ requestedUser: req.user._id })
-		.populate('requestingUser')
-		.exec((err, connReqs) => {
-			if(err) {
-				error = err
+			if (err) {
+				error = err;
 			}
-			connReqs.map(connReq => {
-				connectionRequests.acceptable.push(connReq)
-			})
 
-			let count = connectionRequests.pending.length + connectionRequests.acceptable.length
-			if(error) {
+			connReqs.map(connReq => {
+				if (connReq.pending !== 'Accepted') {
+					console.log('1', connReq.pending)
+					connectionRequests.pending.push(connReq);
+				}
+			});
+
+			ConnectionRequest.find({ requestedUser: req.user._id })
+				.populate('requestingUser')
+				.exec((err, connReqs) => {
+					if (err) {
+						error = err;
+					}
+					connReqs.map(connReq => {
+						if (connReq.pending !== 'Accepted') {
+							console.log('2', connReq.pending)
+							connectionRequests.acceptable.push(connReq);
+						}
+					});
+
+					let count = connectionRequests.pending.length + connectionRequests.acceptable.length;
+					if (error) {
+						res.json({
+							success: false,
+							error,
+						});
+					} else {
+						res.json({
+							success: true,
+							connectionRequests,
+							pendingRequests: count,
+						});
+					}
+				});
+		});
+});
+
+// TODO! Rename pending to status on pcr
+// Accept Connection Request - Will refactor to pass the action ie - accept / decline
+// Passed the pendingConnectionRequest ID, finds the connections request and extracts the requesting user,
+// adds that user to the accepting users connections array. Then does the same vice/versa.
+router.post('/pendingconnectionresponse', requireAuth, (req, res) => {
+	console.log('connectionRequest', req.body.connectionRequest);
+	let connectionRequest = req.body.connectionRequest.toString();
+	let acceptingUser = req.user._id.toString();
+
+	console.log('User', User);
+
+	ConnectionRequest.findById(connectionRequest, (err, connReq) => {
+		if (err) {
+			res.json({
+				success: false,
+				error: err,
+			});
+		}
+
+		connReq.pending = 'Accepted';
+		connReq.save();
+
+		User.findById(acceptingUser, (err, user) => {
+			if (err) {
 				res.json({
 					success: false,
-					error
-				})
-			} else {
-					res.json({
-						success: true,
-						connectionRequests,
-						pendingRequests: count
-					})
+					error: err,
+				});
 			}
-		})
-	})
+			user.connections.push(connReq.requestingUser);
+			user.save();
+
+			User.findById(connReq.requestingUser, (err, user) => {
+				if (err) {
+					res.json({
+						success: false,
+						error: err,
+					});
+				}
+
+				user.connections.push(acceptingUser);
+				user.save();
+				res.json({
+					success: true,
+					message: 'Connection request accepted.',
+				});
+			});
+		});
+	});
 });
 
 module.exports = router;

@@ -1,8 +1,8 @@
 import React from 'react';
 import './Dashboard.css';
-import PendingConnections from './PendingConnections/PendingConnections';
+// import PendingConnections from './PendingConnections/PendingConnections';
 
-const Dashbaord = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections }) => {
+const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections, pendingConnectionResponse }) => {
 	return (
     <React.Fragment>
 
@@ -44,9 +44,9 @@ const Dashbaord = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, 
             <p className="stat-val">{connections.length}</p>
             <p className="stat-key">Connections</p>
           </div>
-          <div class="column is-2-tablet is-4-mobile has-text-centered">
-            <p class="stat-val">{pendingRequests}</p>
-            <p class="stat-key">Pending Connections</p>
+          <div className="column is-2-tablet is-4-mobile has-text-centered">
+            <p className="stat-val">{pendingRequests}</p>
+            <p className="stat-key">Pending Connections</p>
           </div>
           <div className="column is-2-tablet is-4-mobile has-text-centered">
             <p className="stat-val">0</p>
@@ -101,10 +101,10 @@ const Dashbaord = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, 
            pendingConnections ? (
            <div>
             {
-              pendingConnections.pending.map(conn => {
+              pendingConnections.pending.map((conn,i) => {
                 console.log('conn - pending', conn.requestedUser.username)
                 return (
-                  <div>
+                  <div key={i}>
                     {conn.requestedUser.username}
                     <button disabled>Pending</button>
                   </div>
@@ -112,18 +112,19 @@ const Dashbaord = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, 
               })
             }
             {
-              pendingConnections.acceptable.map(conn => {
+              pendingConnections.acceptable.map( (conn, i) => {
                 console.log('conn - acceptable', conn.requestingUser.username)
                 return (
-                  <div>
+                  <div key={i} >
                     {conn.requestingUser.username}
-                    <button>Accept</button>
+                    {conn._id}
+                    <button onClick={() => pendingConnectionResponse({ connectionRequest: conn._id})}>Accept</button>
                   </div>
                 )
               })
             }
            </div>
-           ) : <div>False</div>
+           ) : false
          }
         </div>
 
@@ -145,4 +146,4 @@ const Dashbaord = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, 
 	);
 };
 
-export default Dashbaord;
+export default Dashboard;

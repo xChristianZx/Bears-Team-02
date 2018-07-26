@@ -1,15 +1,15 @@
-import { combineReducers } from 'redux';
-import userReducer from './User/userReducer';
-import { reducer as form } from 'redux-form';
+import { combineReducers } from "redux";
+import userReducer from "./User/userReducer";
+import { reducer as form } from "redux-form";
 
-const initialState = {
-	authenticated: false,
-};
+/* Moved initial state inside of User; letting form handle it's own initial state for now */
+// const initialState = {
+//   authenticated: false
+// };
 
 const rootReducer = combineReducers({
-	User: userReducer,
-	initialState,
-	form,
+  User: userReducer,
+  form
 });
 
 export default rootReducer;

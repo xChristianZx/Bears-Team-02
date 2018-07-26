@@ -17,7 +17,7 @@ class Navigation extends Component {
   state = { toggleBurger: false };
 
   componentDidMount() {
-    console.log("CWD", this.props);
+    console.log("CWD Navigation", this.props);
   }
 
   handleBurgerClick = () => {
@@ -25,10 +25,15 @@ class Navigation extends Component {
   };
 
   render() {
-
     return (
-      <NavigationComp handleBurgerClick={this.handleBurgerClick} toggleBurger={this.state.toggleBurger} authenticated={this.props.authenticated} linksIn={linksIn} linksOut={linksOut} />
-    )
+      <NavigationComp
+        handleBurgerClick={this.handleBurgerClick}
+        toggleBurger={this.state.toggleBurger}
+        authenticated={this.props.authenticated}
+        linksIn={linksIn}
+        linksOut={linksOut}
+      />
+    );
   }
 }
 
