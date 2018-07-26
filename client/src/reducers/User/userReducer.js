@@ -10,7 +10,7 @@ export default function(state = initialState, action) {
 		case LOG_IN:
 			return { ...state, authenticated: true, user: action.payload.user };
 		case AUTHENTICATED:
-				return { ...state, authenticated: true };
+			return { ...state, authenticated: true };
 		case ERROR:
 			return { ...state, error: action.payload };
 		case USER_DASHBOARD:

@@ -53,12 +53,11 @@ class Connect extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  // console.log('STATE', state)
+const mapStateToProps = ({ User }) => {
   return {
-    users: state.User.users,
-    user: state.User.user,
-    pendingConnections: state.User.pendingConnections
+    users: User.users,
+    user: User.user,
+    pendingConnections: User.pendingConnections
   };
 };
 
