@@ -32,3 +32,6 @@ ConnectionRequest.findById -> requestedUser, requestingUser -> Add to opposite u
 - Authentication
   - Fix Authentication problem where AUTHENTICATED is dispatched but User state does not persist
 
+* Add flashmessage on pendingConnection success
+* Add flashmessage on pendingConnectionResponse 
+* Connect Page and Dashboard don't update until refresh

@@ -9,7 +9,7 @@ const PendingConnections = ({ pendingConnections, userId }) => {
       <div key={i}>
         <p>Name: {`${firstName} ${lastName}`}</p>
         <button onClick={() => console.log('Need to add handler!')}>
-          {connection.requestingUser._id === userId ? "Pending Response" : "Accept"}
+          {requestingUser._id === userId ? "Pending Response" : "Accept"}
         </button>
       </div>
     );
