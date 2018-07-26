@@ -34,3 +34,4 @@ ConnectionRequest.findById -> requestedUser, requestingUser -> Add to opposite u
 
 * Add flashmessage on pendingConnection success
 * Add flashmessage on pendingConnectionResponse 
+* Connect Page and Dashboard don't update until refresh
