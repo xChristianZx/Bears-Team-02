@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../hoc/history';
 
-import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, GET_USERS, FLASH_MESSAGE, GET_CONNECTIONS } from './types';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, GET_USERS, FLASH_MESSAGE, GET_CONNECTIONS, PENDING_CONNECTION_RESPONSE } from './types';
 import chalk from '../../../node_modules/chalk';
 
 const ROOT_URL = 'http://localhost:5000';
@@ -135,6 +135,18 @@ export function getPendingConnections() {
 			console.log('pendingConnections', response.data.pendingRequests) 
 			dispatch({ type: GET_CONNECTIONS, payload: response.data })
 			// dispatch({ type: FLASH_MESSAGE, payload: 'Connected Added - first/last name' })
+		})
+	}
+}
+
+export function pendingConnectionResponse({ connectionRequest }) {
+	return dispatch => {
+		let token = localStorage.getItem('token');
+		axios.post(`${ROOT_URL}/auth/pendingconnectionresponse`, { connectionRequest: "5b5911d803bb10230f51204d" }, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
+			dispatch({ type: FLASH_MESSAGE, payload: response.data.message  })
+			console.log(response)
+		}).catch(error => {
+			console.log(error)
 		})
 	}
 }

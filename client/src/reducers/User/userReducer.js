@@ -14,7 +14,7 @@ export default function(state = initialState, action) {
 		case ERROR:
 			return { ...state, error: action.payload };
 		case USER_DASHBOARD:
-			return { ...state, user: action.payload.user, connections: ["adasd"] };
+			return { ...state, user: action.payload.user, connections: action.payload.user.connections };
 		case LOGGED_OUT:
 			return { ...state, ...initialState };
 		case GET_USERS: 

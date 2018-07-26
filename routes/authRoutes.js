@@ -196,6 +196,55 @@ router.get('/pendingconnections', requireAuth, (req, res) => {
 	})
 });
 
+// TODO! Rename pending to status on pcr
+// Accept Connection Request - Will refactor to pass the action ie - accept / decline
+// Passed the pendingConnectionRequest ID, finds the connections request and extracts the requesting user, 
+// adds that user to the accepting users connections array. Then does the same vice/versa.
+router.post('/pendingconnectionresponse', requireAuth, (req, res) => {
+	let connectionRequest = req.body.connectionRequest.toString()
+	let acceptingUser  = req.user._id.toString()
+
+	console.log('connectionRequest', connectionRequest)
+	console.log('User', User)
+
+	ConnectionRequest.findById(connectionRequest, (err, connReq) => {
+		console.log('connReq', connReq)
+		if(err) {
+			res.json({
+				success: false,
+				error: err
+			})
+		} 
+
+		User.findById(acceptingUser, (err, user) => {
+			if(err) {
+				res.json({
+					success: false,
+					error: err
+				})
+			}
+			user.connections.push(connReq.requestingUser)
+			user.save()
+
+			User.findById(connReq.requestingUser, (err, user) => {
+				if(err) {
+					res.json({
+						success: false,
+						error: err
+					})
+				}
+
+				user.connections.push(acceptingUser)
+				user.save()
+				res.json({
+					success: true,
+					message: 'Connection request accepted.'
+				})
+			})
+		})
+	})
+})
+
 module.exports = router;
 
 /* 

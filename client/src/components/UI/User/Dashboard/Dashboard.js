@@ -2,7 +2,7 @@ import React from 'react';
 import './Dashboard.css';
 // import PendingConnections from './PendingConnections/PendingConnections';
 
-const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections }) => {
+const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections, pendingConnectionResponse }) => {
 	return (
     <React.Fragment>
 
@@ -117,7 +117,8 @@ const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, 
                 return (
                   <div key={i} >
                     {conn.requestingUser.username}
-                    <button onClick={()=> console.log('Accepting Request')}>Accept</button>
+                    {conn._id}
+                    <button onClick={() => pendingConnectionResponse(conn._id)}>Accept</button>
                   </div>
                 )
               })
