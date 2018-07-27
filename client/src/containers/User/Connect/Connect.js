@@ -62,7 +62,7 @@ class Connect extends Component {
 }
 
 const mapStateToProps = ({ User }) => {
-  console.log("STATE", state);
+  console.log("STATE", User);
   return {
     users: User.users,
     user: User.user,
