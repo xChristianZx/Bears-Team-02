@@ -1,7 +1,7 @@
 import React from "react";
 import "./ConnectComp.css";
 
-const ConnectComp = ({ users, pendingConnections, addConnection, user }) => {
+const ConnectComp = ({ users, pendingConnections, requestConnection, user }) => {
   /* Renders the list of potential connections */
   // console.log("ConnectComp, pendingConnections", pendingConnections);
 
@@ -58,7 +58,7 @@ const ConnectComp = ({ users, pendingConnections, addConnection, user }) => {
           return (
             <button
               className="button is-primary"
-              onClick={() => addConnection(_id)}
+              onClick={() => requestConnection(_id)}
             >
               CONNECT
             </button>
@@ -69,7 +69,7 @@ const ConnectComp = ({ users, pendingConnections, addConnection, user }) => {
         return (
           <button
             className="button is-primary"
-            onClick={() => addConnection(_id)}
+            onClick={() => requestConnection(_id)}
           >
             CONNECT
           </button>
