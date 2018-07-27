@@ -40,7 +40,7 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user }) => 
             return (
               request.requestingUser._id === _id &&
               request.requestedUser === loggedInUserId
-            );
+            ); 
           })
         ) {
           // if true - return acceptance button;
