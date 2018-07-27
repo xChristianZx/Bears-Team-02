@@ -19,11 +19,11 @@ class Connect extends Component {
   }
 
   componentDidUpdate(prevProps) {
-		if(prevProps.flashMessage !== this.props.flashMessage){
-			//Perform some operation here
-			this.props.alert.show(this.props.flashMessage)
-		}
-	}
+    if (prevProps.flashMessage !== this.props.flashMessage) {
+      //Perform some operation here
+      this.props.alert.show(this.props.flashMessage);
+    }
+  }
 
   requestConnection = requestedUser => {
     this.props.requestConnection(requestedUser);
@@ -61,13 +61,13 @@ class Connect extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log('STATE', state)
+const mapStateToProps = ({ User }) => {
+  console.log("STATE", state);
   return {
-    users: state.User.users,
-    user: state.User.user,
-    pendingConnections: state.User.pendingConnections,
-    flashMessage: state.User.flashMessage
+    users: User.users,
+    user: User.user,
+    pendingConnections: User.pendingConnections,
+    flashMessage: User.flashMessage
   };
 };
 
@@ -78,7 +78,7 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
-Connect = withAlert(Connect)
+Connect = withAlert(Connect);
 
 export default connect(
   mapStateToProps,
