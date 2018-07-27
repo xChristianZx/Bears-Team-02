@@ -10,6 +10,7 @@ import Fields from '../../../misc/signUpFields';
 import formFieldRender from '../../../components/UI/Form/formFieldRender';
 import DashboardComp from '../../../components/UI/User/Dashboard/Dashboard';
 import Loader from '../../../components/UI/Enhancements/Loader';
+import { withAlert } from 'react-alert';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -23,6 +24,13 @@ class Dashboard extends Component {
 	componentDidMount() {
 		this.props.actions.dashboard();
 		this.props.actions.getPendingConnections()
+	}
+
+	componentDidUpdate(prevProps) {
+		if(prevProps.flashMessage !== this.props.flashMessage){
+			//Perform some operation here
+			this.props.alert.show(this.props.flashMessage)
+		}
 	}
 
 	onSubmit = values => {
@@ -97,7 +105,8 @@ const mapStateToProps = state => {
 		initialValues: state.User.user,
 		connections: state.User.connections,
 		pendingConnections: state.User.pendingConnections,
-		pendingRequests: state.User.pendingRequests
+		pendingRequests: state.User.pendingRequests,
+    flashMessage: state.User.flashMessage
 	};
 };
 
@@ -106,6 +115,8 @@ const mapDispatchToProps = dispatch => {
 		actions: bindActionCreators(Object.assign(userActions), dispatch),
 	};
 };
+
+Dashboard = withAlert(Dashboard)
 
 Dashboard = reduxForm({
 	form: 'Update',

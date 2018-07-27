@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
   getUsers,
-  addConnection,
+  requestConnection,
   dashboard,
   getPendingConnections
 } from "../../../actions/UserActions";
 import ConnectComp from "../../../components/UI/User/ConnectComp/ConnectComp";
 import Loader from "../../../components/UI/Enhancements/Loader";
+import { withAlert } from "react-alert";
 
 class Connect extends Component {
   componentDidMount() {
@@ -17,8 +18,15 @@ class Connect extends Component {
     // this.props.getUsers();
   }
 
-  addConnection = requestedUser => {
-    this.props.addConnection(requestedUser);
+  componentDidUpdate(prevProps) {
+		if(prevProps.flashMessage !== this.props.flashMessage){
+			//Perform some operation here
+			this.props.alert.show(this.props.flashMessage)
+		}
+	}
+
+  requestConnection = requestedUser => {
+    this.props.requestConnection(requestedUser);
   };
 
   renderConnectionList = () => {
@@ -39,7 +47,7 @@ class Connect extends Component {
         pendingConnections={this.props.pendingConnections}
         user={this.props.user}
         users={users}
-        addConnection={this.addConnection}
+        requestConnection={this.requestConnection}
       />
     );
   };
@@ -54,20 +62,23 @@ class Connect extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log('STATE', state)
+  console.log('STATE', state)
   return {
     users: state.User.users,
     user: state.User.user,
-    pendingConnections: state.User.pendingConnections
+    pendingConnections: state.User.pendingConnections,
+    flashMessage: state.User.flashMessage
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { getUsers, addConnection, dashboard, getPendingConnections },
+    { getUsers, requestConnection, dashboard, getPendingConnections },
     dispatch
   );
 };
+
+Connect = withAlert(Connect)
 
 export default connect(
   mapStateToProps,
