@@ -16,10 +16,6 @@ const linksOut = [
 class Navigation extends Component {
   state = { toggleBurger: false };
 
-  componentDidMount() {
-    // console.log("CWD Navigation", this.props);
-  }
-
   handleBurgerClick = () => {
     this.setState(prevState => ({ toggleBurger: !prevState.toggleBurger }));
   };
