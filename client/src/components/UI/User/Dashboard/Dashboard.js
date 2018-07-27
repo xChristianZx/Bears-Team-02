@@ -1,5 +1,6 @@
 import React from 'react';
 import './Dashboard.css';
+import Connections from './Connections/Connections';
 // import PendingConnections from './PendingConnections/PendingConnections';
 
 const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections, pendingConnectionResponse }) => {
@@ -127,9 +128,8 @@ const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, 
            ) : false
          }
         </div>
-
         <div hidden={displayingSection !== 'Connections'}>
-          Connections
+          <Connections connections={connections} />
         </div>
 
         <div hidden={displayingSection !== 'Messages'}>
