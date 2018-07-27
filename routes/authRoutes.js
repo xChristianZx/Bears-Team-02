@@ -275,17 +275,3 @@ router.post('/pendingconnectionresponse', requireAuth, (req, res) => {
 
 module.exports = router;
 
-/* 
-  * TEMP Routing
-  router.get('/register', (req, res) => {
-	  res.render('register');
-	});
-	
-	router.get('/login', (req, res) => {
-		res.render('login');
-	});
-	
-	router.get('/secret', isLoggedIn, (req, res) => {
-		res.render('secret');
-	});
-*/

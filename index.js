@@ -42,8 +42,6 @@ require('./services/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.set("view engine", "ejs"); //temp
-
 /* Routes */
 app.use('/', indexRoutes);
 app.use('/founders', founderRoutes);
