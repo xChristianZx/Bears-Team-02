@@ -1,7 +1,5 @@
 - Global
-  - Remove redundant code
   - Todos in files  
-  - Refactor where possible
 
 - Connect
   - Filter out current connections from rendered list

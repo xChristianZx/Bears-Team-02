@@ -28,7 +28,6 @@ class Dashboard extends Component {
 
 	componentDidUpdate(prevProps) {
 		if(prevProps.flashMessage !== this.props.flashMessage){
-			//Perform some operation here
 			this.props.alert.show(this.props.flashMessage)
 		}
 	}
