@@ -2,7 +2,6 @@ import axios from 'axios';
 import history from '../hoc/history';
 
 import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, GET_USERS, FLASH_MESSAGE, GET_CONNECTIONS } from './types';
-import chalk from '../../../node_modules/chalk';
 
 const ROOT_URL = 'http://localhost:5000';
 
