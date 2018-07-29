@@ -1,7 +1,7 @@
 import React from "react";
 import "./ConnectComp.css";
 
-const ConnectComp = ({ users, pendingConnections, requestConnection, user }) => {
+const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUsers }) => {
   /* Renders the list of potential connections */
   // console.log("ConnectComp, pendingConnections", pendingConnections);
 
@@ -111,17 +111,22 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user }) => 
       </div>
       <div className="level">
         <div className="level-left">
-          <p className="level-item subtitle">{users.length} Founders</p>
+        <div className="level-item has-text-centered">
+          <div>
+            <p className="heading">Founders</p>
+            <p className="subtitle">{users.length}</p>
+          </div>
+        </div>
         </div>
         <div className="level-right">
           <p className="level-item">
-            <a>All</a>
+            <a className="" onClick={() => {getUsers("all")}}>All</a>
           </p>
           <p className="level-item">
-            <a>Technical</a>
+            <a className="" onClick={() => {getUsers("true")}}>Technical</a>
           </p>
           <p className="level-item ">
-            <a>Non-Technical</a>
+            <a className="" onClick={() => {getUsers("false")}}>Non-Technical</a>
           </p>
         </div>
       </div>

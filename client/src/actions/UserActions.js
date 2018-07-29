@@ -67,10 +67,10 @@ export function logout() {
 	};
 }
 
-export function getUsers() {
+export function getUsers(filterParams) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
-		axios.get(`${ROOT_URL}/founders`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
+		axios.get(`${ROOT_URL}/founders`, { params:{ isTechnical : filterParams || "all" }, headers: { Authorization: `Bearer ${token}` } }).then(response => {
 			dispatch({ type: GET_USERS, payload: response.data })
 		}).catch(error => {
 				dispatch({ type: FLASH_MESSAGE, payload: 'Failed to load users'})

@@ -47,6 +47,7 @@ class Connect extends Component {
         user={this.props.user}
         users={users}
         requestConnection={this.requestConnection}
+        getUsers={this.props.getUsers}
       />
     );
   };
