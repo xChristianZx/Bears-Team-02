@@ -1,5 +1,7 @@
 import React from "react";
 import "./ConnectComp.css";
+import Header from "./Header/Header";
+import FilterBar from "./FilterBar/FilterBar";
 
 const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUsers }) => {
   /* Renders the list of potential connections */
@@ -105,32 +107,9 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
   /* Returns both Header Component, Filter, and List */
   return (
     <div className="column is-three-quarters">
-      <div className="connect-header-container has-text-centered">
-        <h1 className="title">Connect</h1>
-        <p className="subtitle is-6">Make new connections</p>
-      </div>
-      <div className="level">
-        <div className="level-left">
-        <div className="level-item has-text-centered">
-          <div>
-            <p className="heading">Founders</p>
-            <p className="subtitle">{users.length}</p>
-          </div>
-        </div>
-        </div>
-        <div className="level-right">
-          <p className="level-item">
-            <a className="" onClick={() => {getUsers("all")}}>All</a>
-          </p>
-          <p className="level-item">
-            <a className="" onClick={() => {getUsers("true")}}>Technical</a>
-          </p>
-          <p className="level-item ">
-            <a className="" onClick={() => {getUsers("false")}}>Non-Technical</a>
-          </p>
-        </div>
-      </div>
-      <ul className="">{connectionList}</ul>
+      <Header/>
+      <FilterBar users={users} getUsers={getUsers}/>
+      <ul>{connectionList}</ul>
     </div>
   );
 };
