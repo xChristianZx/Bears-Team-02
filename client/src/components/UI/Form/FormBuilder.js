@@ -44,12 +44,11 @@ const validate = values => {
 		if (thisField === 'confirmPassword' && values.confirmPassword !== values.password) {
 			errors[thisField] = 'Passwords do not match';
 		}
-		return errors; // TODO Check if this return is neeeded
 	});
 	return errors;
 };
 
 export default reduxForm({
-  form: 'SignUp', // TODO See about dynamic name here
+  form: 'form',
 	validate
 })(FormBuilder)

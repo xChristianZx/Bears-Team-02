@@ -1,6 +1,3 @@
-- Global
-  - Todos in files  
-
 - Connect
   - Filter out current connections from rendered list
   - Flash Message implementation - Declined  

@@ -47,7 +47,6 @@ router.put("/", (req, res) => {
   // * Handling updates to user profile
   const { id } = req.user;
   const { body } = req;
-  // Todo -
   //   User.findByIdAndUpdate({ _id: id }, (err, user) => {
   //     if (err) {
   //       console.log(err);
