@@ -1,6 +1,7 @@
 import React from 'react';
 import './Dashboard.css';
 import Connections from './Connections/Connections';
+import PendingConnections from './PendingConnections/PendingConnections';
 // import PendingConnections from './PendingConnections/PendingConnections';
 
 const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections, pendingConnectionResponse }) => {
