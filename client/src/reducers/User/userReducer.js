@@ -1,4 +1,4 @@
-import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, AUTHENTICATED, ERROR, GET_USERS, FLASH_MESSAGE, GET_CONNECTIONS } from '../../actions/types';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, AUTHENTICATED, GET_USERS, FLASH_MESSAGE, GET_CONNECTIONS } from '../../actions/types';
 
 // User state shape and initial state
 const initialState = { authenticated: false, connections: null, pendingConnections: null, pendingRequests: null, flashMessage: null, user: null, users: null }
