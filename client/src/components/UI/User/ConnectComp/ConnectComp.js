@@ -1,7 +1,9 @@
 import React from "react";
 import "./ConnectComp.css";
+import Header from "./Header/Header";
+import FilterBar from "./FilterBar/FilterBar";
 
-const ConnectComp = ({ users, pendingConnections, requestConnection, user }) => {
+const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUsers }) => {
   /* Renders the list of potential connections */
   // console.log("ConnectComp, pendingConnections", pendingConnections);
 
@@ -105,27 +107,9 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user }) => 
   /* Returns both Header Component, Filter, and List */
   return (
     <div className="column is-three-quarters">
-      <div className="connect-header-container has-text-centered">
-        <h1 className="title">Connect</h1>
-        <p className="subtitle is-6">Make new connections</p>
-      </div>
-      <div className="level">
-        <div className="level-left">
-          <p className="level-item subtitle">{users.length} Founders</p>
-        </div>
-        <div className="level-right">
-          <p className="level-item">
-            <a>All</a>
-          </p>
-          <p className="level-item">
-            <a>Technical</a>
-          </p>
-          <p className="level-item ">
-            <a>Non-Technical</a>
-          </p>
-        </div>
-      </div>
-      <ul className="">{connectionList}</ul>
+      <Header/>
+      <FilterBar users={users} getUsers={getUsers}/>
+      <ul>{connectionList}</ul>
     </div>
   );
 };
