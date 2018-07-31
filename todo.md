@@ -1,5 +1,4 @@
 - Connect
-  - Filter out current connections from rendered list
   - Flash Message implementation - Declined  
   - Ability to decline pending connection
     
