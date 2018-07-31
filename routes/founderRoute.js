@@ -5,20 +5,22 @@ const passport = require("passport");
 
 const requireAuth = passport.authenticate("jwt", { session: false });
 
-/* 
-  Main List Render - Aggregates list of connections that are not the current loggedInUser 
-and people the loggedInUser is currently not connected to 
-*/
-// Find all users
-// Filter out current loggedInUsers
-// Filter Tech vs Non-Tech
-// Filter out current connections
 
+// == Main Handler for /connect list render == //
 router.get("/", requireAuth, (req, res) => {
   const loggedInUserID = req.user._id;
+  const loggedInUserConnections = req.user.connections;
+
   const { isTechnical } = req.query; // Note: returns String, not Boolean
-  // Filtering current loggedInUser ($ne === not equal)
-  User.find({ _id: { $ne: loggedInUserID } })
+  /*  
+    .find() params: Filters current loggedInUser and current connections
+    with ($nin: "not in" - matches none of values in array ) 
+   */
+  User.find({
+    _id: {
+      $nin: [loggedInUserID, ...loggedInUserConnections]
+    }
+  })
     .populate("pendingConnectionRequests")
     //Filter isTech/Non-Tech - if none(undefined) === all founders
     .then(userList => {
@@ -35,3 +37,25 @@ router.get("/", requireAuth, (req, res) => {
 });
 
 module.exports = router;
+
+/* Note to future self */
+
+// Started here
+/* User.find({
+  $and: [
+    { _id: { $ne: loggedInUserID } },
+    { _id: { $nin: loggedInUserConnections } }
+  ]
+}) */
+
+//Refactored to here
+/* User.find({
+    { _id: { $ne: loggedInUserID }, $nin: loggedInUserConnections }
+}) */
+
+// And Finally
+/* User.find({
+  _id: {
+    $nin: [loggedInUserID, ...loggedInUserConnections]
+  }
+}) */
