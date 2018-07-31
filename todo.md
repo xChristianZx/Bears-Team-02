@@ -15,8 +15,12 @@
 
 - Flash Messaging  
   - Ensure on all routes
-  
-- Connect Page and Dashboard don't update until refresh
+
+- State/ Lifecycle Hooks
+  - Connect Page and Dashboard don't update until refresh
+
+- Misc
+  - Find a background image for the landing page header
 
 Future Features
 - Notifications
