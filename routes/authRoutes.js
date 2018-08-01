@@ -140,7 +140,7 @@ router.get('/pendingconnections', requireAuth, (req, res) => {
 			}
 
 			connReqs.map(connReq => {
-				if (connReq.status !== 'Accepted') {
+				if (connReq.status === 'Pending') {
 					connectionRequests.pending.push(connReq);
 				}
 			});
@@ -152,7 +152,7 @@ router.get('/pendingconnections', requireAuth, (req, res) => {
 						error = err;
 					}
 					connReqs.map(connReq => {
-						if (connReq.status !== 'Accepted') {
+						if (connReq.status === 'Pending') {
 							connectionRequests.acceptable.push(connReq);
 						}
 					});
@@ -174,12 +174,15 @@ router.get('/pendingconnections', requireAuth, (req, res) => {
 		});
 });
 
-// Accept Connection Request - Will refactor to pass the action ie - accept / decline
-// Passed the pendingConnectionRequest ID, finds the connections request and extracts the requesting user,
-// adds that user to the accepting users connections array. Then does the same vice/versa.
+/*
+	Takes a connection request ID the requesting user and action. It then finds the connection
+	changes the status to the given action. If the action is accepted it will add the new
+	connection to each users connections array.
+*/
 router.post('/pendingconnectionresponse', requireAuth, (req, res) => {
 	let connectionRequest = req.body.connectionRequest.toString();
 	let acceptingUser = req.user._id.toString();
+	let action = req.body.action;
 
 	ConnectionRequest.findById(connectionRequest, (err, connReq) => {
 		if (err) {
@@ -189,35 +192,42 @@ router.post('/pendingconnectionresponse', requireAuth, (req, res) => {
 			});
 		}
 
-		connReq.status = 'Accepted';
+		connReq.status = action;
 		connReq.save();
 
-		User.findById(acceptingUser, (err, user) => {
-			if (err) {
-				res.json({
-					success: false,
-					error: err,
-				});
-			}
-			user.connections.push(connReq.requestingUser);
-			user.save();
-
-			User.findById(connReq.requestingUser, (err, user) => {
+		if(action === 'Accepted') {
+			User.findById(acceptingUser, (err, user) => {
 				if (err) {
 					res.json({
 						success: false,
 						error: err,
 					});
 				}
-
-				user.connections.push(acceptingUser);
+				user.connections.push(connReq.requestingUser);
 				user.save();
-				res.json({
-					success: true,
-					message: 'Connection request accepted.',
+
+				User.findById(connReq.requestingUser, (err, user) => {
+					if (err) {
+						res.json({
+							success: false,
+							error: err,
+						});
+					}
+
+					user.connections.push(acceptingUser);
+					user.save();
+					res.json({
+						success: true,
+						message: 'Connection request accepted.',
+					});
 				});
 			});
-		});
+		} else {
+			res.json({
+				success: true,
+				message: 'Connection request declined.'
+			})
+		}
 	});
 });
 
