@@ -113,10 +113,10 @@ export function getPendingConnections() {
 	}
 }
 
-export function pendingConnectionResponse({ connectionRequest }) {
+export function pendingConnectionResponse({ connectionRequest, action }) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
-		axios.post(`${ROOT_URL}/auth/pendingconnectionresponse`, { connectionRequest }, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
+		axios.post(`${ROOT_URL}/auth/pendingconnectionresponse`, { connectionRequest, action }, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
 			dispatch({ type: FLASH_MESSAGE, payload: response.data.message  })
 			history.push('/dashboard')
 		}).catch(error => {

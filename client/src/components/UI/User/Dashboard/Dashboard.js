@@ -120,7 +120,8 @@ const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, 
                   <div key={i} >
                     {conn.requestingUser.username}
                     {conn._id}
-                    <button onClick={() => pendingConnectionResponse({ connectionRequest: conn._id})}>Accept</button>
+                    <button onClick={() => pendingConnectionResponse({ connectionRequest: conn._id, action: 'Accepted' })}>Accept</button>
+                    <button onClick={() => pendingConnectionResponse({ connectionRequest: conn._id, action: 'Declined' })}>Decline</button>
                   </div>
                 )
               })

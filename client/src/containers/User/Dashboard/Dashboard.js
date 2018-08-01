@@ -45,8 +45,8 @@ class Dashboard extends Component {
 		this.setState({ displayingSection: section })
 	}
 
-	pendingConnectionResponse = (connectionRequest) => {
-		this.props.actions.pendingConnectionResponse(connectionRequest)
+	pendingConnectionResponse = (connectionRequest, action) => {
+		this.props.actions.pendingConnectionResponse(connectionRequest, action)
 	}
 
 	render() {
