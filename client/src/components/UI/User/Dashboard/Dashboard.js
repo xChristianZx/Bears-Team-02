@@ -98,38 +98,13 @@ const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, 
 
       <div>
         <div hidden={displayingSection !== 'Pending'}>
-         Pending
          {
            pendingConnections ? (
-           <div>
-            {
-              pendingConnections.pending.map((conn,i) => {
-                console.log('conn - pending', conn.requestedUser.username)
-                return (
-                  <div key={i}>
-                    {conn.requestedUser.username}
-                    <button disabled>Pending</button>
-                  </div>
-                ) 
-              })
-            }
-            {
-              pendingConnections.acceptable.map( (conn, i) => {
-                console.log('conn - acceptable', conn.requestingUser.username)
-                return (
-                  <div key={i} >
-                    {conn.requestingUser.username}
-                    {conn._id}
-                    <button onClick={() => pendingConnectionResponse({ connectionRequest: conn._id, action: 'Accepted' })}>Accept</button>
-                    <button onClick={() => pendingConnectionResponse({ connectionRequest: conn._id, action: 'Declined' })}>Decline</button>
-                  </div>
-                )
-              })
-            }
-           </div>
-           ) : false
+            <PendingConnections pendingConnections={pendingConnections} pendingConnectionResponse={this.pendingConnectionResponse} />
+           ) : <p>No Pending Connections</p>
          }
         </div>
+
         <div hidden={displayingSection !== 'Connections'}>
           <Connections connections={connections} />
         </div>

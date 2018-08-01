@@ -1,11 +1,9 @@
 - Connect
   - Flash Message implementation - Declined  
-  - Ability to decline pending connection
     
 - Dashboard
   - Add functionality to update form
   - Render Profile Details in the profile tab
-  - Decline
 
 - Error Handling
   - Check all endpoints error handing - client side
@@ -24,3 +22,4 @@
 
 Future Features
 - Notifications
+- Message a Connection
