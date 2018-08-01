@@ -22,7 +22,7 @@ const Connections = ({ connections }) => {
                 <button className="button is-primary is-outlined">Message</button>
                 <button className="button is-danger is-outlined">Remove Connection</button>
 								{/* <p className="subtitle is-6">ID: (for testing): {_id}</p> */}
-							</div>
+							</div> 
 						</div>
 					</div>
 				</div>
