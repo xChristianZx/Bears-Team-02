@@ -1,6 +1,11 @@
 /* Bulma Override */
 .hero.is-info {
-  background-image: #0737ea; }
+  background: url("../../../assets/connect-image.jpg") center center no-repeat;
+  background-size: cover; }
 
 .hero.is-info .title {
-  font-size: 4rem; }
+  font-size: 4rem;
+  color: white;
+  padding: 40px;
+  border-radius: 30px;
+  background: rgba(32, 156, 238, 0.7); }
