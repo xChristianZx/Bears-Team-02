@@ -1,9 +1,5 @@
-- Connect
-  - Flash Message implementation - Declined  
-    
 - Dashboard
   - Add functionality to update form
-  - Render Profile Details in the profile tab
 
 - Error Handling
   - Check all endpoints error handing - client side
@@ -21,5 +17,11 @@ Future Features
 - Notifications
 - Message a Connection
 
+
 Revisit 
 - Refactor Connect/Dashboard re-render after getPendingRequest update
+
+Possible Refactor
+- The list for rendering: connection, pendingConnection and connect users is the same except the buttons
+- perhaps I will refactor this as a function to return JSX and map over any buttons passed in.
+
