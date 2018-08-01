@@ -19,8 +19,10 @@ import reduxThunk from "redux-thunk";
 import Async from "./middleware/async";
 import rootReducer from "./reducers/rootReducer";
 import { createLogger } from "redux-logger";
+import { dashboard } from './actions/UserActions';
 
-import { AUTHENTICATED, LOGGED_OUT } from "./actions/types";
+import { AUTHENTICATED, LOGGED_OUT, USER_DASHBOARD } from "./actions/types";
+import Dashboard from "./components/UI/User/Dashboard/Dashboard";
 
 // Wrapper for Redux DevTools Extension for Chrome
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -39,6 +41,7 @@ const store = storeMiddleware(rootReducer);
 // Load JWT if exists
 const token = localStorage.getItem("token");
 if (token) {
+  dashboard();
   store.dispatch({ type: AUTHENTICATED });
 } else {
   store.dispatch({ type: LOGGED_OUT });
