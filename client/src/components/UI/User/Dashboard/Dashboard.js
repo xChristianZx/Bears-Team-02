@@ -102,7 +102,7 @@ const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, 
          {
            pendingConnections ? (
             <PendingConnections pendingConnections={pendingConnections} pendingConnectionResponse={this.pendingConnectionResponse} />
-           ) : <Loader />
+           ) : <p>No Pending Connections</p>
          }
         </div>
 
