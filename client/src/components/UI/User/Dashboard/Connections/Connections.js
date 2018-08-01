@@ -2,9 +2,9 @@ import React from 'react';
 import './Connection.css';
 
 const Connections = ({ connections }) => {
-	console.log('connection', connections);
+	// console.log('connection', connections);
 	let userConnections = connections.map(connection => {
-		console.log('connection', connection);
+		// console.log('connection', connection);
 		return (
 			<li className="list-item-container" key={connection._id}>
 				<div className="media">

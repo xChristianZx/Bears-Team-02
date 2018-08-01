@@ -29,6 +29,7 @@ class Dashboard extends Component {
 	componentDidUpdate(prevProps) {
 		if(prevProps.flashMessage !== this.props.flashMessage){
 			this.props.alert.show(this.props.flashMessage)
+			this.props.actions.getPendingConnections()
 		}
 	}
 

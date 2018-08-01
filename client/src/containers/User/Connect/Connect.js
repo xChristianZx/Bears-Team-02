@@ -21,6 +21,7 @@ class Connect extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.flashMessage !== this.props.flashMessage) {
       this.props.alert.show(this.props.flashMessage);
+      this.props.getPendingConnections();
     }
   }
 
@@ -29,7 +30,7 @@ class Connect extends Component {
   };
 
   renderConnectionList = () => {
-    const { users, user } = this.props;
+    const { getUsers, pendingConnections, user, users } = this.props;
     // * Temp fix for error caused on reload to /connect with user state not populating
     if (user === null) {
       this.props.dashboard();
@@ -43,11 +44,11 @@ class Connect extends Component {
     }
     return (
       <ConnectComp
-        pendingConnections={this.props.pendingConnections}
-        user={this.props.user}
-        users={users}
+        getUsers={getUsers}
+        pendingConnections={pendingConnections}
         requestConnection={this.requestConnection}
-        getUsers={this.props.getUsers}
+        user={user}
+        users={users}
       />
     );
   };
@@ -62,7 +63,7 @@ class Connect extends Component {
 }
 
 const mapStateToProps = ({ User }) => {
-  console.log("STATE", User);
+  // console.log("STATE", User);
   return {
     users: User.users,
     user: User.user,

@@ -66,7 +66,7 @@ export function logout() {
 		history.push('/');
 	};
 }
-
+/* Populates /connect potential Connections list */
 export function getUsers(filterParams) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
