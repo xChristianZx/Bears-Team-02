@@ -10,13 +10,23 @@
 - Flash Messaging  
   - Ensure on all routes
 
+<<<<<<< HEAD
 - State/ Lifecycle Hooks
   - Connect Page and Dashboard don't update until refresh
+=======
+- Misc
+  - Find a background image for the landing page header
+>>>>>>> 6450635e7e9cd74faa4506465adac06e4ca74f8e
 
 Future Features
 - Notifications
 - Message a Connection
 
+
+Revisit 
+- Refactor Connect/Dashboard re-render after getPendingRequest update
+
 Possible Refactor
 - The list for rendering: connection, pendingConnection and connect users is the same except the buttons
 - perhaps I will refactor this as a function to return JSX and map over any buttons passed in.
+
