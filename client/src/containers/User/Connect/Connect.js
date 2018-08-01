@@ -54,9 +54,6 @@ class Connect extends Component {
   };
 
   render() {
-    const { pendingConnections } = this.props;
-    console.log("pendingConnections", pendingConnections);
-
     return (
       <div className="container connect-container columns is-centered">
         {this.renderConnectionList()}
