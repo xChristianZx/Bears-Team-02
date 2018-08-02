@@ -7,6 +7,11 @@
 Future Features
 - Notifications
 - Message a Connection
+- Delete User Profile
+
+Styles
+  - Forms Clear button to outlined
+  - Compress Image and add photo credit to readme
 
 Revisit 
 - Refactor Connect/Dashboard re-render after getPendingRequest update
