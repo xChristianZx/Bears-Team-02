@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import NavigationComp from "../../components/UI/Navigation/Navigation";
 
 const linksIn = [
-  { name: "Connections", url: "/connect", class: "navbar-item" },
+  { name: "Connect", url: "/connect", class: "navbar-item" },
   { name: "Dashboard", url: "/dashboard", class: "navbar-item" },
   { name: "Log Out", url: "/logout", class: "navbar-item" }
 ];

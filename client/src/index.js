@@ -21,8 +21,7 @@ import rootReducer from "./reducers/rootReducer";
 import { createLogger } from "redux-logger";
 import { dashboard } from './actions/UserActions';
 
-import { AUTHENTICATED, LOGGED_OUT, USER_DASHBOARD } from "./actions/types";
-import Dashboard from "./components/UI/User/Dashboard/Dashboard";
+import { AUTHENTICATED, LOGGED_OUT } from "./actions/types";
 
 // Wrapper for Redux DevTools Extension for Chrome
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
