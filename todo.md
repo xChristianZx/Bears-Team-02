@@ -1,11 +1,8 @@
 - Dashboard
   - Add functionality to update form
 
-- Error Handling
-  - Check all endpoints error handing - client side
-  
-- Flash Messaging  
-  - Ensure on all routes
+- Global
+  - Add ability to remove connection
 
 Future Features
 - Notifications
