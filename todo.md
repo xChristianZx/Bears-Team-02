@@ -11,7 +11,7 @@ Future Features
 - Add oAuth - Github/ Google
 
 Sign up/ Login Form
- - Sanitize username to Remove case sensitivity
+ - Set username to lowercase before registering to remove case sensitivity
 
 Styling
   - Restyle Landing Title and Navbar
