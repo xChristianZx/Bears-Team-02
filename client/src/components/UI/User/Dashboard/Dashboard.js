@@ -5,7 +5,7 @@ import PendingConnections from './PendingConnections/PendingConnections';
 import Profile from './Profile/Profile';
 import Loader from '../../Enhancements/Loader';
 
-const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections }) => {
+const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections, pendingConnectionResponse }) => {
 	return (
     <React.Fragment>
 
