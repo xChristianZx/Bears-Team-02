@@ -1,12 +1,12 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const chalk = require('chalk');
-const keys = require('./config/keys');
-const passport = require('passport');
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const chalk = require("chalk");
+const keys = require("./config/keys");
+const passport = require("passport");
 // const cookieSession = require('cookie-session');
-const cors = require('cors');
-const morgan = require('morgan');
+const cors = require("cors");
+const morgan = require("morgan");
 
 const indexRoutes = require("./routes/index");
 const founderRoutes = require("./routes/founderRoute");
@@ -48,6 +48,15 @@ app.use("/", indexRoutes);
 app.use("/founders", founderRoutes);
 app.use("/user", userRoutes);
 app.use("/auth", authRoutes);
+
+//production routing to client build
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
