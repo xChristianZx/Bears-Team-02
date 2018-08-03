@@ -1,23 +1,25 @@
-* Connect
-* Finish wiring together the connect request to model and routing
-* Handle pending requests
-* Test user connections list in model
-* change connect button text to pending while req is pending (not sure how, yet)
-* ability to accept / decline pending connection
-*Done* Add flash messages when connect is clicked - Dispatch flash message
-*Done*	- UserActions[logout]	dispatch({ type: FLASH_MESSAGE, payload: 'Successfully Logged Out' })
-*Done*	- UserActions[addConnection] dispatch({ type: FLASH_MESSAGE, payload: 'Connected Added - first/last name' })
+- Dashboard
+  - Add functionality to update form
 
-* Dashboard
-*Done* Add pending connection count
-*Done* Style 
-* List pending connections
-* Accept / Decline
+- Global
+  - Add ability to remove connection
 
-* Error Handling
-*Done* - Implement flash messages for errors
-* Check all endpoints error handing - client side
+Future Features
+- Notifications
+- Message a Connection
+- Delete User Profile
+- Add oAuth - Github/ Google
 
-* Miscellaneous
-* Todos in files
-*Done* Create Navigation component and move jsx from Navigation container - check all other containers
+Sign up/ Login Form
+ - Sanitize username to Remove case sensitivity
+
+Styling
+  - Restyle Landing Title and Navbar
+  - Icons? - Do we need a package for icons to render?
+  
+Revisit 
+- Refactor Connect/Dashboard re-render after getPendingRequest update
+
+Possible Refactor
+- The list for rendering: connection, pendingConnection and connect users is the same except the buttons
+- perhaps I will refactor this as a function to return JSX and map over any buttons passed in.

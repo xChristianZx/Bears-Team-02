@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Provider as AlertProvider } from 'react-alert'
+// import { Provider as AlertProvider } from 'react-alert'
  
 class FlashMessageTemplate extends Component {
   render () {
@@ -7,10 +7,10 @@ class FlashMessageTemplate extends Component {
  
     return (
       <div className="notification is-primary">
+        {message}
         {options.type === 'info' && '!'}
         {options.type === 'success' && ':)'}
         {options.type === 'error' && ':('}
-        {message}
         <button className="delete" onClick={close}></button>
       </div>
     )

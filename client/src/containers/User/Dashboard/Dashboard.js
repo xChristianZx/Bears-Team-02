@@ -10,6 +10,7 @@ import Fields from '../../../misc/signUpFields';
 import formFieldRender from '../../../components/UI/Form/formFieldRender';
 import DashboardComp from '../../../components/UI/User/Dashboard/Dashboard';
 import Loader from '../../../components/UI/Enhancements/Loader';
+import { withAlert } from 'react-alert';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -22,6 +23,14 @@ class Dashboard extends Component {
 
 	componentDidMount() {
 		this.props.actions.dashboard();
+		this.props.actions.getPendingConnections()
+	}
+
+	componentDidUpdate(prevProps) {
+		if(prevProps.flashMessage !== this.props.flashMessage){
+			this.props.alert.show(this.props.flashMessage)
+			this.props.actions.getPendingConnections()
+		}
 	}
 
 	onSubmit = values => {
@@ -35,6 +44,10 @@ class Dashboard extends Component {
 
 	toggleSection = (section) => {
 		this.setState({ displayingSection: section })
+	}
+
+	pendingConnectionResponse = (connectionRequest, action) => {
+		this.props.actions.pendingConnectionResponse(connectionRequest, action)
 	}
 
 	render() {
@@ -62,10 +75,20 @@ class Dashboard extends Component {
 			);
 		}
 
-		if (this.props.user) {
+		if (this.props.user && this.props.connections) {
 			return (
 				<Fragment>
-					<DashboardComp user={this.props.user} toggleEditProfile={() => this.setState({ editProfile: true })} connections={this.props.connections} toggleTechnical={this.toggleTechnical} toggleSection={this.toggleSection} displayingSection={this.state.displayingSection} acceptConnection={this.acceptConnection} />
+					<DashboardComp 
+					user={this.props.user} 
+					toggleEditProfile={() => this.setState({ editProfile: true })} 
+					connections={this.props.connections} 
+					pendingConnections={this.props.pendingConnections} 
+					pendingRequests={this.props.pendingRequests} 
+					pendingConnectionResponse={this.pendingConnectionResponse}
+					toggleTechnical={this.toggleTechnical} 
+					toggleSection={this.toggleSection} 
+					displayingSection={this.state.displayingSection} 
+					acceptConnection={this.acceptConnection} />
 				</Fragment>
 			);
 		}
@@ -80,7 +103,10 @@ const mapStateToProps = state => {
 	return { 
 		user: state.User.user, 
 		initialValues: state.User.user,
-		connections: state.User.connections
+		connections: state.User.connections,
+		pendingConnections: state.User.pendingConnections,
+		pendingRequests: state.User.pendingRequests,
+    flashMessage: state.User.flashMessage
 	};
 };
 
@@ -89,6 +115,8 @@ const mapDispatchToProps = dispatch => {
 		actions: bindActionCreators(Object.assign(userActions), dispatch),
 	};
 };
+
+Dashboard = withAlert(Dashboard)
 
 Dashboard = reduxForm({
 	form: 'Update',

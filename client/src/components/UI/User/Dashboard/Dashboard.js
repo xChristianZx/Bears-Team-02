@@ -1,8 +1,11 @@
 import React from 'react';
 import './Dashboard.css';
+import Connections from './Connections/Connections';
 import PendingConnections from './PendingConnections/PendingConnections';
+import Profile from './Profile/Profile';
+import Loader from '../../Enhancements/Loader';
 
-const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, acceptConnection }) => {
+const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections }) => {
 	return (
     <React.Fragment>
 
@@ -45,7 +48,7 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, togg
             <p className="stat-key">Connections</p>
           </div>
           <div className="column is-2-tablet is-4-mobile has-text-centered">
-            <p className="stat-val">{user.pendingConnectionRequests.length}</p>
+            <p className="stat-val">{pendingRequests}</p>
             <p className="stat-key">Pending Connections</p>
           </div>
           <div className="column is-2-tablet is-4-mobile has-text-centered">
@@ -96,11 +99,15 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, togg
 
       <div>
         <div hidden={displayingSection !== 'Pending'}>
-          <PendingConnections userId={user._id} pendingConnections={user.pendingConnectionRequests} acceptConnection={acceptConnection} />
+         {
+           pendingConnections ? (
+            <PendingConnections pendingConnections={pendingConnections} pendingConnectionResponse={pendingConnectionResponse} />
+           ) : <p>No Pending Connections</p>
+         }
         </div>
 
         <div hidden={displayingSection !== 'Connections'}>
-          Connections
+          <Connections connections={connections} />
         </div>
 
         <div hidden={displayingSection !== 'Messages'}>
@@ -108,7 +115,12 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, togg
         </div>
 
         <div hidden={displayingSection !== 'Profile'}>
-          Profile
+        {
+           user ? (
+            <Profile user={user} />
+           ) : <Loader />
+         }
+          
         </div>
       </div>
 
@@ -117,4 +129,4 @@ const Dashbaord = ({ user, toggleTechnical, toggleEditProfile, connections, togg
 	);
 };
 
-export default Dashbaord;
+export default Dashboard;

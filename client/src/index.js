@@ -19,6 +19,7 @@ import reduxThunk from "redux-thunk";
 import Async from "./middleware/async";
 import rootReducer from "./reducers/rootReducer";
 import { createLogger } from "redux-logger";
+import { dashboard } from './actions/UserActions';
 
 import { AUTHENTICATED, LOGGED_OUT } from "./actions/types";
 
@@ -39,6 +40,7 @@ const store = storeMiddleware(rootReducer);
 // Load JWT if exists
 const token = localStorage.getItem("token");
 if (token) {
+  dashboard();
   store.dispatch({ type: AUTHENTICATED });
 } else {
   store.dispatch({ type: LOGGED_OUT });

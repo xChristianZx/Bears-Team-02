@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import NavigationComp from "../../components/UI/Navigation/Navigation";
 
 const linksIn = [
-  { name: "Connections", url: "/connect", class: "navbar-item" },
+  { name: "Connect", url: "/connect", class: "navbar-item" },
   { name: "Dashboard", url: "/dashboard", class: "navbar-item" },
   { name: "Log Out", url: "/logout", class: "navbar-item" }
 ];
@@ -16,19 +16,20 @@ const linksOut = [
 class Navigation extends Component {
   state = { toggleBurger: false };
 
-  componentDidMount() {
-    console.log("CWD", this.props);
-  }
-
   handleBurgerClick = () => {
     this.setState(prevState => ({ toggleBurger: !prevState.toggleBurger }));
   };
 
   render() {
-
     return (
-      <NavigationComp handleBurgerClick={this.handleBurgerClick} toggleBurger={this.state.toggleBurger} authenticated={this.props.authenticated} linksIn={linksIn} linksOut={linksOut} />
-    )
+      <NavigationComp
+        handleBurgerClick={this.handleBurgerClick}
+        toggleBurger={this.state.toggleBurger}
+        authenticated={this.props.authenticated}
+        linksIn={linksIn}
+        linksOut={linksOut}
+      />
+    );
   }
 }
 
@@ -42,28 +43,3 @@ export default connect(
   null,
   { pure: true }
 )(Navigation);
-
-/* Saving for now - Handler for navBar Burger */
-// document.addEventListener("DOMContentLoaded", () => {
-//   // Get all "navbar-burger" elements
-//   const $navbarBurgers = Array.prototype.slice.call(
-//     document.querySelectorAll(".navbar-burger"),
-//     0
-//   );
-
-//   // Check if there are any navbar burgers
-//   if ($navbarBurgers.length > 0) {
-//     // Add a click event on each of them
-//     $navbarBurgers.forEach(el => {
-//       el.addEventListener("click", () => {
-//         // Get the target from the "data-target" attribute
-//         const target = el.dataset.target;
-//         const $target = document.getElementById(target);
-
-//         // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-//         el.classList.toggle("is-active");
-//         $target.classList.toggle("is-active");
-//       });
-//     });
-//   }
-// });

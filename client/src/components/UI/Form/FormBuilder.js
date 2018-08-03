@@ -25,8 +25,10 @@ const FormBuilder = props => {
 		<Form className='Form' onSubmit={handleSubmit}>
       <h1 className="title" >{props.formTitle}</h1>
 			{fields}
-			<button className='button is-success' type="submit">{props.buttonText}</button>
-			<button className='button is-danger'>Clear</button>
+			<div className="buttons">			
+				<button className='button is-success' type="submit">{props.buttonText}</button>					
+				<button className='button is-danger is-outlined'>Clear</button>			
+			</div>
 			{props.errors}
 		</Form>
 	);
@@ -44,12 +46,11 @@ const validate = values => {
 		if (thisField === 'confirmPassword' && values.confirmPassword !== values.password) {
 			errors[thisField] = 'Passwords do not match';
 		}
-		return errors; // TODO Check if this return is neeeded
 	});
 	return errors;
 };
 
 export default reduxForm({
-  form: 'SignUp', // TODO See about dynamic name here
+  form: 'form',
 	validate
 })(FormBuilder)
