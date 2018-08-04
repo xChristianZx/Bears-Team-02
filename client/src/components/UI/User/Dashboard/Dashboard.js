@@ -5,7 +5,7 @@ import PendingConnections from './PendingConnections/PendingConnections';
 import Profile from './Profile/Profile';
 import Loader from '../../Enhancements/Loader';
 
-const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections }) => {
+const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, connections, toggleSection, displayingSection, pendingConnections, messages }) => {
 	return (
     <React.Fragment>
 
@@ -112,6 +112,16 @@ const Dashboard = ({ user, pendingRequests, toggleTechnical, toggleEditProfile, 
 
         <div hidden={displayingSection !== 'Messages'}>
           Messages
+
+          {
+            messages.map(message => {
+              return (
+                <div>
+                  <p>{message.messageBody}</p>
+                </div>
+              )
+            })
+          }
         </div>
 
         <div hidden={displayingSection !== 'Profile'}>

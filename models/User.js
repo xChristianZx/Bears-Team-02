@@ -23,7 +23,8 @@ const userSchema = new Schema({
   },
   isTechnical: { type: Boolean, required: true, default: false },
   pendingConnectionRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: "ConnectionRequest" }],
-  connections: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
+  connections: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  messages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }]
 });
 
 userSchema.plugin(passportLocalMongoose);

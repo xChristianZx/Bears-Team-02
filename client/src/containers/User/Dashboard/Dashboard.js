@@ -85,6 +85,7 @@ class Dashboard extends Component {
 					pendingConnections={this.props.pendingConnections} 
 					pendingRequests={this.props.pendingRequests} 
 					pendingConnectionResponse={this.pendingConnectionResponse}
+					messages={this.props.messages}
 					toggleTechnical={this.toggleTechnical} 
 					toggleSection={this.toggleSection} 
 					displayingSection={this.state.displayingSection} 
@@ -106,6 +107,7 @@ const mapStateToProps = state => {
 		connections: state.User.connections,
 		pendingConnections: state.User.pendingConnections,
 		pendingRequests: state.User.pendingRequests,
+		messages: state.User.messages,
     flashMessage: state.User.flashMessage
 	};
 };

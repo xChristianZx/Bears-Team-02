@@ -12,7 +12,7 @@ export default function(state = initialState, action) {
 		case AUTHENTICATED:
 			return { ...state, authenticated: true };
 		case USER_DASHBOARD:
-			return { ...state, user: action.payload.user, connections: action.payload.user.connections };
+			return { ...state, user: action.payload.user, connections: action.payload.user.connections, messages: action.payload.user.messages };
 		case LOGGED_OUT:
 			return { ...state, ...initialState };
 		case GET_USERS: 
