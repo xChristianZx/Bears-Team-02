@@ -6,7 +6,11 @@ const Messages = ({ messages }) => {
   let listMessages = messages.messages.map(message => {
     return (
       <div>
-        {message.messageBody}
+        <p>From: {message.sendingUser.firstName} {message.sendingUser.lastName}</p>
+        <p>Message: {message.messageBody}</p>
+        <p>Status: {message.read ? 'Read' : 'UNREAD'} </p>
+        <button>ICON FOR MARK AS READ?</button>
+        <button>REPLY</button>
       </div>
     )
   })

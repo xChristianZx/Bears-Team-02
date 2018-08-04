@@ -193,8 +193,8 @@ router.post('/sendmessage', requireAuth, (req, res) => {
 router.get('/messages', requireAuth, (req, res) => {
 	console.log('ID', req.user._id)
  
-	Message.find({ sendingUser: req.user._id })
-		.populate('receivingUser', '-pendingConnectionRequests -messages -email')
+	Message.find({ receivingUser: req.user._id })
+		.populate('sendingUser', '-pendingConnectionRequests -messages -email')
 		.exec((err, message) => {
 			if(!message) {
 				res.json({
