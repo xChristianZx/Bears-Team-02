@@ -145,24 +145,24 @@ router.post('/connectionrequest', requireAuth, (req, res) => {
 // Send a Message
 router.post('/sendmessage', requireAuth, (req, res) => {
 	let newMessage = new Message({
-		sendingUser: req.user._id,
+		sendingUser: req.user,
 		receivingUser: req.body.receivingUser,
 		messageBody: req.body.messageBody,
 	});
 
 	Message.create(newMessage, (err, message) => {
 		if (message) {
-			User.findById(req.user._id, (err, sendingUser) => {
+			User.findById(newMessage.sendingUser._id, (err, user) => {
 				if(err) {
 					res.json({
 						err
 					})
 				}
-				if(sendingUser) {
-					sendingUser.messages.push(message._id)
-					sendingUser.save()
+				if(user) {
+					user.messages.push(message._id)
+					user.save()
 					
-					User.findById(req.body.receivingUser, (err, receivingUser) => {
+					User.findById(newMessage.receivingUser, (err, receivingUser) => {
 						if(err) {
 							res.json({
 								err
@@ -187,6 +187,31 @@ router.post('/sendmessage', requireAuth, (req, res) => {
 			})
 		}
 	});
+});
+
+/*  Endpoint for getMessages() Action Creator*/
+router.get('/messages', requireAuth, (req, res) => {
+	console.log('ID', req.user._id)
+ 
+	Message.find({ sendingUser: req.user._id })
+		.populate('receivingUser', '-pendingConnectionRequests -messages -email')
+		.exec((err, message) => {
+			if(!message) {
+				res.json({
+					success: false
+				}) 
+			}
+			if(message) {
+				console.log('MESSAGE', message)
+				let messages
+				messages = message
+				
+				return res.json({
+					success: true,
+					messages 
+				})
+			}
+		})
 });
 
 /*  Endpoint for getPendingConnections() Action Creator*/
