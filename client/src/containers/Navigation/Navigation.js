@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import "./Navigation.css";
 import { connect } from "react-redux";
 import NavigationComp from "../../components/UI/Navigation/Navigation";
+import * as userActions from "../../actions/UserActions"
+import { bindActionCreators } from 'redux';
 
 const linksIn = [
   { name: "Connect", url: "/connect", class: "navbar-item" },
   { name: "Dashboard", url: "/dashboard", class: "navbar-item" },
-  { name: "Log Out", url: "/logout", class: "navbar-item" }
+  { name: "Log Out", url: "/logout", class: "navbar-item" },
+  { name: "Notifications", url: "#", class: "navbar-item" }
 ];
 const linksOut = [
   { name: "Sign Up", url: "/signup", class: "navbar-item" },
@@ -16,30 +19,49 @@ const linksOut = [
 class Navigation extends Component {
   state = { toggleBurger: false };
 
+  componentDidUpdate(prevProps) {
+		if(prevProps.pendingRequests !== this.props.pendingRequests){
+			this.props.actions.getPendingConnections()
+		}
+  }
+  
   handleBurgerClick = () => {
     this.setState(prevState => ({ toggleBurger: !prevState.toggleBurger }));
   };
 
   render() {
     return (
-      <NavigationComp
+      <div>
+        <NavigationComp
         handleBurgerClick={this.handleBurgerClick}
         toggleBurger={this.state.toggleBurger}
         authenticated={this.props.authenticated}
         linksIn={linksIn}
         linksOut={linksOut}
+        pendingRequests={this.props.pendingRequests}
       />
+      {this.props.pendingRequests}
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return { authenticated: state.User.authenticated };
+  return { 
+    authenticated: state.User.authenticated,
+    pendingRequests: state.User.pendingRequests
+   };
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(Object.assign(userActions), dispatch)
+  }
+}
 
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
   null,
   { pure: true }
 )(Navigation);

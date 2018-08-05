@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../hoc/history';
 
-import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, GET_USERS, FLASH_MESSAGE, GET_CONNECTIONS } from './types';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, GET_USERS, FLASH_MESSAGE, GET_CONNECTIONS, GET_MESSAGES } from './types';
 
 const ROOT_URL = 'http://localhost:5000';
 
@@ -52,6 +52,7 @@ export function dashboard() {
 	return dispatch => {
 		let token = localStorage.getItem('token');
 		axios.get(`${ROOT_URL}/auth/dashboard`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
+			console.log('DATA', response.data)
 			dispatch({ type: USER_DASHBOARD, payload: response.data });
 		}).catch(error => {
 			dispatch({ type: USER_DASHBOARD, payload: 'Failed to load Dashboard'})
@@ -107,6 +108,19 @@ export function getPendingConnections() {
 		let token = localStorage.getItem('token');
 		axios.get(`${ROOT_URL}/auth/pendingconnections`, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
 			dispatch({ type: GET_CONNECTIONS, payload: response.data })
+		}).catch(error => {
+			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})			
+		})
+	}
+}
+
+export function getMessages() {
+	return dispatch => {
+		let token = localStorage.getItem('token');
+		console.log('token', token)
+		axios.get(`${ROOT_URL}/auth/messages`, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
+			console.log('DATAw', response.data.messages)
+			dispatch({ type: GET_MESSAGES, payload: response.data })
 		}).catch(error => {
 			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})			
 		})

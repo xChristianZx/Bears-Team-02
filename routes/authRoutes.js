@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
 const mongoose = require('mongoose');
+const User = require('../models/User');
 const ConnectionRequest = mongoose.model('ConnectionRequest');
+const Message = require('../models/Message');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const jwt = require('jwt-simple');
@@ -32,9 +33,26 @@ router.post('/register', (req, res) => {
 			return res.status(400).send(err);
 		}
 		passport.authenticate('local')(req, res, () => {
-
-			const { _id, firstName, lastName, username, email, connections, pendingConnectionRequests } = req.user;
-			const foundUser = { _id, firstName, lastName, username, email, connections, pendingConnectionRequests };
+			const {
+				_id,
+				firstName,
+				lastName,
+				username,
+				email,
+				connections,
+				pendingConnectionRequests,
+				messages,
+			} = req.user;
+			const foundUser = {
+				_id,
+				firstName,
+				lastName,
+				username,
+				email,
+				connections,
+				pendingConnectionRequests,
+				messages,
+			};
 
 			return res.status(200).send({
 				user: foundUser,
@@ -88,6 +106,7 @@ router.get('/logout', (req, res) => {
 router.get('/dashboard', requireAuth, (req, res) => {
 	User.findById(req.user._id)
 		.populate('connections')
+		.populate('messages')
 		.exec((err, user) => {
 			if (err) {
 				console.log(err);
@@ -121,6 +140,78 @@ router.post('/connectionrequest', requireAuth, (req, res) => {
 			});
 		}
 	});
+});
+
+// Send a Message
+router.post('/sendmessage', requireAuth, (req, res) => {
+	let newMessage = new Message({
+		sendingUser: req.user,
+		receivingUser: req.body.receivingUser,
+		messageBody: req.body.messageBody,
+	});
+
+	Message.create(newMessage, (err, message) => {
+		if (message) {
+			User.findById(newMessage.sendingUser._id, (err, user) => {
+				if(err) {
+					res.json({
+						err
+					})
+				}
+				if(user) {
+					user.messages.push(message._id)
+					user.save()
+					
+					User.findById(newMessage.receivingUser, (err, receivingUser) => {
+						if(err) {
+							res.json({
+								err
+							})
+						}
+
+						if(receivingUser) {
+							receivingUser.messages.push(message._id)
+							receivingUser.save()
+
+							res.json({
+								success: true
+							});
+						}
+					})
+				}
+			})
+		} else {
+			res.json({
+				success: false,
+				error: err
+			})
+		}
+	});
+});
+
+/*  Endpoint for getMessages() Action Creator*/
+router.get('/messages', requireAuth, (req, res) => {
+	console.log('ID', req.user._id)
+ 
+	Message.find({ receivingUser: req.user._id })
+		.populate('sendingUser', '-pendingConnectionRequests -messages -email')
+		.exec((err, message) => {
+			if(!message) {
+				res.json({
+					success: false
+				}) 
+			}
+			if(message) {
+				console.log('MESSAGE', message)
+				let messages
+				messages = message
+				
+				return res.json({
+					success: true,
+					messages 
+				})
+			}
+		})
 });
 
 /*  Endpoint for getPendingConnections() Action Creator*/
@@ -195,7 +286,7 @@ router.post('/pendingconnectionresponse', requireAuth, (req, res) => {
 		connReq.status = action;
 		connReq.save();
 
-		if(action === 'Accepted') {
+		if (action === 'Accepted') {
 			User.findById(acceptingUser, (err, user) => {
 				if (err) {
 					res.json({
@@ -225,11 +316,10 @@ router.post('/pendingconnectionresponse', requireAuth, (req, res) => {
 		} else {
 			res.json({
 				success: true,
-				message: 'Connection request declined.'
-			})
+				message: 'Connection request declined.',
+			});
 		}
 	});
 });
 
 module.exports = router;
-
