@@ -112,12 +112,13 @@ const Dashboard = ({
 					{pendingConnections ? (
 						<PendingConnections
 							pendingConnections={pendingConnections}
-							pendingConnectionResponse={this.pendingConnectionResponse}
+							pendingConnectionResponse={pendingConnectionResponse}
 						/>
 					) : (
 						<p>No Pending Connections</p>
 					)}
 				</div>
+
 
 				<div hidden={displayingSection !== 'Connections'}>
 					<Connections connections={connections} />

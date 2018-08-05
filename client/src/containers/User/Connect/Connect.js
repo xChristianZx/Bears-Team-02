@@ -32,7 +32,7 @@ class Connect extends Component {
   renderConnectionList = () => {
     const { getUsers, pendingConnections, user, users } = this.props;
     // * Temp fix for error caused on reload to /connect with user state not populating
-    if (user === null) {
+    if (user === null || pendingConnections === null) {
       this.props.dashboard();
       this.props.getPendingConnections();
       return <Loader />;
