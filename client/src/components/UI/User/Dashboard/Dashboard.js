@@ -15,6 +15,7 @@ const Dashboard = ({
 	toggleSection,
 	displayingSection,
 	pendingConnections,
+	pendingConnectionResponse,
 	messages,
 }) => {
 	return (
