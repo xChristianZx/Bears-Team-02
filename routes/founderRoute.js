@@ -13,7 +13,7 @@ router.get("/", requireAuth, (req, res) => {
   const userID = req.user._id;
   const userConnections = req.user.connections;
   const blockedConnections = req.user.blockedConnections;
-
+  const { hiddenUsers } = req.user;
   const { isTechnical } = req.query; // Note: returns a String, not a Boolean
   /*  
     .find() params: Filters current loggedInUser and current connections
@@ -21,7 +21,7 @@ router.get("/", requireAuth, (req, res) => {
    */
   User.find({
     _id: {
-      $nin: [userID, ...userConnections, ...blockedConnections]
+      $nin: [userID, ...userConnections, ...blockedConnections, ...hiddenUsers]
     }
   })
     .populate("pendingConnectionRequests")
