@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userActions from '../../../actions/UserActions';
+import * as connectionActions from '../../../actions/ConnectionActions';
+import * as messagingActions from '../../../actions/MessagingActions';
 import { reduxForm, Field } from 'redux-form';
 
 import './Dashboard.css';
@@ -107,22 +109,21 @@ class Dashboard extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	console.log('STATE', state)
+const mapStateToProps = ({ User, Connection, Message }) => {
 	return { 
-		user: state.User.user, 
-		initialValues: state.User.user,
-		connections: state.User.connections,
-		pendingConnections: state.User.pendingConnections,
-		pendingRequests: state.User.pendingRequests,
-		messages: state.User.messages,
-    flashMessage: state.User.flashMessage
+		user: User.user, 
+		initialValues: User.user,
+		connections: User.connections,
+		pendingConnections: Connection.pendingConnections,
+		pendingRequests: Connection.pendingRequests,
+		messages: Message.messages,
+    flashMessage: User.flashMessage
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		actions: bindActionCreators(Object.assign(userActions), dispatch),
+		actions: bindActionCreators(Object.assign(userActions, connectionActions, messagingActions), dispatch),
 	};
 };
 

@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import "./Connect.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import {
-  getUsers,
-  requestConnection,
-  dashboard,
-  getPendingConnections
-} from "../../../actions/UserActions";
+import { dashboard } from "../../../actions/UserActions";
+import { getUsers, requestConnection, getPendingConnections } from '../../../actions/ConnectionActions';
 import ConnectComp from "../../../components/UI/User/ConnectComp/ConnectComp";
 import Loader from "../../../components/UI/Enhancements/Loader";
 import { withAlert } from "react-alert";
@@ -62,12 +58,12 @@ class Connect extends Component {
   }
 }
 
-const mapStateToProps = ({ User }) => {
+const mapStateToProps = ({ User, Connection }) => {
   // console.log("STATE", User);
   return {
-    users: User.users,
+    users: Connection.users,
     user: User.user,
-    pendingConnections: User.pendingConnections,
+    pendingConnections: Connection.pendingConnections,
     flashMessage: User.flashMessage
   };
 };

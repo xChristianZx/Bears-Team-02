@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Navigation.css";
 import { connect } from "react-redux";
 import NavigationComp from "../../components/UI/Navigation/Navigation";
-import * as userActions from "../../actions/UserActions"
+import * as connectionActions from "../../actions/ConnectionActions"
 import { bindActionCreators } from 'redux';
 
 const linksIn = [
@@ -55,7 +55,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(Object.assign(userActions), dispatch)
+    actions: bindActionCreators(Object.assign(connectionActions), dispatch)
   }
 }
 
