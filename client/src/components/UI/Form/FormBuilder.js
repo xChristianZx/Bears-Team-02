@@ -46,6 +46,7 @@ const validate = values => {
 		if (thisField === 'confirmPassword' && values.confirmPassword !== values.password) {
 			errors[thisField] = 'Passwords do not match';
 		}
+		return errors; //Replacing for now to clear out warning message
 	});
 	return errors;
 };
