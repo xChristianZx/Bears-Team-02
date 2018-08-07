@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../hoc/history';
 
-import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, GET_USERS, FLASH_MESSAGE, GET_CONNECTIONS, GET_MESSAGES } from './types';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, FLASH_MESSAGE } from './types';
 
 export function signUp({ firstName, lastName, username, email, password }) {
 	return dispatch => {
@@ -49,7 +49,7 @@ export function login({ username, password }) {
 export function dashboard() {
 	return dispatch => {
 		let token = localStorage.getItem('token');
-		axios.get(`${ROOT_URL}/auth/dashboard`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
+		axios.get(`/auth/dashboard`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
 			console.log('DATA', response.data)
 			dispatch({ type: USER_DASHBOARD, payload: response.data });
 		}).catch(error => {
@@ -66,18 +66,6 @@ export function logout() {
 	};
 }
 
-/* Populates /connect potential Connections list */
-export function getUsers(filterParams) {
-	return dispatch => {
-		let token = localStorage.getItem('token');
-		axios.get(`/founders`, { params:{ isTechnical : filterParams || "all" }, headers: { Authorization: `Bearer ${token}` } }).then(response => {
-			dispatch({ type: GET_USERS, payload: response.data })
-		}).catch(error => {
-				dispatch({ type: FLASH_MESSAGE, payload: 'Failed to load users'})
-		})
-	};
-}
-
 export function toggleTechnical() {
 	return dispatch => {
 		let token = localStorage.getItem('token');
@@ -90,66 +78,3 @@ export function toggleTechnical() {
 	}
 }
 
-export function requestConnection(requestedUser) {
-	return dispatch => {
-		let token = localStorage.getItem('token');
-		axios.post(`/auth/connectionrequest`, { requestedUser }, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
-			dispatch({ type: FLASH_MESSAGE, payload: 'Connected request sent' })
-			history.push('/connect')
-		}).catch(error => {
-			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})
-	})
-	}
-}
-
-/* Blocking a Connection */
-export function blockConnection(blockedUserId) {
-	return dispatch => {
-		console.log(`blockConnection Action ${blockedUserId}`)
-		let token = localStorage.getItem('token');
-		axios.post(`${ROOT_URL}/auth/blockconnection`, { blockedUserId }, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
-			dispatch({ type: FLASH_MESSAGE, payload: response.data.message })
-			dispatch({ type: USER_DASHBOARD, payload: response.data })
-			history.push('/dashboard')
-		}).catch(error => {
-			console.log("Blocked Connection Error", error)
-			dispatch({ type: FLASH_MESSAGE, payload: 'Blocking of connection failed. Please try again.' })
-		})
-	}
-}
-
-export function getPendingConnections() {
-	return dispatch => {
-		let token = localStorage.getItem('token');
-		axios.get(`/auth/pendingconnections`, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
-			dispatch({ type: GET_CONNECTIONS, payload: response.data })
-		}).catch(error => {
-			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})			
-		})
-	}
-}
-
-export function getMessages() {
-	return dispatch => {
-		let token = localStorage.getItem('token');
-		console.log('token', token)
-		axios.get(`${ROOT_URL}/auth/messages`, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
-			console.log('DATAw', response.data.messages)
-			dispatch({ type: GET_MESSAGES, payload: response.data })
-		}).catch(error => {
-			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})			
-		})
-	}
-}
-
-export function pendingConnectionResponse({ connectionRequest, action }) {
-	return dispatch => {
-		let token = localStorage.getItem('token');
-		axios.post(`/auth/pendingconnectionresponse`, { connectionRequest, action }, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
-			dispatch({ type: FLASH_MESSAGE, payload: response.data.message  })
-			history.push('/dashboard')
-		}).catch(error => {
-			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again' })
-		})
-	}
-}

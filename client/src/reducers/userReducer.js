@@ -4,11 +4,8 @@ import {
   USER_DASHBOARD,
   LOGGED_OUT,
   AUTHENTICATED,
-  GET_USERS,
   FLASH_MESSAGE,
-  GET_CONNECTIONS,
-  GET_MESSAGES
-} from "../../actions/types";
+} from "../actions/types";
 
 // User state shape and initial state
 const initialState = {
@@ -38,18 +35,8 @@ export default function(state = initialState, action) {
       };
     case LOGGED_OUT:
       return { ...state, ...initialState };
-    case GET_USERS:
-      return { ...state, users: action.payload };
     case FLASH_MESSAGE:
       return { ...state, flashMessage: action.payload };
-    case GET_CONNECTIONS:
-      return {
-		...state,
-        pendingConnections: action.payload.connectionRequests,
-        pendingRequests: action.payload.pendingRequests
-      };
-    case GET_MESSAGES:
-      return { ...state, messages: action.payload };
     default:
       return state;
   }
