@@ -35,7 +35,7 @@ class Dashboard extends Component {
 				console.log('ERE')
 				this.props.actions.getMessages()
 			}
-		}
+		}		
 	}
 	
 	onSubmit = values => {
@@ -94,7 +94,9 @@ class Dashboard extends Component {
 					toggleTechnical={this.toggleTechnical} 
 					toggleSection={this.toggleSection} 
 					displayingSection={this.state.displayingSection} 
-					acceptConnection={this.acceptConnection} />
+					acceptConnection={this.acceptConnection}
+					blockConnection={this.props.actions.blockConnection}
+					/>
 				</Fragment>
 			);
 		}

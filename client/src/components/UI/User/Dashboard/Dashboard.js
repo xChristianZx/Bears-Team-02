@@ -16,6 +16,7 @@ const Dashboard = ({
 	displayingSection,
 	pendingConnections,
 	pendingConnectionResponse,
+	blockConnection,
 	messages,
 }) => {
 	return (
@@ -122,7 +123,7 @@ const Dashboard = ({
 
 
 				<div hidden={displayingSection !== 'Connections'}>
-					<Connections connections={connections} />
+					<Connections connections={connections} blockConnection={blockConnection}/>
 				</div>
 
 				<div hidden={displayingSection !== 'Messages'}>
