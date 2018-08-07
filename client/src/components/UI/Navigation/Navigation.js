@@ -3,7 +3,7 @@ import Links from './Links'
 import classNames from "classnames";
 import { Link } from 'react-router-dom'
 
-const NavigationComp = ({ handleBurgerClick, toggleBurger, authenticated, linksIn, linksOut }) => {
+const NavigationComp = ({ handleBurgerClick, toggleBurger, authenticated, linksIn, linksOut, pendingRequests }) => {
   let navBurger = classNames("navbar-burger", {
     "is-active": toggleBurger
   });
@@ -33,7 +33,7 @@ const NavigationComp = ({ handleBurgerClick, toggleBurger, authenticated, linksI
         <div id="navMenu" className={navMenu}>
           <div className="navbar-end">
             {authenticated ? (
-              <Links links={linksIn} />
+              <Links links={linksIn} pendingRequests={pendingRequests} />
             ) : (
               <Links links={linksOut} />
             )}

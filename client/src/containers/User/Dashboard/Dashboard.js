@@ -24,15 +24,20 @@ class Dashboard extends Component {
 	componentDidMount() {
 		this.props.actions.dashboard();
 		this.props.actions.getPendingConnections()
+		this.props.actions.getMessages()
 	}
-
+	
 	componentDidUpdate(prevProps) {
 		if(prevProps.flashMessage !== this.props.flashMessage){
 			this.props.alert.show(this.props.flashMessage)
 			this.props.actions.getPendingConnections()
-		}
+			if(this.props.user) {
+				console.log('ERE')
+				this.props.actions.getMessages()
+			}
+		}		
 	}
-
+	
 	onSubmit = values => {
 		this.props.actions.updateProfile(values);
 	};
@@ -85,10 +90,13 @@ class Dashboard extends Component {
 					pendingConnections={this.props.pendingConnections} 
 					pendingRequests={this.props.pendingRequests} 
 					pendingConnectionResponse={this.pendingConnectionResponse}
+					messages={this.props.messages}
 					toggleTechnical={this.toggleTechnical} 
 					toggleSection={this.toggleSection} 
 					displayingSection={this.state.displayingSection} 
-					acceptConnection={this.acceptConnection} />
+					acceptConnection={this.acceptConnection}
+					blockConnection={this.props.actions.blockConnection}
+					/>
 				</Fragment>
 			);
 		}
@@ -100,12 +108,14 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => {
+	console.log('STATE', state)
 	return { 
 		user: state.User.user, 
 		initialValues: state.User.user,
 		connections: state.User.connections,
 		pendingConnections: state.User.pendingConnections,
 		pendingRequests: state.User.pendingRequests,
+		messages: state.User.messages,
     flashMessage: state.User.flashMessage
 	};
 };

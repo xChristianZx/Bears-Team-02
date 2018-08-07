@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../hoc/history';
 
-import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, GET_USERS, FLASH_MESSAGE, GET_CONNECTIONS } from './types';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, GET_USERS, FLASH_MESSAGE, GET_CONNECTIONS, GET_MESSAGES } from './types';
 
 export function signUp({ firstName, lastName, username, email, password }) {
 	return dispatch => {
@@ -49,7 +49,8 @@ export function login({ username, password }) {
 export function dashboard() {
 	return dispatch => {
 		let token = localStorage.getItem('token');
-		axios.get(`/auth/dashboard`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
+		axios.get(`${ROOT_URL}/auth/dashboard`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
+			console.log('DATA', response.data)
 			dispatch({ type: USER_DASHBOARD, payload: response.data });
 		}).catch(error => {
 			dispatch({ type: USER_DASHBOARD, payload: 'Failed to load Dashboard'})
@@ -101,11 +102,40 @@ export function requestConnection(requestedUser) {
 	}
 }
 
+/* Blocking a Connection */
+export function blockConnection(blockedUserId) {
+	return dispatch => {
+		console.log(`blockConnection Action ${blockedUserId}`)
+		let token = localStorage.getItem('token');
+		axios.post(`${ROOT_URL}/auth/blockconnection`, { blockedUserId }, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
+			dispatch({ type: FLASH_MESSAGE, payload: response.data.message })
+			dispatch({ type: USER_DASHBOARD, payload: response.data })
+			history.push('/dashboard')
+		}).catch(error => {
+			console.log("Blocked Connection Error", error)
+			dispatch({ type: FLASH_MESSAGE, payload: 'Blocking of connection failed. Please try again.' })
+		})
+	}
+}
+
 export function getPendingConnections() {
 	return dispatch => {
 		let token = localStorage.getItem('token');
 		axios.get(`/auth/pendingconnections`, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
 			dispatch({ type: GET_CONNECTIONS, payload: response.data })
+		}).catch(error => {
+			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})			
+		})
+	}
+}
+
+export function getMessages() {
+	return dispatch => {
+		let token = localStorage.getItem('token');
+		console.log('token', token)
+		axios.get(`${ROOT_URL}/auth/messages`, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
+			console.log('DATAw', response.data.messages)
+			dispatch({ type: GET_MESSAGES, payload: response.data })
 		}).catch(error => {
 			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})			
 		})
