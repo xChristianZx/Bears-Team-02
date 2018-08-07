@@ -110,9 +110,10 @@ export function blockConnection(blockedUserId) {
 		let token = localStorage.getItem('token');
 		axios.post(`${ROOT_URL}/auth/blockconnection`, { blockedUserId }, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
 			dispatch({ type: FLASH_MESSAGE, payload: response.data.message })
-			dispatch({ type: USER_DASHBOARD, payload: response.data })			
+			dispatch({ type: USER_DASHBOARD, payload: response.data })
 			history.push('/dashboard')
 		}).catch(error => {
+			console.log("Blocked Connection Error", error)
 			dispatch({ type: FLASH_MESSAGE, payload: 'Blocking of connection failed. Please try again.' })
 		})
 	}

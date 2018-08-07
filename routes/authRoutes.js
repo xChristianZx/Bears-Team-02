@@ -323,36 +323,41 @@ router.post('/pendingconnectionresponse', requireAuth, (req, res) => {
 });
 
 router.post("/blockconnection", requireAuth, (req, res) => {
-	const loggedInUserId = req.user._id;
-	const userToBlock = req.body.blockedUserId;
-	
-	/*  1. Find userToBlock and remove loggedInUser from their connections list */
-	const updateBlockedUserConnections = User.findByIdAndUpdate(
-		userToBlock,
-		{ $addToSet: { hiddenUsers: loggedInUserId }, $pull: { connections: loggedInUserId } },
-		{ new: true }
-	);
+  const loggedInUserId = req.user._id;
+  const userToBlock = req.body.blockedUserId;
 
-	/*  2. Find loggedInUser and remove userToBlock from connections and add to blockedConnections */
-	const updateLoggedInUser = User.findByIdAndUpdate(
-		loggedInUserId,
-		{
-			$addToSet: { blockedConnections: userToBlock },
-			$pull: { connections: userToBlock }
-		},
-		{ new: true }
-	);
+  // ? - Better way to handle multiple docs update async; as queries do not return promises
 
-	Promise.all([
-    updateBlockedUserConnections,
-    updateLoggedInUser
-  ]).then(() => User.findById(loggedInUserId)
-      .populate("connections")
-      //   .populate("blockedConnections")  // No need to populate for now, id should suffice
-      .then(user =>
-        res.status(200).send({ message: "Connection Blocked", user })
-	  ));
-	  // ? - Catch statement on Promise.All on a Query???
+  /*  1. Find userToBlock and remove loggedInUser from their connections list */
+  const updateBlockedUserConnections = User.findByIdAndUpdate(
+    userToBlock,
+    {
+      $addToSet: { hiddenUsers: loggedInUserId },
+      $pull: { connections: loggedInUserId }
+    },
+    { new: true }
+  );
+
+  /*  2. Find loggedInUser and remove userToBlock from connections and add to blockedConnections */
+  const updateLoggedInUser = User.findByIdAndUpdate(
+    loggedInUserId,
+    {
+      $addToSet: { blockedConnections: userToBlock },
+      $pull: { connections: userToBlock }
+    },
+    { new: true }
+  );
+
+  return Promise.all([updateBlockedUserConnections, updateLoggedInUser])
+    .then(() =>
+      User.findById(loggedInUserId)
+        .populate("connections")
+        //   .populate("blockedConnections")  // No need to populate for now, id should suffice
+        .then(user =>
+          res.status(200).send({ message: "Connection Blocked", user })
+        )
+    )
+    .catch(error => res.status(400).send({ error: error.message }));
 });
 
 module.exports = router;
