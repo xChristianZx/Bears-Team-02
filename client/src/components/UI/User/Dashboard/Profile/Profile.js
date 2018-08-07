@@ -1,7 +1,8 @@
 import React from 'react';
 
 const Profile = ({ user }) => {
-	console.log('USER', user);
+	// console.log('USER', user);
+	// eslint-disable-next-line
 	const { firstName, lastName, username, email } = user;
 	return (
 		<div className="container connect-container is-centered">
@@ -11,7 +12,7 @@ const Profile = ({ user }) => {
 					<div className="media">
 						<div className="media-left">
 							<figure className="image is-48x48">
-								<img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
+								<img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder" />
 							</figure>
 						</div>
 						<div className="media-content">
