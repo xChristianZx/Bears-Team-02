@@ -1,6 +1,5 @@
 import React from "react";
 import "./Connection.css";
-import { blockConnection } from "../../../../../actions/UserActions";
 
 const Connections = ({ connections, blockConnection }) => {
   let userConnections = connections.map(connection => {
