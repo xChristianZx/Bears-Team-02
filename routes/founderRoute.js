@@ -10,8 +10,9 @@ const requireAuth = passport.authenticate("jwt", { session: false });
 
 // == Main Handler for /connect list render == //
 router.get("/", requireAuth, (req, res) => {
-  const loggedInUserID = req.user._id;
-  const loggedInUserConnections = req.user.connections;
+  const userID = req.user._id;
+  const userConnections = req.user.connections;
+  const blockedConnections = req.user.blockedConnections;
 
   const { isTechnical } = req.query; // Note: returns a String, not a Boolean
   /*  
@@ -20,7 +21,7 @@ router.get("/", requireAuth, (req, res) => {
    */
   User.find({
     _id: {
-      $nin: [loggedInUserID, ...loggedInUserConnections]
+      $nin: [userID, ...userConnections, ...blockedConnections]
     }
   })
     .populate("pendingConnectionRequests")
