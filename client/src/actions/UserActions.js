@@ -26,6 +26,30 @@ export function signUp({ firstName, lastName, username, email, password }) {
 	};
 }
 
+export function updateUser(update) {
+	console.log("updateUser Action Creator",update)
+	// return dispatch => {
+	// 	axios
+	// 		.post(`${ROOT_URL}/auth/register`, { firstName, lastName, username, email, password })
+	// 		.then(response => {
+	// 			if (response.status === 200) {
+	// 				localStorage.setItem('token', response.data.token);
+	// 				dispatch({ type: SIGN_UP, payload: response.data });
+	// 				dispatch({ type: FLASH_MESSAGE, payload: response.data.message })
+	// 				history.push('/');
+	// 			} else {
+	// 				// dispatch({ type: ERROR, payload: response.data.message });
+	// 				dispatch({ type: FLASH_MESSAGE, payload: response.data.message })
+	// 				history.push('/signup');
+	// 			}
+	// 		})
+	// 		.catch(error => {
+	// 			dispatch({ type: FLASH_MESSAGE, payload: error.response.data.message })
+	// 			history.push('/signup');
+	// 		});
+	// };
+}
+
 export function login({ username, password }) {
 	return dispatch => {
 		axios

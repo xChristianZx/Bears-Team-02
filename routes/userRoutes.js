@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const chalk = require("chalk");
+const passport = require('passport');
+const jwt = require('jwt-simple');
+
+const requireAuth = passport.authenticate('jwt', { session: false });
 
 /* Currently Unused, maintaining for potential future refactor to separate some authRoutes */
 
@@ -46,17 +50,19 @@ const chalk = require("chalk");
 //   });
 // });
 
-// router.put("/", (req, res) => {
-//   // * Handling updates to user profile
-//   const { id } = req.user;
-//   const { body } = req;
-//   //   User.findByIdAndUpdate({ _id: id }, (err, user) => {
-//   //     if (err) {
-//   //       console.log(err);
-//   //       res.send(err);
-//   //     }
-//   //     res.send(user);
-// });
+/* Update User info */
+router.put("/", (req, res) => {
+  // * Handling updates to user profile
+  const { id } = req.user;
+  const { body } = req;
+  console.log("Body", body);
+  //   User.findByIdAndUpdate({ _id: id }, (err, user) => {
+  //     if (err) {
+  //       console.log(err);
+  //       res.send(err);
+  //     }
+  //     res.send(user);
+});
 
 // router.delete("/deleteUser", (req, res) => {
 //   const { id } = req.user;

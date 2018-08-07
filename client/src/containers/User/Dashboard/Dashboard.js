@@ -40,8 +40,10 @@ class Dashboard extends Component {
 		}		
 	}
 	
-	onSubmit = values => {
-		this.props.actions.updateProfile(values);
+	handleSubmit = (e, values) => {
+		e.preventDefault()		
+		this.props.actions.updateUser(values);
+		console.log("Submit Update", values);
 	};
 
 	toggleTechnical = (e) => {
@@ -57,7 +59,8 @@ class Dashboard extends Component {
 		this.props.actions.pendingConnectionResponse(connectionRequest, action)
 	}
 
-	render() {
+	render() {		
+		console.log("FORM", this.props)
 		const fields = Fields.map(field => {
 			return (
 				<Field
@@ -71,18 +74,18 @@ class Dashboard extends Component {
 		});
 
 		if (this.state.editProfile) {
-			return (
-				<form className="Form">
+			return (				
+				<Form className="Form" onSubmit={this.handleSubmit}>
 					{fields}
 					<button className="button is-success" type="submit">
 						Update Profile
 					</button>
 					<button onClick={() => this.setState({ editProfile: false })}>Cancel Edit</button>
-				</form>
+				</Form>
 			);
 		}
 
-		if (this.props.user && this.props.connections) {
+		if (this.props.user && this.props.connections) {			
 			return (
 				<Fragment>
 					<DashboardComp 
