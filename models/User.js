@@ -22,8 +22,12 @@ const userSchema = new Schema({
     countryCode: { type: String, required: false }
   },
   isTechnical: { type: Boolean, required: true, default: false },
-  pendingConnectionRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: "ConnectionRequest" }],
+  pendingConnectionRequests: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "ConnectionRequest" }
+  ],
   connections: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  blockedConnections: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  hiddenUsers:[{ type: Schema.Types.ObjectId, ref: "User" }], // Hidden Users is for other users that have blocked this user
   messages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }]
 });
 
