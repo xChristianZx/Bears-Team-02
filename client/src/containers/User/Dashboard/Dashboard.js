@@ -5,10 +5,12 @@ import * as userActions from '../../../actions/UserActions';
 import * as connectionActions from '../../../actions/ConnectionActions';
 import * as messagingActions from '../../../actions/MessagingActions';
 import { reduxForm, Field } from 'redux-form';
+import UpdateForm from "../../../components/UI/Form/UpdateForm/UpdateForm";
+import diff from 'object-diff';
 
 import './Dashboard.css';
 
-import Fields from '../../../misc/signUpFields';
+import Fields from '../../../misc/userUpdateFields';
 import formFieldRender from '../../../components/UI/Form/formFieldRender';
 import DashboardComp from '../../../components/UI/User/Dashboard/Dashboard';
 import Loader from '../../../components/UI/Enhancements/Loader';
@@ -40,10 +42,13 @@ class Dashboard extends Component {
 		}		
 	}
 	
-	handleSubmit = (e, values) => {
-		e.preventDefault()		
-		this.props.actions.updateUser(values);
+	handleSubmit = async (values) => {			
 		console.log("Submit Update", values);
+		console.log("DIRTY", this.props);
+		const { initialValues } = await this.props;
+		const objDiff = await diff(initialValues, values);
+		console.log("objDiff", objDiff);
+		this.props.actions.updateUser(objDiff);
 	};
 
 	toggleTechnical = (e) => {
@@ -75,13 +80,14 @@ class Dashboard extends Component {
 
 		if (this.state.editProfile) {
 			return (				
-				<Form className="Form" onSubmit={this.handleSubmit}>
-					{fields}
-					<button className="button is-success" type="submit">
-						Update Profile
-					</button>
-					<button onClick={() => this.setState({ editProfile: false })}>Cancel Edit</button>
-				</Form>
+				<UpdateForm fields={Fields} initialValues={this.props.initialValues} onSubmit={this.handleSubmit} closeForm={() => this.setState({editProfile: false})}/>
+				// <form className="Form" onSubmit={this.handleSubmit}>
+				// 	{fields}
+				// 	<button className="button is-success" type="submit">
+				// 		Update Profile
+				// 	</button>
+				// 	<button onClick={() => this.setState({ editProfile: false })}>Cancel Edit</button>
+				// </form>
 			);
 		}
 
@@ -132,9 +138,9 @@ const mapDispatchToProps = dispatch => {
 
 Dashboard = withAlert(Dashboard)
 
-Dashboard = reduxForm({
-	form: 'Update',
-})(Dashboard);
+// Dashboard = reduxForm({
+// 	form: 'Update',
+// })(Dashboard);
 
 export default (Dashboard = connect(
 	mapStateToProps,
