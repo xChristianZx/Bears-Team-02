@@ -21,25 +21,48 @@ const UpdateFormBuilder = props => {
   });
 
   return (
-      <Form className="Form" onSubmit={handleSubmit}>
-          <h1 className="title">Update Form</h1>
-          {fields}
-          <div className="level">
-              <div className="level-left">
-                  <button className="button is-success" type="submit" disabled={pristine || submitting}>
-                      Update Profile
-        </button>
-                  <button className="button is-small" type="reset" onClick={reset} disabled={pristine || submitting}>Reset Form</button>
-              </div>
-              <div className="level-right">
-                  <button className="button is-small is-text is-pulled-right" onClick={closeForm}>Back</button>
-              </div>
+    <Form className="Form" onSubmit={handleSubmit}>
+      <h1 className="title">Update Form</h1>
+      {fields}
+      <div className="level">
+        {/* May need to readress this if it is the best way to handle Bulma styling for button group - Mix of level and is-pulls */}
+        {/* <div className="level-left"> */}
+        <div className="field is-grouped is-pulled-left">
+          <div className="control">
+            <button
+              className="button is-success"
+              type="submit"
+              disabled={pristine || submitting}
+            >
+              Update Profile
+            </button>
           </div>
-          {props.errors}
-      </Form>
+          <div className="control">
+            <button
+              className="button"
+              type="reset"
+              onClick={reset}
+              disabled={pristine || submitting}
+            >
+              Reset Form
+            </button>
+          </div>
+        </div>
+        {/* </div> */}
+        {/* <div className="level-right"> */}
+        <div className="control is-pulled-right">
+          <button className="button is-small is-text " onClick={closeForm}>
+            Back
+          </button>
+        </div>
+      </div>
+      {/* </div> */}
+      {props.errors}
+    </Form>
   );
 };
 
+// TODO - update validation function to handle current fields
 // const validate = values => {
 //   const errors = {};
 
@@ -61,6 +84,6 @@ const UpdateFormBuilder = props => {
 // };
 
 export default reduxForm({
-  form: "update",
-//   validate
+  form: "update"
+  //   validate
 })(UpdateFormBuilder);
