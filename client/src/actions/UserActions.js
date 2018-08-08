@@ -26,8 +26,26 @@ export function signUp({ firstName, lastName, username, email, password }) {
 	};
 }
 
-export function login({ username, password }) {
+export function updateUser(updatedUser) {
 	return dispatch => {
+		let token = localStorage.getItem('token');
+		console.log("updateUser Action Creator", updateUser)
+		axios
+			.put(`/user`, updatedUser, { headers: { Authorization: `Bearer ${token}` } })
+			.then(response => {
+				dispatch({ type: USER_DASHBOARD, payload: response.data });
+				dispatch({ type: FLASH_MESSAGE, payload: response.data.message })
+				history.push('/dashboard');
+			})
+			.catch(error => {
+				dispatch({ type: FLASH_MESSAGE, payload: error.response.data.message })				
+				console.log(error)
+			});
+	};
+}
+
+export function login({ username, password }) {
+	return dispatch => {		
 		axios
 			.post(`/auth/login`, { username, password })
 			.then(response => {

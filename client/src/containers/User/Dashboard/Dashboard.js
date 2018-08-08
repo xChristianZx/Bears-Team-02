@@ -1,18 +1,16 @@
 import React, { Component, Fragment } from 'react';
+import './Dashboard.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import diff from 'object-diff';
+import { withAlert } from 'react-alert';
 import * as userActions from '../../../actions/UserActions';
 import * as connectionActions from '../../../actions/ConnectionActions';
 import * as messagingActions from '../../../actions/MessagingActions';
-import { reduxForm, Field } from 'redux-form';
-
-import './Dashboard.css';
-
-import Fields from '../../../misc/signUpFields';
-import formFieldRender from '../../../components/UI/Form/formFieldRender';
+import UpdateForm from "../../../components/UI/Form/UpdateForm/UpdateForm";
+import updateFields from '../../../misc/userUpdateFields';
 import DashboardComp from '../../../components/UI/User/Dashboard/Dashboard';
 import Loader from '../../../components/UI/Enhancements/Loader';
-import { withAlert } from 'react-alert';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -40,8 +38,11 @@ class Dashboard extends Component {
 		}		
 	}
 	
-	onSubmit = values => {
-		this.props.actions.updateProfile(values);
+	handleSubmit = async (values) => {			
+		const { initialValues } = await this.props;
+		const objDiff = await diff(initialValues, values);
+		// console.log("objDiff", objDiff);
+		this.props.actions.updateUser(objDiff);
 	};
 
 	toggleTechnical = (e) => {
@@ -57,32 +58,15 @@ class Dashboard extends Component {
 		this.props.actions.pendingConnectionResponse(connectionRequest, action)
 	}
 
-	render() {
-		const fields = Fields.map(field => {
-			return (
-				<Field
-					key={field.name}
-					label={field.label}
-					name={field.name}
-					type={field.type}
-					component={formFieldRender}
-				/>
-			);
-		});
-
+	render() {		
+		
 		if (this.state.editProfile) {
 			return (
-				<form className="Form">
-					{fields}
-					<button className="button is-success" type="submit">
-						Update Profile
-					</button>
-					<button onClick={() => this.setState({ editProfile: false })}>Cancel Edit</button>
-				</form>
+				<UpdateForm fields={updateFields} initialValues={this.props.initialValues} onSubmit={this.handleSubmit} closeForm={() => this.setState({ editProfile: false })} />
 			);
 		}
 
-		if (this.props.user && this.props.connections) {
+		if (this.props.user && this.props.connections) {			
 			return (
 				<Fragment>
 					<DashboardComp 
@@ -128,10 +112,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 Dashboard = withAlert(Dashboard)
-
-Dashboard = reduxForm({
-	form: 'Update',
-})(Dashboard);
 
 export default (Dashboard = connect(
 	mapStateToProps,

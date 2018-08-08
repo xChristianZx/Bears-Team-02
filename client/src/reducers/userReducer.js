@@ -2,9 +2,10 @@ import {
   SIGN_UP,
   LOG_IN,
   USER_DASHBOARD,
+  USER_UPDATE,
   LOGGED_OUT,
   AUTHENTICATED,
-  FLASH_MESSAGE,
+  FLASH_MESSAGE
 } from "../actions/types";
 
 // User state shape and initial state
@@ -32,6 +33,11 @@ export default function(state = initialState, action) {
         ...state,
         user: action.payload.user,
         connections: action.payload.user.connections
+      };
+    case USER_UPDATE:
+      return {
+        ...state,
+        user: action.payload.user
       };
     case LOGGED_OUT:
       return { ...state, ...initialState };
