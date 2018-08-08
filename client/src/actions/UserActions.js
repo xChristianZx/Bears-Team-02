@@ -29,7 +29,6 @@ export function signUp({ firstName, lastName, username, email, password }) {
 export function updateUser(updatedUser) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
-		console.log("updateUser Action Creator", updateUser)
 		axios
 			.put(`/user`, updatedUser, { headers: { Authorization: `Bearer ${token}` } })
 			.then(response => {
@@ -38,7 +37,7 @@ export function updateUser(updatedUser) {
 				history.push('/dashboard');
 			})
 			.catch(error => {
-				dispatch({ type: FLASH_MESSAGE, payload: error.response.data.message })				
+				dispatch({ type: FLASH_MESSAGE, payload: error.response.data.message })
 				console.log(error)
 			});
 	};

@@ -11,8 +11,8 @@ const requireAuth = passport.authenticate("jwt", { session: false });
 
 /* 
   * Route prefix: /user
-  * This routing should be used for the User Profile page, to 
-  * retrieve and update user info
+  * This routing should be used for the User Info & Profile page
+  * to retrieve and update user info
 */
 
 /* Retrieve LoggedIn User info */
@@ -28,40 +28,19 @@ const requireAuth = passport.authenticate("jwt", { session: false });
 // });
 
 // /*
-//  May not need this route if we use PUT routing instead
-// */
-// router.post("/", (req, res) => {
-//   // * Other fields from User Schema will be updated from put route below
-//   const { firstName, lastName, userName, email, isTechnical } = req.body;
-//   const newUser = {
-//     firstName,
-//     lastName,
-//     userName,
-//     email,
-//     isTechnical
-//   };
-//   User.create(newUser, (err, user) => {
-//     if (err) {
-//       throw err;
-//     }
-//     console.log(chalk.cyan(`${user.name} has been added`));
-//     // * temporary handler to confirm successful routing
-//     return res.status(200);
-//   });
-// });
 
 /* Update User info */
 router.put("/", requireAuth, (req, res) => {
   // * Handling updates to user profile
   const { _id, } = req.user;
   const { body } = req;  
-  console.log("Body", body);
+  // console.log("Body", body);
   User.findByIdAndUpdate({ _id }, body, { new: true }, (err, user) => {
     if (err) {
       console.log(err);
       res.send({ err, message: `There was an error with the update` });
     }
-    console.log("NEWUSER", user)
+    // console.log("NEWUSER", user)
     res.send({ user, message: `${user.firstName} has been successfully updated` });
   });
 });
