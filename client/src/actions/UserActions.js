@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../hoc/history';
 
-import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, FLASH_MESSAGE } from './types';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, FLASH_MESSAGE, USER_UPDATE } from './types';
 
 export function signUp({ firstName, lastName, username, email, password }) {
 	return dispatch => {
@@ -29,16 +29,15 @@ export function signUp({ firstName, lastName, username, email, password }) {
 export function updateUser(updatedUser) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
-		console.log("updateUser Action Creator", updateUser)
 		axios
 			.put(`/user`, updatedUser, { headers: { Authorization: `Bearer ${token}` } })
 			.then(response => {
-				dispatch({ type: USER_DASHBOARD, payload: response.data });
+				dispatch({ type: USER_UPDATE, payload: response.data });
 				dispatch({ type: FLASH_MESSAGE, payload: response.data.message })
 				history.push('/dashboard');
 			})
 			.catch(error => {
-				dispatch({ type: FLASH_MESSAGE, payload: error.response.data.message })				
+				dispatch({ type: FLASH_MESSAGE, payload: error.response.data.message })
 				console.log(error)
 			});
 	};
