@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const chalk = require("chalk");
-const passport = require('passport');
-const jwt = require('jwt-simple');
+const passport = require("passport");
+const jwt = require("jwt-simple");
 
-const requireAuth = passport.authenticate('jwt', { session: false });
+const requireAuth = passport.authenticate("jwt", { session: false });
 
 /* Currently Unused, maintaining for potential future refactor to separate some authRoutes */
 
@@ -51,17 +51,19 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 // });
 
 /* Update User info */
-router.put("/", (req, res) => {
+router.put("/", requireAuth, (req, res) => {
   // * Handling updates to user profile
-  const { id } = req.user;
-  const { body } = req;
+  const { _id, } = req.user;
+  const { body } = req;  
   console.log("Body", body);
-  //   User.findByIdAndUpdate({ _id: id }, (err, user) => {
-  //     if (err) {
-  //       console.log(err);
-  //       res.send(err);
-  //     }
-  //     res.send(user);
+  User.findByIdAndUpdate({ _id }, body, { new: true }, (err, user) => {
+    if (err) {
+      console.log(err);
+      res.send({ err, message: `There was an error with the update` });
+    }
+    console.log("NEWUSER", user)
+    res.send({ user, message: `${user.firstName} has been successfully updated` });
+  });
 });
 
 // router.delete("/deleteUser", (req, res) => {
