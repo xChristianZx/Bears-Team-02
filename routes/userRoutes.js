@@ -35,10 +35,7 @@ router.put("/", requireAuth, (req, res) => {
   const { _id } = req.user;
   const { body } = req;
   // console.log("Body", body);
-  User.findByIdAndUpdate({ _id }, body, { new: true })
-    .populate("connections")
-    .populate("message")
-    .exec((err, user) => {
+  User.findByIdAndUpdate({ _id }, body, { new: true }, (err, user) => {
       if (err) {
         console.log(err);
         res.send({ err, message: `There was an error with the update` });
