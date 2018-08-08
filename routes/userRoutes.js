@@ -32,17 +32,23 @@ const requireAuth = passport.authenticate("jwt", { session: false });
 /* Update User info */
 router.put("/", requireAuth, (req, res) => {
   // * Handling updates to user profile
-  const { _id, } = req.user;
-  const { body } = req;  
+  const { _id } = req.user;
+  const { body } = req;
   // console.log("Body", body);
-  User.findByIdAndUpdate({ _id }, body, { new: true }, (err, user) => {
-    if (err) {
-      console.log(err);
-      res.send({ err, message: `There was an error with the update` });
-    }
-    // console.log("NEWUSER", user)
-    res.send({ user, message: `${user.firstName} has been successfully updated` });
-  });
+  User.findByIdAndUpdate({ _id }, body, { new: true })
+    .populate("connections")
+    .populate("message")
+    .exec((err, user) => {
+      if (err) {
+        console.log(err);
+        res.send({ err, message: `There was an error with the update` });
+      }
+      // console.log("NEWUSER", user)
+      res.send({
+        user,
+        message: `${user.firstName} has been successfully updated`
+      });
+    });
 });
 
 // router.delete("/deleteUser", (req, res) => {
