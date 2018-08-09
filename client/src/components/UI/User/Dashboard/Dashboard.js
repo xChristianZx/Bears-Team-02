@@ -24,9 +24,9 @@ const Dashboard = ({
 			<div className="section profile-heading">
 				<div className="columns is-mobile is-multiline">
 					<div className="column is-2">
-						<span className="header-icon user-profile-image">
-							<img alt="" src="http://placehold.it/300x225" />
-						</span>
+						<figure className="image is-rounded">
+							<img className="is-rounded" src={user.userPhotoURL || "http://placehold.it/300x225"} alt={user.firstName}/>
+						</figure>
 					</div>
 					<div className="column is-4-tablet is-10-mobile name">
 						<p>
