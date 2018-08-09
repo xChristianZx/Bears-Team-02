@@ -1,27 +1,27 @@
-- Dashboard
-  - Add functionality to update form
-
 Future Features
 - Notifications
 - Message a Connection
 - Delete User Profile
 - Add oAuth - Github/ Google
 
-- Refactor
+Feature
+- Add an input for user url for image
+
+Refactor
   - Rename founderRoutes to connectRoutes
   - Separation of concerns:
     - action creators 
-    - server routing [auth, connections, ...]
+    - server routing [auth, connections, ...]    
 
 Error Fix - 
  - It is possible to add more than one request to the same user
 
 Sign up/ Login Form
  - Set username to lowercase before registering to remove case sensitivity
+  - Note: Can use normalizing on redux-form; and regex or toLower on mongoose/passport local side
 
 Styling
-  - Restyle Landing Title and Navbar
-  - Icons? - Do we need a package for icons to render?
+  - Restyle Landing Title and Navbar  
   
 Revisit 
 - Refactor Connect/Dashboard re-render after getPendingRequest update
