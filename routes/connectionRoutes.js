@@ -2,11 +2,10 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const passport = require("passport");
-
 const requireAuth = passport.authenticate("jwt", { session: false });
-/* 
-  * Route prefix: /founders 
-*/
+
+//  * Route prefix: /connection 
+
 
 // == Main Handler for /connect list render == //
 router.get("/", requireAuth, (req, res) => {
