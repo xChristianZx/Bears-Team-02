@@ -7,23 +7,17 @@ Future Features
 Feature
 - Add an input for user url for image
 
-Refactor
-  - Rename founderRoutes to connectRoutes
-  - Separation of concerns:
-    - action creators 
-    - server routing [auth, connections, ...]    
-
-Error Fix - 
- - It is possible to add more than one request to the same user
+Error Fix -
+- It is possible to add more than one request to the same user
 
 Sign up/ Login Form
- - Set username to lowercase before registering to remove case sensitivity
-  - Note: Can use normalizing on redux-form; and regex or toLower on mongoose/passport local side
+- Set username to lowercase before registering to remove case sensitivity
+- Note: Can use normalizing on redux-form; and regex or toLower on mongoose/passport local side
 
 Styling
-  - Restyle Landing Title and Navbar  
-  
-Revisit 
+- Restyle Landing Title and Navbar
+
+Revisit
 - Refactor Connect/Dashboard re-render after getPendingRequest update
   - Possible solution: need to update reducer state after successful action returns from server
 
