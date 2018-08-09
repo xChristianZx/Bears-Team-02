@@ -12,7 +12,7 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
 
   const connectionList = users.map((user, i) => {
     // console.log(`USER ${i} ${user._id}`);
-    const { _id, firstName, lastName, username } = user;
+    const { _id, firstName, lastName, username, userPhotoURL } = user;
     const renderConnectBtn = () => {
       if (pending.length > 0 || acceptable.length > 0) {
         // then filter and see if current request exists from logged in user
@@ -79,15 +79,11 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
       }
     };
 
-    return (
-      <li className="list-item-container" key={_id}>
+    return <li className="list-item-container" key={_id}>
         <div className="media">
           <div className="media-left">
             <figure className="image is-96x96">
-              <img
-                src="https://bulma.io/images/placeholders/96x96.png"
-                alt="Placeholder"
-              />
+              <img className="is-rounded" src={userPhotoURL || "https://bulma.io/images/placeholders/96x96.png"} alt={firstName} />
             </figure>
           </div>
           <div className="media-content">
@@ -101,8 +97,7 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
           </div>
           <div className="media-right">{renderConnectBtn()}</div>
         </div>
-      </li>
-    );
+      </li>;
   });
   /* Returns both Header Component, Filter, and List */
   return (
