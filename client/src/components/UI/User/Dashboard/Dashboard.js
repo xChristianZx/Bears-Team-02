@@ -25,7 +25,7 @@ const Dashboard = ({
 				<div className="columns is-mobile is-multiline">
 					<div className="column is-2">
 						<figure className="image is-rounded">
-							<img className="is-rounded" src={user.userPhotoURL || "http://placehold.it/300x225"} alt={user.firstName}/>
+							<img className="is-rounded" src={user.userPhotoURL || "http://placehold.it/250x250"} alt={user.firstName}/>
 						</figure>
 					</div>
 					<div className="column is-4-tablet is-10-mobile name">
@@ -74,7 +74,7 @@ const Dashboard = ({
 							<li className="link">
 								<a>
 									<span className="icon">
-										<i className="fa fa-list" />
+										<i className="fas fa-users" />
 									</span>
 									<span onClick={() => toggleSection('Connections')}>Connections</span>
 								</a>
@@ -82,7 +82,7 @@ const Dashboard = ({
 							<li className="link is-active">
 								<a>
 									<span className="icon">
-										<i className="fa fa-thumbs-up" />
+										<i className="fas fa-envelope" />
 									</span>
 									<span onClick={() => toggleSection('Messages')}>Messages</span>
 								</a>
@@ -90,7 +90,7 @@ const Dashboard = ({
 							<li className="link">
 								<a>
 									<span className="icon">
-										<i className="fa fa-search" />
+										<i className="fas fa-list-alt" />
 									</span>
 									<span onClick={() => toggleSection('Profile')}>Profile</span>
 								</a>
@@ -98,7 +98,7 @@ const Dashboard = ({
 							<li className="link">
 								<a>
 									<span className="icon">
-										<i className="fa fa-balance-scale" />
+										<i className="fas fa-user-friends" />
 									</span>
 									<span onClick={() => toggleSection('Pending')}>Pending</span>
 								</a>
