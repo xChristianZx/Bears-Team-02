@@ -9,8 +9,7 @@ const path = require("path");
 // const cors = require("cors");
 // const morgan = require("morgan");
 
-const indexRoutes = require("./routes/index");
-const founderRoutes = require("./routes/founderRoute");
+const connectionRoutes = require("./routes/connectionRoutes");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 
@@ -45,8 +44,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Routes */
-app.use("/", indexRoutes);
-app.use("/founders", founderRoutes);
+app.use("/connections", connectionRoutes);
 app.use("/user", userRoutes);
 app.use("/auth", authRoutes);
 
