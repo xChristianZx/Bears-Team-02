@@ -18,6 +18,7 @@ const Dashboard = ({
 	pendingConnectionResponse,
 	blockConnection,
 	messages,
+	messageButton
 }) => {
 	return (
 		<React.Fragment>
@@ -123,7 +124,7 @@ const Dashboard = ({
 
 
 				<div hidden={displayingSection !== 'Connections'}>
-					<Connections connections={connections} blockConnection={blockConnection}/>
+					<Connections connections={connections} blockConnection={blockConnection} messageButton={messageButton} />
 				</div>
 
 				<div hidden={displayingSection !== 'Messages'}>
