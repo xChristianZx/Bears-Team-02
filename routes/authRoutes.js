@@ -176,6 +176,11 @@ router.post('/sendmessage', requireAuth, (req, res) => {
 
 /*  Endpoint for getMessages() Action Creator*/
 router.get('/messages', requireAuth, (req, res) => { 
+	let messages = {
+		sent: null,
+		received: null
+	}
+
 	Message.find({ receivingUser: req.user._id })
 		.populate('sendingUser', '-pendingConnectionRequests -messages -email')
 		.exec((err, message) => {
@@ -184,15 +189,28 @@ router.get('/messages', requireAuth, (req, res) => {
 					success: false
 				}) 
 			}
-			if(message) {
-				let messages
-				messages = message
-				
-				return res.json({
-					success: true,
-					messages 
+			messages.received = message
+			Message.find({ sendingUser: req.user._id })
+				.populate('receivingUser', '-pendingConnections -messages -email')
+				.exec((err, message) => {
+					if(message) {
+						messages.sent = message
+						console.log({
+							success: true,
+							messages 
+						})
+						return res.json({   
+							success: true,
+							messages 
+						})
+					}
+					 else {
+						 res.json({
+							 success: false,
+							 err
+						 })
+					 }
 				})
-			}
 		})
 });
 
