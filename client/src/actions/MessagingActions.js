@@ -35,7 +35,7 @@ export function markAsRead({ messageId }) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
 		axios
-			.post(`/auth/messageread`, { messageId }, { headers: { Authorization: `Bearer ${token}` } })
+			.post(`/auth/readmessage`, { messageId }, { headers: { Authorization: `Bearer ${token}` } })
 			.then(response => console.log('Sponegbobe', response))
 			.catch(error => console.log('Spongebob', error))
 	}

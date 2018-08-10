@@ -14,12 +14,12 @@ class Connect extends Component {
     // this.props.getUsers();
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.flashMessage !== this.props.flashMessage) {
-      this.props.alert.show(this.props.flashMessage);
-      this.props.getPendingConnections();
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.flashMessage !== this.props.flashMessage) {
+  //     this.props.alert.show(this.props.flashMessage);
+  //     this.props.getPendingConnections();
+  //   }
+  // }
 
   requestConnection = requestedUser => {
     this.props.requestConnection(requestedUser);

@@ -1,7 +1,7 @@
 import React from 'react';
 import SendMessage from '../../../../../containers/Message/SendMessage';
 
-const Messages = ({ messages, connections }) => {
+const Messages = ({ messages, connections, markAsRead }) => {
 	let listMessagesReceived = messages.messages.received.map(message => {
 		return (
 			<div>
@@ -10,7 +10,7 @@ const Messages = ({ messages, connections }) => {
 				</p>
 				<p>Message: {message.messageBody}</p>
 				<p>Status: {message.read ? 'Read' : 'UNREAD'} </p>
-				<button>ICON FOR MARK AS READ?</button>
+				<button onClick={markAsRead(message._id)}>ICON FOR MARK AS READ?</button>
 				<button>REPLY</button>
 			</div>
 		);

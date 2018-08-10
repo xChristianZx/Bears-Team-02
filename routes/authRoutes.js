@@ -211,5 +211,27 @@ router.get('/messages', requireAuth, (req, res) => {
 		})
 });
 
+router.post('/readmessage', requireAuth, (req, res) => {
+	console.log('HIT0')
+
+	let messageId = req.body.messageId
+	Message.findById(messageId, (err, message) => {
+		if(message) {
+			message.read = true
+			message.save((err, message) => {
+				if(message) {
+					console.log('HIT')
+					res.json({
+						success: true
+					})
+				}
+				console.log('HIT2')
+				res.json({
+					success: false
+				})
+			})
+		}
+	})
+})
 
 module.exports = router;
