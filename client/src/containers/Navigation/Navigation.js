@@ -44,7 +44,7 @@ class Navigation extends Component {
 					linksOut={linksOut}
 					notifications={
 						this.props.messages && this.props.messages.messages
-							? this.props.notifications + this.props.messages.messages.length
+							? this.props.notifications + this.props.messages.messages.sent.length + this.props.messages.messages.received.length
 							: 0
 					}
 				/>
