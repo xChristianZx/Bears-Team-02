@@ -3,6 +3,7 @@ const userUpdateFields = [
   { label: 'Last Name', name: 'lastName', type: 'text', errorMsg: 'Last Name is required' },
   { label: 'User Name', name: 'username', type: 'text', errorMsg: 'User Name is required' },
   { label: 'Email', name: 'email', type: 'email', errorMsg: 'Email is required' },
+  { label: 'Link to Photo', name: 'userPhotoURL', type: 'url', errorMsg: 'Please enter an valid URL' },
   // { label: 'Are you a Technical Founder?', name: 'isTechnical', type: "radio" }
   // { label: 'Old Password', name: 'oldPassword', type: 'password', errorMsg: 'Old Password is required' },
   // { label: 'New Password', name: 'newPassword', type: 'password', errorMsg: 'New Password is required' },

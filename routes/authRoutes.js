@@ -30,7 +30,7 @@ router.post('/register', (req, res) => {
 		if (err) {
 			return res.status(400).send(err);
 		}
-		passport.authenticate('local')(req, res, () => {
+		passport.authenticate('local')(req, res, () => {						
 			const {
 				_id,
 				firstName,
@@ -40,6 +40,7 @@ router.post('/register', (req, res) => {
 				connections,
 				pendingConnectionRequests,
 				messages,
+				userPhotoURL
 			} = req.user;
 			const foundUser = {
 				_id,
@@ -50,6 +51,7 @@ router.post('/register', (req, res) => {
 				connections,
 				pendingConnectionRequests,
 				messages,
+				userPhotoURL
 			};
 
 			return res.status(200).send({
@@ -62,7 +64,7 @@ router.post('/register', (req, res) => {
 });
 
 // == Login == //
-router.post('/login', passport.authenticate('local'), (req, res) => {
+router.post('/login', passport.authenticate('local'), (req, res) => {	
 	const {
 		_id,
 		firstName,
@@ -73,6 +75,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 		isTechnical,
 		connections,
 		pendingConnectionRequests,
+		userPhotoURL
 	} = req.user;
 	// using founderUser to prevent exposure of password salt/hash
 	const foundUser = {
@@ -85,6 +88,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 		isTechnical,
 		pendingConnectionRequests,
 		location,
+		userPhotoURL
 	};
 	return res.status(200).send({
 		user: foundUser,
