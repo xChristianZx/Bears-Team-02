@@ -1,7 +1,7 @@
 import React from 'react';
 import SendMessage from '../../../../../containers/Message/SendMessage';
 
-const Messages = ({ messages }) => {
+const Messages = ({ messages, connections }) => {
 	let listMessagesReceived = messages.messages.received.map(message => {
 		return (
 			<div>
@@ -17,12 +17,13 @@ const Messages = ({ messages }) => {
 	});
 
 	let listMessagesSent = messages.messages.sent.map(message => {
+    const { receivingUser, messageBody } = message
 		return (
 			<div>
 				<p>
-					To: {message.receivingUser.firstName} {message.receivingUser.lastName}
+					{/* To: {receivingUser.firstName} {receivingUser.lastName} */}
 				</p>
-				<p>Message: {message.messageBody}</p>
+				<p>Message: {messageBody}</p>
 				<p>Status: {message.read ? 'Read' : 'UNREAD'} </p>
 				<button>REPLY</button>
 			</div>
@@ -42,7 +43,7 @@ const Messages = ({ messages }) => {
 				</div>
 				<div class="column is-two-thirds">
 					<p style={{ textAlign: 'center' }}>Send</p>
-					<SendMessage />
+					<SendMessage connections={connections} />
 				</div>
 			</div>
 		</div>

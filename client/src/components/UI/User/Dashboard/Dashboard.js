@@ -137,9 +137,7 @@ const Dashboard = ({
 				</div>
 
 				<div hidden={displayingSection !== 'Messages'}>
-					Messages
-          {console.log('mEsSags', messages)}
-					{messages !== null ? <Messages messages={messages} /> : <p>No Messages</p>}
+					{messages !== null ? <Messages messages={messages} connections={connections} /> : <p>No Messages</p>}
 				</div>
 
 				<div hidden={displayingSection !== 'Profile'}>{user ? <Profile user={user} /> : <Loader />}</div>

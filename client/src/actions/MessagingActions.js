@@ -16,13 +16,27 @@ export function getMessages() {
 	};
 }
 
-export function sendMessage({ receivingUser, messageBody }) {
-	console.log('SUBMITTED', { receivingUser, messageBody })
+export function sendMessage({ messageBody, receivingUser }) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
 		axios
 			.post(`/auth/sendmessage`, { receivingUser, messageBody }, { headers: { Authorization: `Bearer ${token}` } })
-			.then(response => console.log('Spongebob', response))
-			.catch(error => console.log(error))
+			.then(response => {
+				console.log('SPONGEBOB', response)
+				dispatch({ type: FLASH_MESSAGE, payload: 'Message Sent.' });
+			})
+			.catch(error => {
+				dispatch({ type: FLASH_MESSAGE, payload: 'Message Failed to Send.' });
+			})
 	};
+}
+
+export function markAsRead({ messageId }) {
+	return dispatch => {
+		let token = localStorage.getItem('token');
+		axios
+			.post(`/auth/messageread`, { messageId }, { headers: { Authorization: `Bearer ${token}` } })
+			.then(response => console.log('Sponegbobe', response))
+			.catch(error => console.log('Spongebob', error))
+	}
 }

@@ -129,6 +129,7 @@ router.get('/istechnical', requireAuth, (req, res) => {
 
 // Send a Message
 router.post('/sendmessage', requireAuth, (req, res) => {
+	console.log('USER', req.body)
 	let newMessage = new Message({
 		sendingUser: req.user, 
 		receivingUser: req.body.receivingUser,
@@ -195,10 +196,6 @@ router.get('/messages', requireAuth, (req, res) => {
 				.exec((err, message) => {
 					if(message) {
 						messages.sent = message
-						console.log({
-							success: true,
-							messages 
-						})
 						return res.json({   
 							success: true,
 							messages 
