@@ -28,3 +28,4 @@ Adam Outstanding:
 Implement BulmaBadge for notifications.
 Edit message rendering to send sent and received back to user.
 Wire up mark as read
+Ensure when msg marked as read, it is removed from notifications
