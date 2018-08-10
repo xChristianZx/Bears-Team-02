@@ -16,6 +16,7 @@ Sign up/ Login Form
 
 Styling
 - Restyle Landing Title and Navbar
+- Dashboard - active class to options
 
 Revisit
 - Refactor Connect/Dashboard re-render after getPendingRequest update
