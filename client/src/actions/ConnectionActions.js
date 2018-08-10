@@ -19,6 +19,9 @@ export function requestConnection(requestedUser) {
 		let token = localStorage.getItem('token');
 		axios.post(`/connections/connectionrequest`, { requestedUser }, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
 			dispatch({ type: FLASH_MESSAGE, payload: 'Connected request sent' })
+			//NEED TO DISPATCH THE pendingConnection Request here HERE - check handling on master
+			console.log("HERE I AM", response.data);
+			
 			history.push('/connect')
 		}).catch(error => {
 			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})

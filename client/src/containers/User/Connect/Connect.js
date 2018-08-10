@@ -11,15 +11,29 @@ import { withAlert } from "react-alert";
 class Connect extends Component {
   componentDidMount() {
     // * Temp fix for error caused on reload to /connect with user state not populating
-    // this.props.getUsers();
+    this.props.getUsers();
+    this.props.getPendingConnections();
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.flashMessage !== this.props.flashMessage) {
-      this.props.alert.show(this.props.flashMessage);
-      this.props.getPendingConnections();
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.flashMessage !== this.props.flashMessage) {
+  //     this.props.alert.show(this.props.flashMessage);
+  //     this.props.getPendingConnections();
+  //   }
+  // }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if(prevProps.pendingConnections !== this.props.pendingConnections){
+  //     this.props.getPendingConnections()
+  //     this.props.alert.show(this.props.flashMessage);
+  //   }
+  // }
+  
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return this.props.pendingConnections !== nextProps.pendingConnections || this.props.flashMessage !== nextProps.flashMessage;
+  // }
+  
 
   requestConnection = requestedUser => {
     this.props.requestConnection(requestedUser);
@@ -50,6 +64,7 @@ class Connect extends Component {
   };
 
   render() {
+    console.log("PROPS", this.props);
     return (
       <div className="container connect-container columns is-centered">
         {this.renderConnectionList()}
