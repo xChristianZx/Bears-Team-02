@@ -1,4 +1,5 @@
 import React from 'react';
+import SendMessage from '../../../../../containers/Message/SendMessage';
 
 const Messages = ({ messages }) => {
 	
@@ -18,7 +19,12 @@ const Messages = ({ messages }) => {
   return (
 		<div className="container connect-container is-centered">
 			<h1>Messages</h1>
-			{listMessages}
+      {listMessages}
+      
+      <hr/>
+
+      <h1>Send Message</h1>
+      <SendMessage />
 		</div>
 	);
 };

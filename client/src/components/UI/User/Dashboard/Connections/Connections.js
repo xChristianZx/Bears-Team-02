@@ -1,7 +1,7 @@
 import React from "react";
 import "./Connection.css";
 
-const Connections = ({ connections, blockConnection }) => {
+const Connections = ({ connections, blockConnection, messageButton }) => {
   let userConnections = connections.map(connection => {
     const { _id, firstName, lastName, username, isTechnical } = connection;
     return (
@@ -23,7 +23,7 @@ const Connections = ({ connections, blockConnection }) => {
                 <p disabled className="subtitle is-6">
                   {isTechnical ? "Technical" : "Non-Technical"}
                 </p>
-                <button className="button is-primary is-outlined">
+                <button className="button is-primary is-outlined" onClick={() => messageButton(_id)}>
                   Message
                 </button>
                 <button
