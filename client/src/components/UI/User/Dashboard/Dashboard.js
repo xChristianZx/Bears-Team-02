@@ -5,6 +5,7 @@ import PendingConnections from './PendingConnections/PendingConnections';
 import Profile from './Profile/Profile';
 import Loader from '../../Enhancements/Loader';
 import Messages from './Messages/Messages';
+import classNames from "classnames";
 
 const Dashboard = ({
 	user,
@@ -20,6 +21,14 @@ const Dashboard = ({
 	messages,
 	messageButton
 }) => {
+	
+	const tabStyle = tabName => {
+		return classNames({
+			"link": true,
+			"is-active": (tabName === displayingSection ? true : false),
+		})
+	}
+	
 	return (
 		<React.Fragment>
 			<div className="section profile-heading">
@@ -72,36 +81,36 @@ const Dashboard = ({
 				<div className="profile-options is-fullwidth">
 					<div className="tabs is-fullwidth is-medium">
 						<ul>
-							<li className="link">
+							<li className={tabStyle("Connections")} onClick={() => toggleSection('Connections')}>
 								<a>
 									<span className="icon">
 										<i className="fas fa-users" />
 									</span>
-									<span onClick={() => toggleSection('Connections')}>Connections</span>
+									<span>Connections</span>
 								</a>
 							</li>
-							<li className="link is-active">
+							<li className={tabStyle("Messages")} onClick={() => toggleSection('Messages')}>
 								<a>
 									<span className="icon">
 										<i className="fas fa-envelope" />
 									</span>
-									<span onClick={() => toggleSection('Messages')}>Messages</span>
+									<span>Messages</span>
 								</a>
 							</li>
-							<li className="link">
+							<li className={tabStyle("Profile")} onClick={() => toggleSection('Profile')}>
 								<a>
 									<span className="icon">
 										<i className="fas fa-list-alt" />
 									</span>
-									<span onClick={() => toggleSection('Profile')}>Profile</span>
+									<span>Profile</span>
 								</a>
 							</li>
-							<li className="link">
+							<li className={tabStyle("Pending")} onClick={() => toggleSection('Pending')}>
 								<a>
 									<span className="icon">
 										<i className="fas fa-user-friends" />
 									</span>
-									<span onClick={() => toggleSection('Pending')}>Pending</span>
+									<span>Pending</span>
 								</a>
 							</li>
 						</ul>

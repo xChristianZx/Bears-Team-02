@@ -2,16 +2,11 @@ Future Features
 - Delete User Profile
 - Add oAuth - Github/ Google
 
-Feature
-- Add an input for user url for image - ??What about image upload??
-
-Refactor
-  - Rename founderRoutes to connectRoutes
-  - Separation of concerns:
-    - server routing [auth, connections, ...]    
+User Image
+- What about image upload??
 
 Error Fix - 
- - It is possible to add more than one request to the same user - ??How?? 
+- It is possible to add more than one request to the same user - ??How?? 
 
 Sign up/ Login Form
 - Set username to lowercase before registering to remove case sensitivity
@@ -19,7 +14,6 @@ Sign up/ Login Form
 
 Styling
 - Restyle Landing Title and Navbar
-- Dashboard - active class to options
 
 Revisit
 - Refactor Connect/Dashboard re-render after getPendingRequest update
