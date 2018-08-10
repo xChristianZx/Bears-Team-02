@@ -8,10 +8,10 @@ const Links = props => {
     //   console.log('props', props)
     //   link.name = props.user.username
     // }
-    if(link.name === 'Notifications') {
+    if(link.name === 'Dashboard') {
       return (
-        <Link to={`${link.url}`} className="Notification" key={i}>
-          {props.pendingRequests}
+        <Link to={`${link.url}`} className={link.class + ` badge`} key={i} data-badge={props.notifications}>
+          {link.name} {props.notifications}
         </Link>
       )
     }

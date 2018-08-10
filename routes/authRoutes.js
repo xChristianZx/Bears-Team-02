@@ -145,7 +145,7 @@ router.post('/connectionrequest', requireAuth, (req, res) => {
 // Send a Message
 router.post('/sendmessage', requireAuth, (req, res) => {
 	let newMessage = new Message({
-		sendingUser: req.user,
+		sendingUser: req.user, 
 		receivingUser: req.body.receivingUser,
 		messageBody: req.body.messageBody,
 	});
@@ -190,9 +190,7 @@ router.post('/sendmessage', requireAuth, (req, res) => {
 });
 
 /*  Endpoint for getMessages() Action Creator*/
-router.get('/messages', requireAuth, (req, res) => {
-	console.log('ID', req.user._id)
- 
+router.get('/messages', requireAuth, (req, res) => { 
 	Message.find({ receivingUser: req.user._id })
 		.populate('sendingUser', '-pendingConnectionRequests -messages -email')
 		.exec((err, message) => {
@@ -202,7 +200,6 @@ router.get('/messages', requireAuth, (req, res) => {
 				}) 
 			}
 			if(message) {
-				console.log('MESSAGE', message)
 				let messages
 				messages = message
 				
