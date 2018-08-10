@@ -50,9 +50,9 @@ const Fields = [
     render() {
       return (
         <Fragment>
-          <p>Test: {this.filterConnections(this.state.searchTerm)}</p>
+          {/* <p>Test: {this.filterConnections(this.state.searchTerm)}</p>
           <input type="text" onChange={this.handleChange} value={this.state.searchTerm} />
-          <p>To: {this.state.receivingUser}</p>
+          <p>To: {this.state.receivingUser}</p> */}
           <FormBuilder fields={Fields} onSubmit={this.onSubmit} buttonText='Send Message' formTitle='Message' />
         </Fragment>
       )

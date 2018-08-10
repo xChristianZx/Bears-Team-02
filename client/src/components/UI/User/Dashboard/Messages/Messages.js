@@ -10,7 +10,7 @@ const Messages = ({ messages, connections, markAsRead }) => {
 				</p>
 				<p>Message: {message.messageBody}</p>
 				<p>Status: {message.read ? 'Read' : 'UNREAD'} </p>
-				<button onClick={markAsRead(message._id)}>ICON FOR MARK AS READ?</button>
+				<button onClick={() => markAsRead(message._id)}>ICON FOR MARK AS READ?</button>
 				<button>REPLY</button>
 			</div>
 		);
