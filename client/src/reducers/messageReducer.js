@@ -5,7 +5,7 @@ const initialState = {
   // connections: null,
   // pendingConnections: null,
   // pendingRequests: null,
-  flashMessage: null,
+  // flashMessage: null,
   // user: null,
   // users: null,
   messages: null
