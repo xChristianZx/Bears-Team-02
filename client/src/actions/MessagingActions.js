@@ -11,7 +11,7 @@ export function getMessages() {
 				dispatch({ type: GET_MESSAGES, payload: response.data });
 			})
 			.catch(error => {
-				dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.' });
+				dispatch({ type: FLASH_MESSAGE, payload: 'ERROR: getMessages' });
 			});
 	};
 }

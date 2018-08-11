@@ -4,13 +4,13 @@ import SendMessage from '../../../../../containers/Message/SendMessage';
 const Messages = ({ messages, connections, markAsRead }) => {
 	let listMessagesReceived = messages.messages.received.map(message => {
 		return (
-			<div>
+			<div key={message._id}>
 				<p>
 					From: {message.sendingUser.firstName} {message.sendingUser.lastName}
 				</p>
 				<p>Message: {message.messageBody}</p>
 				<p>Status: {message.read ? 'Read' : 'UNREAD'} </p>
-				<button onClick={() => markAsRead(message._id)}>ICON FOR MARK AS READ?</button>
+				<button hidden={message.read} onClick={() => markAsRead(message._id)}>ICON FOR MARK AS READ?</button>
 				<button>REPLY</button>
 			</div>
 		);
@@ -19,7 +19,7 @@ const Messages = ({ messages, connections, markAsRead }) => {
 	let listMessagesSent = messages.messages.sent.map(message => {
     const { receivingUser, messageBody } = message
 		return (
-			<div>
+			<div key={message._id}>
 				<p>
 					{/* To: {receivingUser.firstName} {receivingUser.lastName} */}
 				</p>
@@ -32,16 +32,16 @@ const Messages = ({ messages, connections, markAsRead }) => {
 
 	return (
 		<div className="container connect-container is-centered">
-			<div class="columns">
-				<div class="column">
+			<div className="columns">
+				<div className="column">
 					<p style={{ textAlign: 'center' }}>Received</p>
 					{listMessagesReceived}
 				</div>
-				<div class="column">
+				<div className="column">
 					<p style={{ textAlign: 'center' }}>Sent</p>
 					{listMessagesSent}
 				</div>
-				<div class="column is-two-thirds">
+				<div className="column is-two-thirds">
 					<p style={{ textAlign: 'center' }}>Send</p>
 					<SendMessage connections={connections} />
 				</div>
