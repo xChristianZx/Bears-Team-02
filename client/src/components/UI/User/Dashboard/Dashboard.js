@@ -120,8 +120,8 @@ const Dashboard = ({
 				<div className="box" style={{ borderRadius: '0px' }} />
 			</div>
 
-			<div className="section display-section-wrapper" >
-				<div className="container is-fluid display-section" hidden={displayingSection !== 'Pending'}>
+			<div>
+				<div hidden={displayingSection !== 'Pending'}>
 					{pendingConnections ? (
 						<PendingConnections
 							pendingConnections={pendingConnections}
@@ -132,15 +132,16 @@ const Dashboard = ({
 					)}
 				</div>
 
-				<div className="container is-fluid display-section" hidden={displayingSection !== 'Connections'}>
+
+				<div hidden={displayingSection !== 'Connections'}>
 					<Connections connections={connections} blockConnection={blockConnection} messageButton={messageButton} />
 				</div>
 
-				<div className="container is-fluid display-section" hidden={displayingSection !== 'Messages'}>
+				<div hidden={displayingSection !== 'Messages'}>
 					{messages !== null ? <Messages messages={messages} connections={connections} markAsRead={markAsRead} /> : <p>No Messages</p>}
 				</div>
 
-				<div className="container is-fluid display-section" hidden={displayingSection !== 'Profile'}>{user ? <Profile user={user} /> : <Loader />}</div>
+				<div hidden={displayingSection !== 'Profile'}>{user ? <Profile user={user} /> : <Loader />}</div>
 			</div>
 		</React.Fragment>
 	);
