@@ -1,14 +1,11 @@
-import { GET_CONNECTIONS, GET_USERS } from '../actions/types'
+import { GET_CONNECTIONS, GET_USERS, LOGGED_OUT } from '../actions/types'
 
 const initialState = {
   authenticated: false,
   connections: null,
   pendingConnections: null,
-  pendingRequests: null,
-  // flashMessage: null,
-  // user: null,
-  users: null,
-  // messages: null
+  pendingRequests: null,  
+  users: null,  
 };
 
 export default function(state = initialState, action) {
@@ -20,7 +17,7 @@ export default function(state = initialState, action) {
         pendingRequests: action.payload.pendingRequests
       };
     case GET_USERS:
-      return { ...state, users: action.payload };
+      return { ...state, users: action.payload };        
     default:
       return state
   }
