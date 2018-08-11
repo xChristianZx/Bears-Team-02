@@ -1,24 +1,26 @@
-import { GET_CONNECTIONS, GET_USERS, LOGGED_OUT } from '../actions/types'
+import { GET_CONNECTIONS, GET_USERS, LOGGED_OUT } from "../actions/types";
 
 const initialState = {
   authenticated: false,
   connections: null,
   pendingConnections: null,
-  pendingRequests: null,  
-  users: null,  
+  pendingRequests: null,
+  users: null
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CONNECTIONS:
       return {
-		...state,
+        ...state,
         pendingConnections: action.payload.connectionRequests,
         pendingRequests: action.payload.pendingRequests
       };
     case GET_USERS:
-      return { ...state, users: action.payload };        
+      return { ...state, users: action.payload };
+    case LOGGED_OUT:
+      return { ...state, ...initialState };
     default:
-      return state
+      return state;
   }
 }
