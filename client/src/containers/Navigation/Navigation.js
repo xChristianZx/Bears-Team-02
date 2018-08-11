@@ -34,6 +34,14 @@ class Navigation extends Component {
 	};
 
 	render() {
+		let messageCount = 0;
+		if(this.props.messages && this.props.messages.messages) {
+			this.props.messages.messages.received.map(message => {
+				if(!message.read) {
+					messageCount++
+				}
+			})
+		}
 		return (
 			<div>
 				<NavigationComp
@@ -44,7 +52,7 @@ class Navigation extends Component {
 					linksOut={linksOut}
 					notifications={
 						this.props.messages && this.props.messages.messages
-							? this.props.notifications + this.props.messages.messages.length
+							? this.props.notifications + messageCount
 							: 0
 					}
 				/>
@@ -54,7 +62,6 @@ class Navigation extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log('state.Message.messages.', state.Message.messages);
 	return {
 		authenticated: state.User.authenticated,
 		notifications: state.Connection.pendingRequests,

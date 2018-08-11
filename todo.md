@@ -6,7 +6,7 @@ User Image
 - What about image upload??
 
 Error Fix - 
-- It is possible to add more than one request to the same user - ??How?? 
+- It is possible to add more than one request to the same user - ** I couldn't reproduce this error **
 
 Sign up/ Login Form
 - Set username to lowercase before registering to remove case sensitivity
@@ -19,8 +19,4 @@ Revisit
 - Refactor Connect/Dashboard re-render after getPendingRequest update
   - Possible solution: need to update reducer state after successful action returns from server
 
-Adam Outstanding:
 Implement BulmaBadge for notifications.
-Edit message rendering to send sent and received back to user.
-Wire up mark as read
-Ensure when msg marked as read, it is removed from notifications

@@ -90,7 +90,7 @@ export function toggleTechnical() {
 			dispatch({ type: FLASH_MESSAGE, payload: 'Successfully updated'})
 			dispatch({ type: USER_DASHBOARD, payload: response.data });
 		}).catch(error => {
-				dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})
+				dispatch({ type: FLASH_MESSAGE, payload: 'ERROR: toggleTechnical'})
 		})
 	}
 }

@@ -19,7 +19,8 @@ const Dashboard = ({
 	pendingConnectionResponse,
 	blockConnection,
 	messages,
-	messageButton
+	messageButton,
+	markAsRead
 }) => {
 	
 	const tabStyle = tabName => {
@@ -137,9 +138,7 @@ const Dashboard = ({
 				</div>
 
 				<div hidden={displayingSection !== 'Messages'}>
-					Messages
-          {console.log('mEsSags', messages)}
-					{messages !== null ? <Messages messages={messages} /> : <p>No Messages</p>}
+					{messages !== null ? <Messages messages={messages} connections={connections} markAsRead={markAsRead} /> : <p>No Messages</p>}
 				</div>
 
 				<div hidden={displayingSection !== 'Profile'}>{user ? <Profile user={user} /> : <Loader />}</div>

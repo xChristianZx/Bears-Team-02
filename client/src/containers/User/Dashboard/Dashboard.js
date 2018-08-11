@@ -63,17 +63,8 @@ class Dashboard extends Component {
 		this.props.actions.pendingConnectionResponse(connectionRequest, action);
 	};
 
-	openModal() {
-		this.setState({ modalIsOpen: true });
-	}
-
-	afterOpenModal() {
-		// references are now sync'd and can be accessed.
-		
-	}
-
-	closeModal() {
-		this.setState({ modalIsOpen: false });
+	markAsRead = (messageId) => {
+		this.props.actions.markAsRead({messageId})
 	}
 
 	render() {
@@ -91,7 +82,6 @@ class Dashboard extends Component {
 		if (this.props.user && this.props.connections) {
 			return (
 				<Fragment>
-					<button onClick={() => this.setState({ modalIsOpen: true })}>OPen</button>
 					<Modal
 						isOpen={this.state.modalIsOpen}
 						onRequestClose={() => this.setState({ modalIsOpen: false })}
@@ -110,7 +100,8 @@ class Dashboard extends Component {
 						pendingRequests={this.props.pendingRequests}
 						pendingConnectionResponse={this.pendingConnectionResponse}
             messages={this.props.messages}
-            messageButton={(_id) => this.setState({ modalIsOpen: true, receivingUser: _id })}
+						messageButton={(_id) => this.setState({ modalIsOpen: true, receivingUser: _id })}
+						markAsRead={(messageId) => this.markAsRead(messageId)}
 						toggleTechnical={this.toggleTechnical}
 						toggleSection={this.toggleSection}
 						displayingSection={this.state.displayingSection}
