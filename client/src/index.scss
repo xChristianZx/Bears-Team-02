@@ -1,3 +1,7 @@
+@import "./node_modules/bulma/sass/utilities/initial-variables.sass";
+@import "./node_modules/bulma/bulma.sass";
+@import "./node_modules/bulma-badge/dist/css/bulma-badge.sass";
+
 html {
   height: 100%;
   box-sizing: border-box;
