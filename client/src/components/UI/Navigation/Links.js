@@ -12,7 +12,7 @@ const Links = props => {
       return (
         <Link to={`${link.url}`} className={link.class} key={i}>
           {props.notifications < 1 ? (link.name) : (
-            <span className="badge" data-badge={props.notifications}>
+            <span className="badge is-badge-small" data-badge={props.notifications}>
               {link.name}
             </span>)}
         </Link>
