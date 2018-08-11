@@ -18,3 +18,6 @@ Styling
 Revisit
 - Refactor Connect/Dashboard re-render after getPendingRequest update
   - Possible solution: need to update reducer state after successful action returns from server
+
+Flash Messaging
+- Add to logout confirmation
