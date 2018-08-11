@@ -27,8 +27,8 @@ class SignUp extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return { flashMessage: state.User.flashMessage }
+const mapStateToProps = ({ UI }) => {
+	return { flashMessage: UI.flashMessage }
 }
 
 const mapDispatchToProps = (dispatch) => {
