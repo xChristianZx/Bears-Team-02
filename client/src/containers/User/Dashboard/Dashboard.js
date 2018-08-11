@@ -85,11 +85,11 @@ class Dashboard extends Component {
 					<Modal
 						isOpen={this.state.modalIsOpen}
 						onRequestClose={() => this.setState({ modalIsOpen: false })}
-            className='Modal'
-            overlayClassName='Overlay'
+						className='Modal'
+						overlayClassName='Overlay'
 						contentLabel="Message"
 					>
-						<button onClick={() => this.setState({ modalIsOpen: false })}>close</button>
+						<span className="icon is-large" onClick={() => this.setState({ modalIsOpen: false })}><i className="far fa-times-circle fa-lg" /></span>
 						<SendMessage receivingUser={this.state.receivingUser} />
 					</Modal>
 					<DashboardComp
@@ -99,7 +99,7 @@ class Dashboard extends Component {
 						pendingConnections={this.props.pendingConnections}
 						pendingRequests={this.props.pendingRequests}
 						pendingConnectionResponse={this.pendingConnectionResponse}
-            messages={this.props.messages}
+            			messages={this.props.messages}
 						messageButton={(_id) => this.setState({ modalIsOpen: true, receivingUser: _id })}
 						markAsRead={(messageId) => this.markAsRead(messageId)}
 						toggleTechnical={this.toggleTechnical}
