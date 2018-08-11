@@ -1,8 +1,8 @@
 import React from 'react';
 
 const Message = ({ message, user, markAsRead }) => {
-  const { _id, messageBody, read } = message;
-  const { firstName, lastName } = user;
+	const { _id, messageBody, read } = message;
+	const { firstName, lastName } = user;
 	return (
 		<div key={_id}>
 			<p>
@@ -10,9 +10,11 @@ const Message = ({ message, user, markAsRead }) => {
 			</p>
 			<p>Message: {messageBody}</p>
 			<p>Status: {read ? 'Read' : 'UNREAD'} </p>
-			<button hidden={read} onClick={() => markAsRead(_id)}>
-				ICON FOR MARK AS READ?
-			</button>
+			{markAsRead ? (
+				<button hidden={read} onClick={() => markAsRead(_id)}>
+					ICON FOR MARK AS READ?
+				</button>
+			) : null}
 			<button>REPLY</button>
 		</div>
 	);

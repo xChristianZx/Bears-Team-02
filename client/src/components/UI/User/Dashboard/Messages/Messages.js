@@ -11,7 +11,7 @@ const Messages = ({ messages, connections, markAsRead }) => {
 
 	let listMessagesSent = messages.messages.sent.map(message => {
 		return (
-			<Message message={message} user={message.receivingUser} markAsRead={markAsRead} />
+			<Message message={message} user={message.receivingUser} />
 		);
 	});
 

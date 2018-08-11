@@ -22,7 +22,6 @@ export function sendMessage({ messageBody, receivingUser }) {
 		axios
 			.post(`/auth/sendmessage`, { receivingUser, messageBody }, { headers: { Authorization: `Bearer ${token}` } })
 			.then(response => {
-				console.log('SPONGEBOB', response)
 				dispatch({ type: FLASH_MESSAGE, payload: 'Message Sent.' });
 			})
 			.catch(error => {
@@ -36,7 +35,11 @@ export function markAsRead({ messageId }) {
 		let token = localStorage.getItem('token');
 		axios
 			.post(`/auth/readmessage`, { messageId }, { headers: { Authorization: `Bearer ${token}` } })
-			.then(response => console.log('Sponegbobe', response))
-			.catch(error => console.log('Spongebob', error))
+			.then(response => {
+				dispatch({ type: FLASH_MESSAGE, payload: 'Message Read' })
+			})
+			.catch(error => {
+				dispatch({ type: FLASH_MESSAGE, payload: 'Error: markAsRead' })
+			})
 	}
 }
