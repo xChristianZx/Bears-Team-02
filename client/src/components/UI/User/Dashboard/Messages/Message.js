@@ -6,7 +6,7 @@ const Message = ({ message, user, markAsRead }) => {
 	return (
 		<div key={_id}>
 			<p>
-				From: {firstName} {lastName}
+				Name: {firstName} {lastName}
 			</p>
 			<p>Message: {messageBody}</p>
 			<p>Status: {read ? 'Read' : 'UNREAD'} </p>
