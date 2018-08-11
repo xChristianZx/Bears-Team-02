@@ -1,6 +1,6 @@
 Future Features
-- Delete User Profile
 - Add oAuth - Github/ Google
+- Delete User Profile
 
 User Image
 - What about image upload??
@@ -18,3 +18,6 @@ Styling
 Revisit
 - Refactor Connect/Dashboard re-render after getPendingRequest update
   - Possible solution: need to update reducer state after successful action returns from server
+
+Refactor
+- Flash Messages should be moved to their own UI reducer
