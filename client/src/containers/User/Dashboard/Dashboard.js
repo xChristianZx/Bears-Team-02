@@ -116,7 +116,7 @@ class Dashboard extends Component {
 	}
 }
 
-const mapStateToProps = ({ User, Connection, Message }) => {
+const mapStateToProps = ({ User, Connection, Message, UI }) => {
 	return {
 		user: User.user,
 		initialValues: User.user,
@@ -124,7 +124,7 @@ const mapStateToProps = ({ User, Connection, Message }) => {
 		pendingConnections: Connection.pendingConnections,
 		pendingRequests: Connection.pendingRequests,
 		messages: Message.messages,
-		flashMessage: User.flashMessage,
+		flashMessage: UI.flashMessage,
 	};
 };
 

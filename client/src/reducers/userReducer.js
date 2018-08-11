@@ -1,23 +1,17 @@
 import {
-  SIGN_UP,
+  AUTHENTICATED,
   LOG_IN,
+  LOGGED_OUT,
+  SIGN_UP,
   USER_DASHBOARD,
   USER_UPDATE,
-  LOGGED_OUT,
-  AUTHENTICATED,
-  FLASH_MESSAGE
 } from "../actions/types";
 
 // User state shape and initial state
 const initialState = {
   authenticated: false,
   connections: null,
-  pendingConnections: null,
-  pendingRequests: null,
-  flashMessage: null,
-  user: null,
-  users: null,
-  messages: null
+  user: null
 };
 
 export default function(state = initialState, action) {
@@ -41,8 +35,6 @@ export default function(state = initialState, action) {
       };
     case LOGGED_OUT:
       return { ...state, ...initialState };
-    case FLASH_MESSAGE:
-      return { ...state, flashMessage: action.payload };
     default:
       return state;
   }
