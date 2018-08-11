@@ -6,7 +6,7 @@ User Image
 - What about image upload??
 
 Error Fix - 
-- It is possible to add more than one request to the same user - ??How?? 
+- It is possible to add more than one request to the same user - ** I couldn't reproduce this error **
 
 Sign up/ Login Form
 - Set username to lowercase before registering to remove case sensitivity
@@ -21,5 +21,4 @@ Revisit
 
 Adam Outstanding:
 Implement BulmaBadge for notifications.
-Wire up mark as read
 Ensure when msg marked as read, it is removed from notifications
