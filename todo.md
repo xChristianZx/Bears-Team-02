@@ -21,4 +21,3 @@ Revisit
 
 Adam Outstanding:
 Implement BulmaBadge for notifications.
-Ensure when msg marked as read, it is removed from notifications
