@@ -1,7 +1,6 @@
 import { GET_CONNECTIONS, GET_USERS, LOGGED_OUT } from "../actions/types";
 
 const initialState = {
-  authenticated: false,
   connections: null,
   pendingConnections: null,
   pendingRequests: null,

@@ -1,7 +1,6 @@
 import { GET_MESSAGES, LOGGED_OUT } from "../actions/types";
 
 const initialState = {
-  authenticated: false,
   messages: null
 };
 
