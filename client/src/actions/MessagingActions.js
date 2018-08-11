@@ -11,18 +11,35 @@ export function getMessages() {
 				dispatch({ type: GET_MESSAGES, payload: response.data });
 			})
 			.catch(error => {
-				dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.' });
+				dispatch({ type: FLASH_MESSAGE, payload: 'ERROR: getMessages' });
 			});
 	};
 }
 
-export function sendMessage({ receivingUser, messageBody }) {
-	console.log('SUBMITTED', { receivingUser, messageBody })
+export function sendMessage({ messageBody, receivingUser }) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
 		axios
 			.post(`/auth/sendmessage`, { receivingUser, messageBody }, { headers: { Authorization: `Bearer ${token}` } })
-			.then(response => console.log('Spongebob', response))
-			.catch(error => console.log(error))
+			.then(response => {
+				dispatch({ type: FLASH_MESSAGE, payload: 'Message Sent.' });
+			})
+			.catch(error => {
+				dispatch({ type: FLASH_MESSAGE, payload: 'Message Failed to Send.' });
+			})
 	};
+}
+
+export function markAsRead({ messageId }) {
+	return dispatch => {
+		let token = localStorage.getItem('token');
+		axios
+			.post(`/auth/readmessage`, { messageId }, { headers: { Authorization: `Bearer ${token}` } })
+			.then(response => {
+				dispatch({ type: FLASH_MESSAGE, payload: 'Message Read' })
+			})
+			.catch(error => {
+				dispatch({ type: FLASH_MESSAGE, payload: 'Error: markAsRead' })
+			})
+	}
 }

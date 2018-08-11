@@ -1,30 +1,36 @@
 import React from 'react';
 import SendMessage from '../../../../../containers/Message/SendMessage';
+import Message from './Message';
 
-const Messages = ({ messages }) => {
-	
-  console.log('messages', messages)
-  let listMessages = messages.messages.map(message => {
-    return (
-      <div>
-        <p>From: {message.sendingUser.firstName} {message.sendingUser.lastName}</p>
-        <p>Message: {message.messageBody}</p>
-        <p>Status: {message.read ? 'Read' : 'UNREAD'} </p>
-        <button>ICON FOR MARK AS READ?</button>
-        <button>REPLY</button>
-      </div>
-    )
-  })
-  
-  return (
+const Messages = ({ messages, connections, markAsRead }) => {
+	let listMessagesReceived = messages.messages.received.map(message => {
+		return (
+			<Message message={message} user={message.sendingUser} markAsRead={markAsRead} />
+		);
+	});
+
+	let listMessagesSent = messages.messages.sent.map(message => {
+		return (
+			<Message message={message} user={message.receivingUser} />
+		);
+	});
+
+	return (
 		<div className="container connect-container is-centered">
-			<h1>Messages</h1>
-      {listMessages}
-      
-      <hr/>
-
-      <h1>Send Message</h1>
-      <SendMessage />
+			<div className="columns">
+				<div className="column">
+					<p style={{ textAlign: 'center' }}>Received</p>
+					{listMessagesReceived}
+				</div>
+				<div className="column">
+					<p style={{ textAlign: 'center' }}>Sent</p>
+					{listMessagesSent}
+				</div>
+				<div className="column is-two-thirds">
+					<p style={{ textAlign: 'center' }}>Send</p>
+					<SendMessage connections={connections} />
+				</div>
+			</div>
 		</div>
 	);
 };

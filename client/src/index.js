@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import 'bulma/css/bulma.css'
+import 'bulma/css/bulma.css';
+import "bulma-badge/dist/css/bulma-badge.min.css"; // Both Bulma imports need to be before index.css
 import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";

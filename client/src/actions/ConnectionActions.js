@@ -24,7 +24,7 @@ export function requestConnection(requestedUser) {
 			
 			history.push('/connect')
 		}).catch(error => {
-			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})
+			dispatch({ type: FLASH_MESSAGE, payload: 'ERROR: requestConnection'})
 	})
 	}
 }
@@ -35,7 +35,7 @@ export function getPendingConnections() {
 		axios.get(`/connections/pendingconnections`, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
 			dispatch({ type: GET_CONNECTIONS, payload: response.data })
 		}).catch(error => {
-			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})			
+			dispatch({ type: FLASH_MESSAGE, payload: 'ERROR: getPendingConnections'})			
 		})
 	}
 }
