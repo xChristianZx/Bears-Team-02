@@ -6,9 +6,9 @@ const initialState = {
   pendingConnections: null,
   pendingRequests: null,
   flashMessage: null,
-  user: null,
+  // user: null,
   users: null,
-  messages: null
+  // messages: null
 };
 
 export default function(state = initialState, action) {

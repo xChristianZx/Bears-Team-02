@@ -12,12 +12,12 @@ import {
 const initialState = {
   authenticated: false,
   connections: null,
-  pendingConnections: null,
-  pendingRequests: null,
+  // pendingConnections: null,
+  // pendingRequests: null,
   flashMessage: null,
   user: null,
-  users: null,
-  messages: null
+  // users: null,
+  // messages: null
 };
 
 export default function(state = initialState, action) {
@@ -41,8 +41,8 @@ export default function(state = initialState, action) {
       };
     case LOGGED_OUT:
       return { ...state, ...initialState };
-    case FLASH_MESSAGE:
-      return { ...state, flashMessage: action.payload };
+    // case FLASH_MESSAGE:
+    //   return { ...state, flashMessage: action.payload };
     default:
       return state;
   }

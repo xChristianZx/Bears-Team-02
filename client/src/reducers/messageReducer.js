@@ -2,12 +2,12 @@ import { GET_MESSAGES } from '../actions/types'
 
 const initialState = {
   authenticated: false,
-  connections: null,
-  pendingConnections: null,
-  pendingRequests: null,
+  // connections: null,
+  // pendingConnections: null,
+  // pendingRequests: null,
   flashMessage: null,
-  user: null,
-  users: null,
+  // user: null,
+  // users: null,
   messages: null
 };
 
