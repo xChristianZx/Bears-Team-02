@@ -66,7 +66,7 @@ const mapStateToProps = state => {
 		authenticated: state.User.authenticated,
 		notifications: state.Connection.pendingRequests,
 		pendingRequests: state.Connection.pendingRequests,
-		messages: state.Message.messages,
+		messages: state.Message.messages, // TODO: Check this, needs to return User.messages array
 	};
 };
 
