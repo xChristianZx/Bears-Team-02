@@ -12,6 +12,7 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 
 // Start a Conversation
 router.post('/conversation', requireAuth, (req, res) => {
+	console.log('CONVERSATION', req.body)
 	let newConversation = new Conversation({
 		sendingUser: req.user._id,
 		receivingUser: req.body.receivingUserId,
@@ -69,6 +70,7 @@ router.post('/conversation', requireAuth, (req, res) => {
 						}
 						// Add the messageID to the receivingUsers messages array and save
 						User.findById(newMessage.receivingUser, (err, user) => {
+							user.messages.push(message._id);
 							user.save((err, updatedUser) => {
 								if (err) {
 									res.json({
