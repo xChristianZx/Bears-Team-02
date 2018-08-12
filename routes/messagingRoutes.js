@@ -25,6 +25,7 @@ router.post('/conversation', requireAuth, (req, res) => {
 		messageBody: req.body.messageBody,
 	});
 
+	// Initial save of conversation, sans message
 	newConversation.save((err, conversation) => {
 		if (err) {
 			res.json({
@@ -32,6 +33,7 @@ router.post('/conversation', requireAuth, (req, res) => {
 				error: err,
 			});
 		}
+		// Once conversation is saved, add the ID to the message and save
 		newMessage.ConversationId = conversation._id;
 		newMessage.save((err, message) => {
 			if (err) {
@@ -40,6 +42,7 @@ router.post('/conversation', requireAuth, (req, res) => {
 					error: err,
 				});
 			}
+			// Once message is saved, push to conversation messages array the messageID and save
 			newConversation.messages.push(message._id);
 			newConversation.save((err, updatedConversation) => {
 				if (err) {
@@ -48,6 +51,7 @@ router.post('/conversation', requireAuth, (req, res) => {
 						error: err,
 					});
 				}
+				// Add the messageID to the sendingUsers messages array and save
 				User.findById(newMessage.sendingUser, (err, user) => {
 					if (err) {
 						res.json({
@@ -55,7 +59,7 @@ router.post('/conversation', requireAuth, (req, res) => {
 							error: err,
 						});
 					}
-					user.messages.push(message._id)
+					user.messages.push(message._id);
 					user.save((err, updatedUser) => {
 						if (err) {
 							res.json({
@@ -63,6 +67,7 @@ router.post('/conversation', requireAuth, (req, res) => {
 								error: err,
 							});
 						}
+						// Add the messageID to the receivingUsers messages array and save
 						User.findById(newMessage.receivingUser, (err, user) => {
 							user.save((err, updatedUser) => {
 								if (err) {
@@ -75,10 +80,10 @@ router.post('/conversation', requireAuth, (req, res) => {
 									success: true,
 									conversation: updatedConversation,
 								});
-							})
-						})
-					})
-				})
+							});
+						});
+					});
+				});
 			});
 		});
 	});
