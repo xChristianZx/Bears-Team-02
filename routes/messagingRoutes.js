@@ -21,7 +21,7 @@ router.post('/conversation', requireAuth, (req, res) => {
 	let newMessage = new Message({
 		ConversationId: null,
 		sendingUser: req.user,
-		receivingUser: req.body.receivingUser,
+		receivingUser: req.body.receivingUserId,
 		messageBody: req.body.messageBody,
 	});
 
@@ -48,10 +48,37 @@ router.post('/conversation', requireAuth, (req, res) => {
 						error: err,
 					});
 				}
-				res.json({
-					success: true,
-					conversation: updatedConversation,
-				});
+				User.findById(newMessage.sendingUser, (err, user) => {
+					if (err) {
+						res.json({
+							success: false,
+							error: err,
+						});
+					}
+					user.messages.push(message._id)
+					user.save((err, updatedUser) => {
+						if (err) {
+							res.json({
+								success: false,
+								error: err,
+							});
+						}
+						User.findById(newMessage.receivingUser, (err, user) => {
+							user.save((err, updatedUser) => {
+								if (err) {
+									res.json({
+										success: false,
+										error: err,
+									});
+								}
+								res.json({
+									success: true,
+									conversation: updatedConversation,
+								});
+							})
+						})
+					})
+				})
 			});
 		});
 	});
