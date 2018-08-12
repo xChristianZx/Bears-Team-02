@@ -13,6 +13,7 @@ import DashboardComp from '../../../components/UI/User/Dashboard/Dashboard';
 import Loader from '../../../components/UI/Enhancements/Loader';
 import Modal from 'react-modal';
 import SendMessage from '../../Message/SendMessage';
+import StartConversation from '../../Message/StartConversation';
 
 Modal.setAppElement('#root')
 class Dashboard extends Component {
@@ -29,7 +30,7 @@ class Dashboard extends Component {
 	componentDidMount() {
 		this.props.actions.dashboard();
 		this.props.actions.getPendingConnections();
-		this.props.actions.getMessages();
+		this.props.actions.getConversations();
 	}
 
 	componentDidUpdate(prevProps) {
@@ -38,7 +39,7 @@ class Dashboard extends Component {
 			this.props.actions.getPendingConnections();
 			if (this.props.user) {
 				console.log('ERE');
-				this.props.actions.getMessages();
+				this.props.actions.getConversations();
 			}
 		}
 	}
@@ -90,7 +91,7 @@ class Dashboard extends Component {
 						contentLabel="Message"
 					>
 						<span className="icon is-large" onClick={() => this.setState({ modalIsOpen: false })}><i className="far fa-times-circle fa-lg" /></span>
-						<SendMessage receivingUser={this.state.receivingUser} />
+						<StartConversation receivingUser={this.state.receivingUser} />
 					</Modal>
 					<DashboardComp
 						user={this.props.user}
@@ -99,7 +100,7 @@ class Dashboard extends Component {
 						pendingConnections={this.props.pendingConnections}
 						pendingRequests={this.props.pendingRequests}
 						pendingConnectionResponse={this.pendingConnectionResponse}
-            			messages={this.props.messages}
+            conversations={this.props.conversations}
 						messageButton={(_id) => this.setState({ modalIsOpen: true, receivingUser: _id })}
 						markAsRead={(messageId) => this.markAsRead(messageId)}
 						toggleTechnical={this.toggleTechnical}
@@ -123,7 +124,7 @@ const mapStateToProps = ({ User, Connection, Message, UI }) => {
 		connections: User.connections,
 		pendingConnections: Connection.pendingConnections,
 		pendingRequests: Connection.pendingRequests,
-		messages: Message.messages,
+		conversations: Message.conversations,
 		flashMessage: UI.flashMessage,
 	};
 };

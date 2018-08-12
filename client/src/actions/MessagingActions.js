@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GET_MESSAGES, FLASH_MESSAGE } from './types';
+import { GET_MESSAGES, FLASH_MESSAGE, GET_CONVERSATIONS } from './types';
 
 export function getMessages() {
 	return dispatch => {
@@ -40,6 +40,34 @@ export function markAsRead({ messageId }) {
 			})
 			.catch(error => {
 				dispatch({ type: FLASH_MESSAGE, payload: 'Error: markAsRead' })
+			})
+	}
+}
+
+export function getConversations() {
+	return dispatch => {
+		let token = localStorage.getItem('token');
+		axios
+			.get(`/message/conversations`, { headers: { Authorization: `Bearer ${token}` } })
+			.then(response => {
+				dispatch({ type: GET_CONVERSATIONS, payload: response.data.conversations });
+			})
+			.catch(error => {
+				console.log(error)
+			});
+	};
+}
+
+export function startConversation({ subject, receivingUserId, messageBody }) {
+	return dispatch => {
+		let token = localStorage.getItem('token');
+		axios
+			.post(`/message/conversation`, { subject, receivingUserId, messageBody }, { headers: { Authorization: `Bearer ${token}`}})
+			.then(response => {
+				dispatch({ type: FLASH_MESSAGE, payload: 'Conversation Success' })
+			})
+			.catch(error => {
+				dispatch({ type: FLASH_MESSAGE, payload: 'Conversation Error' })
 			})
 	}
 }

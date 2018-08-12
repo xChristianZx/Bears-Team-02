@@ -12,6 +12,7 @@ const morgan = require("morgan");
 const connectionRoutes = require("./routes/connectionRoutes");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
+const messagingRoutes = require('./routes/messagingRoutes');
 
 const app = express();
 
@@ -47,6 +48,8 @@ app.use(passport.session());
 app.use("/connections", connectionRoutes);
 app.use("/user", userRoutes);
 app.use("/auth", authRoutes);
+app.use("/message", messagingRoutes);
+
 
 //production routing to client build
 if (process.env.NODE_ENV === "production") {

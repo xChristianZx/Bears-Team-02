@@ -4,8 +4,8 @@ import Connections from './Connections/Connections';
 import PendingConnections from './PendingConnections/PendingConnections';
 import Profile from './Profile/Profile';
 import Loader from '../../Enhancements/Loader';
-import Messages from './Messages/Messages';
 import classNames from "classnames";
+import Conversations from './Messages/Conversations';
 
 const Dashboard = ({
 	user,
@@ -18,7 +18,7 @@ const Dashboard = ({
 	pendingConnections,
 	pendingConnectionResponse,
 	blockConnection,
-	messages,
+	conversations,
 	messageButton,
 	markAsRead
 }) => {
@@ -137,7 +137,7 @@ const Dashboard = ({
 				</div>
 
 				<div className="container is-fluid display-section" hidden={displayingSection !== 'Messages'}>
-					{messages !== null ? <Messages messages={messages} connections={connections} markAsRead={markAsRead} /> : <p>No Messages</p>}
+					{conversations && conversations.started ? <Conversations conversations={conversations} connections={connections} markAsRead={markAsRead} /> : <p>No Messages</p>}
 				</div>
 
 				<div className="container is-fluid display-section" hidden={displayingSection !== 'Profile'}>{user ? <Profile user={user} /> : <Loader />}</div>
