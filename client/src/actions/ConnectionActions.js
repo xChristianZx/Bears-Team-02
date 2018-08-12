@@ -18,8 +18,9 @@ export function requestConnection(requestedUser) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
 		axios.post(`/connections/connectionrequest`, { requestedUser }, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
-			dispatch({ type: FLASH_MESSAGE, payload: 'Connected request sent' })
-			history.push('/connect')
+			dispatch({ type: FLASH_MESSAGE, payload: 'Connected request sent' });
+			dispatch(getPendingConnections());
+			history.push('/connect');
 		}).catch(error => {
 			dispatch({ type: FLASH_MESSAGE, payload: 'ERROR: requestConnection'})
 	})
@@ -42,6 +43,7 @@ export function pendingConnectionResponse({ connectionRequest, action }) {
 		let token = localStorage.getItem('token');
 		axios.post(`/connections/pendingconnectionresponse`, { connectionRequest, action }, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
 			dispatch({ type: FLASH_MESSAGE, payload: response.data.message  })
+			//Need to dispatch a getCurrentConnections that routes to Connections reducer - Currently only serving current connections from User.connections
 			history.push('/dashboard')
 		}).catch(error => {
 			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again' })
@@ -50,15 +52,13 @@ export function pendingConnectionResponse({ connectionRequest, action }) {
 }
 
 export function blockConnection(blockedUserId) {
-	return dispatch => {
-		console.log(`blockConnection Action ${blockedUserId}`)
+	return dispatch => {		
 		let token = localStorage.getItem('token');
 		axios.post(`/connections/blockconnection`, { blockedUserId }, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
 			dispatch({ type: FLASH_MESSAGE, payload: response.data.message })
 			dispatch({ type: USER_DASHBOARD, payload: response.data })
 			history.push('/dashboard')
-		}).catch(error => {
-			console.log("Blocked Connection Error", error)
+		}).catch(error => {			
 			dispatch({ type: FLASH_MESSAGE, payload: 'Blocking of connection failed. Please try again.' })
 		})
 	}
