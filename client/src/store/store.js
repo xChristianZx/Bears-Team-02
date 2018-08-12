@@ -9,7 +9,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // Currently filtering reduxForm actions, comment out predicate line to disable
 const reduxLogger = createLogger({
-  // predicate: (getState, action) => !action.type.includes("@@redux-form")
+  predicate: (getState, action) => !action.type.includes("@@redux-form")
 }); 
 
 const storeMiddleware = composeEnhancers(
