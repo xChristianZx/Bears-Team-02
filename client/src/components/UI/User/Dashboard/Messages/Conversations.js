@@ -30,6 +30,7 @@ const Messages = ({ conversations, connections, markAsRead }) => {
 				</ul>
 			</div> */}
 			<p>Started: {listConversationsStarted}</p>
+			<hr/>
 			<p>Received: {listConversationsReceived}</p>
 		</div>
 	);
