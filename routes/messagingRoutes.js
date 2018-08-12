@@ -135,7 +135,6 @@ router.get('/conversations', requireAuth, (req, res) => {
 						});
 					}
 					conversations.started = conversation;
-					console.log('CONVERSATIONS', conversations.received[0].messages)
 					return res.json({
 						success: true,
 						conversations,
