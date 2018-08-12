@@ -34,7 +34,7 @@ export function markAsRead({ messageId }) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
 		axios
-			.post(`/auth/readmessage`, { messageId }, { headers: { Authorization: `Bearer ${token}` } })
+			.post(`/message/readmessage`, { messageId }, { headers: { Authorization: `Bearer ${token}` } })
 			.then(response => {
 				dispatch({ type: FLASH_MESSAGE, payload: 'Message Read' })
 			})

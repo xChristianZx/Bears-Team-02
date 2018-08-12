@@ -60,7 +60,7 @@ router.post('/conversation', requireAuth, (req, res) => {
 							error: err,
 						});
 					}
-					user.messages.push(message._id);
+					user.unreadMessages.push(message._id);
 					user.save((err, updatedUser) => {
 						if (err) {
 							res.json({
@@ -70,7 +70,7 @@ router.post('/conversation', requireAuth, (req, res) => {
 						}
 						// Add the messageID to the receivingUsers messages array and save
 						User.findById(newMessage.receivingUser, (err, user) => {
-							user.messages.push(message._id);
+							user.unreadMessages.push(message._id);
 							user.save((err, updatedUser) => {
 								if (err) {
 									res.json({
@@ -147,7 +147,7 @@ router.post('/sendmessage', requireAuth, (req, res) => {
 					});
 				}
 				if (user) {
-					user.messages.push(message._id);
+					user.unreadMessages.push(message._id);
 					user.save();
 
 					User.findById(newMessage.receivingUser, (err, receivingUser) => {
@@ -158,7 +158,7 @@ router.post('/sendmessage', requireAuth, (req, res) => {
 						}
 
 						if (receivingUser) {
-							receivingUser.messages.push(message._id);
+							receivingUser.unreadMessages.push(message._id);
 							receivingUser.save();
 
 							res.json({
@@ -221,8 +221,14 @@ router.post('/readmessage', requireAuth, (req, res) => {
 				if (!message) {
 					res.json({
 						success: false,
+						error: err
 					});
 				}
+			});
+		} else {
+			res.json({
+				success: false,
+				error: err
 			});
 		}
 	});

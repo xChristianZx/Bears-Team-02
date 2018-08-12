@@ -28,7 +28,7 @@ const userSchema = new Schema({
   connections: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   blockedConnections: [{ type: Schema.Types.ObjectId, ref: "User" }],
   hiddenUsers:[{ type: Schema.Types.ObjectId, ref: "User" }], // Hidden Users is for other users that have blocked this user
-  messages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }]
+  unreadMessages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }]
 });
 
 userSchema.plugin(passportLocalMongoose);
