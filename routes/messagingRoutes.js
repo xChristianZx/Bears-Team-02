@@ -100,7 +100,14 @@ router.get('/conversations', requireAuth, (req, res) => {
 
 	Conversation.find({ receivingUser: req.user._id })
 		.populate('sendingUser', '-pendingConnectionRequests -messages -email')
-		.populate('messages', '-sendingUser')
+		.populate({
+			path: 'messages',
+			model: 'Message',
+			populate: {
+				path: 'sendingUser',
+				model: 'User'
+			}
+		})
 		.exec((err, conversation) => {
 			if (!conversation) {
 				res.json({
@@ -108,11 +115,19 @@ router.get('/conversations', requireAuth, (req, res) => {
 					error: err,
 				});
 			}
+
 			conversations.received = conversation;
 
 			Conversation.find({ sendingUser: req.user._id })
 				.populate('receivingUser', '-pendingConnectionRequests -messages -email')
-				.populate('messages', '-receivingUser')
+				.populate({
+					path: 'messages',
+					model: 'Message',
+					populate: {
+						path: 'sendingUser',
+						model: 'User'
+					}
+				})
 				.exec((err, conversation) => {
 					if (!conversation) {
 						res.json({
@@ -121,6 +136,7 @@ router.get('/conversations', requireAuth, (req, res) => {
 						});
 					}
 					conversations.started = conversation;
+					console.log('CONVERSATIONS', conversations.received[0].messages)
 					return res.json({
 						success: true,
 						conversations,
@@ -236,5 +252,36 @@ router.post('/readmessage', requireAuth, (req, res) => {
 		success: true,
 	});
 });
+
+router.post('/reply', requireAuth, (req, res) => {
+	let conversationId = req.body.conversationId
+	let newMessage = new Message({
+		ConversationId: conversationId,
+		sendingUser: req.user._id,
+		receivingUser: req.body.receivingUserId,
+		messageBody: req.body.messageBody,
+	});
+
+	Conversation.findByIdAndUpdate(conversationId, { $push: { messages: newMessage }}, { new: true}, (err, conversation) => {
+		if(!conversation) {
+			res.json({
+				success: false,
+				error: err
+			})
+		}
+		newMessage.save((err, message) => {
+			if (err) {
+				res.json({
+					success: false,
+					error: err,
+				});
+			}
+		})
+		res.json({
+			success: true, 
+			conversation
+		})
+	})
+})
 
 module.exports = router;

@@ -58,7 +58,6 @@ class Navigation extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log('STATE', state)
 	return {
 		authenticated: state.User.authenticated,
 		notifications: state.Connection.pendingRequests,
