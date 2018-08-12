@@ -17,8 +17,5 @@ Styling
 
 Flash Messaging
 - Add to logout confirmation
-<<<<<<< HEAD
-=======
 
 NOTE: Currently messages array on the user model is redundant, messages will be referenced inside conversations, I will rename messages array on user model to unreadMessages so can track notifications, once a message is marked as read, remove from array.
->>>>>>> development
