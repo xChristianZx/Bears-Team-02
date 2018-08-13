@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { GET_MESSAGES, FLASH_MESSAGE, GET_CONVERSATIONS } from './types';
+import { realpathSync } from 'fs';
 
 export function getMessages() {
 	return dispatch => {
@@ -34,7 +35,7 @@ export function markAsRead({ messageId }) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
 		axios
-			.post(`/auth/readmessage`, { messageId }, { headers: { Authorization: `Bearer ${token}` } })
+			.post(`/message/readmessage`, { messageId }, { headers: { Authorization: `Bearer ${token}` } })
 			.then(response => {
 				dispatch({ type: FLASH_MESSAGE, payload: 'Message Read' })
 			})
@@ -58,7 +59,11 @@ export function getConversations() {
 	};
 }
 
-export function startConversation({ subject, receivingUserId, messageBody }) {
+export function startConversation({ 
+	subject, 
+	receivingUserId, 
+	messageBody 
+}) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
 		axios
@@ -68,6 +73,24 @@ export function startConversation({ subject, receivingUserId, messageBody }) {
 			})
 			.catch(error => {
 				dispatch({ type: FLASH_MESSAGE, payload: 'Conversation Error' })
+			})
+	}
+}
+
+export function reply({
+	conversationId,
+	receivingUserId,
+	messageBody
+}) {
+	return dispatch => {
+		let token = localStorage.getItem('token');
+		axios
+			.post(`/message/reply`, { conversationId, receivingUserId, messageBody }, { headers: { Authorization: `Bearer ${token}` }})
+			.then(response => {
+
+			})
+			.catch(error => {
+
 			})
 	}
 }

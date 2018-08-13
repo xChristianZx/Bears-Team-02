@@ -108,7 +108,7 @@ router.get('/logout', (req, res) => {
 router.get('/dashboard', requireAuth, (req, res) => {
 	User.findById(req.user._id)
 		.populate('connections')
-		.populate('messages')
+		.populate('unreadMessages')
 		.exec((err, user) => {
 			if (err) {
 				console.log(err);

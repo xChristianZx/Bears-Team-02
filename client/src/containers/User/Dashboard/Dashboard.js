@@ -11,18 +11,17 @@ import UpdateForm from '../../../components/UI/Form/UpdateForm/UpdateForm';
 import updateFields from '../../../misc/userUpdateFields';
 import DashboardComp from '../../../components/UI/User/Dashboard/Dashboard';
 import Loader from '../../../components/UI/Enhancements/Loader';
-import Modal from 'react-modal';
-import SendMessage from '../../Message/SendMessage';
 import StartConversation from '../../Message/StartConversation';
+import ModalHOC from '../../../hoc/ModalHOC';
 
-Modal.setAppElement('#root')
+
 class Dashboard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			editProfile: false,
 			displayingSection: 'Connections',
-      modalIsOpen: false,
+			modalIsOpen: false,
       receivingUser: null
 		};
 	}
@@ -68,6 +67,10 @@ class Dashboard extends Component {
 		this.props.actions.markAsRead({messageId})
 	}
 
+	closeModal = () => {
+		this.setState({ modalIsOpen: false })
+	}
+
 	render() {
 		if (this.state.editProfile) {
 			return (
@@ -83,16 +86,9 @@ class Dashboard extends Component {
 		if (this.props.user && this.props.connections) {
 			return (
 				<Fragment>
-					<Modal
-						isOpen={this.state.modalIsOpen}
-						onRequestClose={() => this.setState({ modalIsOpen: false })}
-						className='Modal'
-						overlayClassName='Overlay'
-						contentLabel="Message"
-					>
-						<span className="icon is-large" onClick={() => this.setState({ modalIsOpen: false })}><i className="far fa-times-circle fa-lg" /></span>
+					<ModalHOC modalIsOpen={this.state.modalIsOpen} closeModal={this.closeModal}>
 						<StartConversation receivingUser={this.state.receivingUser} />
-					</Modal>
+					</ModalHOC>
 					<DashboardComp
 						user={this.props.user}
 						toggleEditProfile={() => this.setState({ editProfile: true })}

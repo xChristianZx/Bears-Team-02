@@ -75,7 +75,7 @@ const Dashboard = ({
 						<p className="stat-key">Pending Connections</p>
 					</div>
 					<div className="column is-2-tablet is-4-mobile has-text-centered">
-						<p className="stat-val">{user.messages.length}</p>
+						<p className="stat-val">{user.messages ? user.messages.length : 0}</p>
 						<p className="stat-key">Messages</p>
 					</div>
 				</div>
