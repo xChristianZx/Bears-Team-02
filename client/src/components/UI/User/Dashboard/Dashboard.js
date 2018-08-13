@@ -75,7 +75,7 @@ const Dashboard = ({
 						<p className="stat-key">Pending Connections</p>
 					</div>
 					<div className="column is-2-tablet is-4-mobile has-text-centered">
-						<p className="stat-val">{user.messages ? user.messages.length : 0}</p>
+						<p className="stat-val">{user.unreadMessages ? user.unreadMessages.length : 0}</p>
 						<p className="stat-key">Messages</p>
 					</div>
 				</div>
@@ -137,7 +137,7 @@ const Dashboard = ({
 				</div>
 
 				<div className="container is-fluid display-section" hidden={displayingSection !== 'Messages'}>
-					{conversations && conversations.started && conversations.received ? <Conversations conversations={conversations} connections={connections} markAsRead={markAsRead} /> : <p>No Messages</p>}
+					{conversations && conversations.started || conversations.received ? <Conversations conversations={conversations} connections={connections} markAsRead={markAsRead} /> : <p>No Messages</p>}
 				</div>
 
 				<div className="container is-fluid display-section" hidden={displayingSection !== 'Profile'}>{user ? <Profile user={user} /> : <Loader />}</div>

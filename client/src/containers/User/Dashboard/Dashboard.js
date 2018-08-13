@@ -19,7 +19,7 @@ class Dashboard extends Component {
 		super(props);
 		this.state = {
 			editProfile: false,
-			displayingSection: 'Connections',
+			displayingSection: 'Messages',
 			modalIsOpen: false,
       receivingUser: null
 		};

@@ -12,6 +12,7 @@ const Messages = ({ conversations, connections, markAsRead }) => {
 					subject={subject} 
 					user={receivingUser} 
 					messages={messages} 
+					markAsRead={markAsRead}
 				/>
 			)
 		}
