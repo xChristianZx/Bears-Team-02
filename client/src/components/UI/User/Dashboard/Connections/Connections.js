@@ -1,5 +1,6 @@
 import React from "react";
 import "./Connection.css";
+import Capitalize from "../../../Enhancements/Capitalize";
 
 const Connections = ({ connections, blockConnection, messageButton }) => {
   let userConnections = connections.map(connection => {
@@ -18,7 +19,7 @@ const Connections = ({ connections, blockConnection, messageButton }) => {
           <div className="media-content">
             <div className="media">
               <div className="media-content">
-                <p className="title is-4">{`${firstName} ${lastName}`}</p>
+                <p className="title is-4">{`${Capitalize(firstName)} ${Capitalize(lastName)}`}</p>
                 <p className="subtitle is-6">@{username}</p>
                 <p disabled className="subtitle is-6">
                   {isTechnical ? "Technical" : "Non-Technical"}
