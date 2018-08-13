@@ -1,6 +1,4 @@
 import React from 'react';
-import SendMessage from '../../../../../containers/Message/SendMessage';
-import Message from './Message';
 import Conversation from './Conversation';
 
 const Messages = ({ conversations, connections, markAsRead }) => {

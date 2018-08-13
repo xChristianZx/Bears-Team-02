@@ -11,6 +11,7 @@ const Conversation = ({ _id, subject, messages, user, markAsRead }) => {
       <p>Name: {firstName} {lastName}</p>
       <p>Subject: {subject}</p>
       {messagesList}
+      <input type="text" />
       <button>
         Reply
       </button>
