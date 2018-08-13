@@ -2,7 +2,7 @@ import React from 'react';
 import Conversation from './Conversation';
 import './Conversations.css';
 
-const Messages = ({ conversations, connections, markAsRead }) => {
+const Conversations = ({ conversations, connections, markAsRead }) => {
 	let listConversationsStarted = conversations.started.map(conversation => {
 		let { _id, subject, messages, receivingUser } = conversation;
 		if (_id !== undefined) {
@@ -46,4 +46,4 @@ const Messages = ({ conversations, connections, markAsRead }) => {
 		</div>
 	);
 };
-export default Messages;
+export default Conversations;
