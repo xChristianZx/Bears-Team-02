@@ -21,12 +21,9 @@ const Fields = [
     }
 
     onSubmit = values => {
-      console.log('Props', this.props)
-      console.log('conreply', this.props.receivingUser)
-      console.log('conreply', this.props.conversationId)
-      let receivingUser = this.props.receivingUser
+      let receivingUserId = this.props.receivingUser
       let ConversationId = this.props.conversationId
-      let data = { ...values, receivingUser, ConversationId }
+      let data = { ...values, receivingUserId, ConversationId }
       this.props.actions.reply(data)
     }
 

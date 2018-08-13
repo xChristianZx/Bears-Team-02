@@ -84,19 +84,13 @@ export function reply({
 }) {
 	return dispatch => {
 		let token = localStorage.getItem('token');
-		console.log('TERMINATOR')
-		console.log({
-			ConversationId,
-			receivingUserId,
-			messageBody
-		})
-		// axios
-		// 	.post(`/message/reply`, { conversationId, receivingUserId, messageBody }, { headers: { Authorization: `Bearer ${token}` }})
-		// 	.then(response => {
-
-		// 	})
-		// 	.catch(error => {
-
-		// 	})
+		axios
+			.post(`/message/reply`, { ConversationId, receivingUserId, messageBody }, { headers: { Authorization: `Bearer ${token}` }})
+			.then(response => {
+				console.log('response', response)
+			})
+			.catch(error => {
+				console.log('error', error)
+			})
 	}
 }

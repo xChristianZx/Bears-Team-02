@@ -4,13 +4,31 @@ import Conversation from './Conversation';
 const Messages = ({ conversations, connections, markAsRead }) => {
 	let listConversationsStarted = conversations.started.map(conversation => {
 		let { _id, subject, messages, receivingUser } = conversation;
-		return <Conversation id={_id} subject={subject} user={receivingUser} messages={messages} />;
+		if (_id !== undefined) {
+			return (
+				<Conversation 
+					conversationId={_id} 
+					subject={subject} 
+					user={receivingUser} 
+					messages={messages} 
+				/>
+			)
+		}
 	});
- 
+
+
 	let listConversationsReceived = conversations.received.map(conversation => {
 		let { _id, subject, messages, sendingUser } = conversation;
 		return (
-			<Conversation id={_id} subject={subject} user={sendingUser} messages={messages} markAsRead={markAsRead} />
+			<div>
+				<Conversation
+					conversationId={_id}
+					subject={subject}
+					user={sendingUser}
+					messages={messages}
+					markAsRead={markAsRead}
+				/>
+			</div>
 		);
 	});
 
@@ -28,9 +46,9 @@ const Messages = ({ conversations, connections, markAsRead }) => {
 				</ul>
 			</div> */}
 			<p>Conversations Started: {listConversationsStarted}</p>
-			<hr/>
+			<hr />
 			<p>Conversations Received: {listConversationsReceived}</p>
 		</div>
 	);
-}
+};
 export default Messages;
