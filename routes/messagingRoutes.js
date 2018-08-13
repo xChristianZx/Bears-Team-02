@@ -104,8 +104,8 @@ router.get('/conversations', requireAuth, (req, res) => {
 			model: 'Message',
 			populate: {
 				path: 'sendingUser',
-				model: 'User'
-			}
+				model: 'User',
+			},
 		})
 		.exec((err, conversation) => {
 			if (!conversation) {
@@ -124,8 +124,8 @@ router.get('/conversations', requireAuth, (req, res) => {
 					model: 'Message',
 					populate: {
 						path: 'sendingUser',
-						model: 'User'
-					}
+						model: 'User',
+					},
 				})
 				.exec((err, conversation) => {
 					if (!conversation) {
@@ -234,34 +234,33 @@ router.post('/readmessage', requireAuth, (req, res) => {
 				if (!message) {
 					res.json({
 						success: false,
-						error: err
+						error: err,
 					});
 				}
-			});
 
-		} else {
-			res.json({
-				success: false,
-				error: err
-			});
+						User.findByIdAndUpdate(
+							req.user._id,
+							{ $pull: { unreadMessages: message._id } },
+							(err, success) => {
+								if (!success) {
+									res.json({
+										success: false,
+										error: err,
+									});
+								}
+								res.json({
+									success: true,
+								});
+							}
+						);
+					}
+				);
 		}
-		User.findByIdAndUpdate(req.user._id, { $pull: { messages: message._id }}, { new: true}, (err, success) => {
-			if(!success) {
-				res.json({
-					success: false,
-					error: err
-				});
-			}
-		});
-	});
-	
-	res.json({
-		success: true,
 	});
 });
 
 router.post('/reply', requireAuth, (req, res) => {
-	let conversationId = req.body.ConversationId
+	let conversationId = req.body.ConversationId;
 	let newMessage = new Message({
 		ConversationId: conversationId,
 		sendingUser: req.user._id,
@@ -276,21 +275,37 @@ router.post('/reply', requireAuth, (req, res) => {
 				error: err,
 			});
 		} else {
-			Conversation.findByIdAndUpdate(conversationId, { $push: { messages: message._id }}, { new: true}, (err, conversation) => {
-				if(!conversation) {
-					res.json({
-						success: false,
-						error: err
-					})
-				} else {
-					res.json({
-						success: true
-					}) 
+			Conversation.findByIdAndUpdate(
+				conversationId,
+				{ $push: { messages: message._id } },
+				{ new: true },
+				(err, conversation) => {
+					if (!conversation) {
+						res.json({
+							success: false,
+							error: err,
+						});
+					}
+
+					User.findByIdAndUpdate(
+						newMessage.receivingUser,
+						{ $push: { unreadMessages: message._id } },
+						(err, success) => {
+							if (!success) {
+								res.json({
+									success: false,
+									error: err,
+								});
+							}
+							res.json({
+								success: true,
+							});
+						}
+					);
 				}
-				
-			})
+			);
 		}
-	})
-})
+	});
+});
 
 module.exports = router;
