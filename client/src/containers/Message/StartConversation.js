@@ -30,7 +30,7 @@ const Fields = [
         this.props.alert.show(this.props.flashMessage)
       }
     }
-
+ 
     render() {
       return (
         <Fragment>

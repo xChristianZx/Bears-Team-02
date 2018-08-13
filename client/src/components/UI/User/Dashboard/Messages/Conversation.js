@@ -1,5 +1,6 @@
 import React from 'react'
 import Message from './Message';
+import ConversationReply from '../../../../../containers/Message/ConversationReply';
 
 const Conversation = ({ _id, subject, messages, user, markAsRead }) => {
   let { firstName, lastName } = user
@@ -8,10 +9,12 @@ const Conversation = ({ _id, subject, messages, user, markAsRead }) => {
   })
   return (
     <div key={_id}>
+    {console.log('ID', _id)}
       <p>Name: {firstName} {lastName}</p>
       <p>Subject: {subject}</p>
       {messagesList}
-      <input type="text" />
+      {_id === undefined ? <ConversationReply receivingUser={user._id} conversationId={_id} /> : <p>Loading...</p> }
+      
       <button>
         Reply
       </button>
