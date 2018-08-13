@@ -1,0 +1,11 @@
+.Conversation {
+  color: black; }
+  .Conversation header {
+    background: #209cee; }
+  .Conversation button {
+    clear: both; }
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table; }

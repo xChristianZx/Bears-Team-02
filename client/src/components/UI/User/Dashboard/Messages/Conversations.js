@@ -1,5 +1,6 @@
 import React from 'react';
 import Conversation from './Conversation';
+import './Conversations.css';
 
 const Messages = ({ conversations, connections, markAsRead }) => {
 	let listConversationsStarted = conversations.started.map(conversation => {
@@ -20,7 +21,7 @@ const Messages = ({ conversations, connections, markAsRead }) => {
 	let listConversationsReceived = conversations.received.map(conversation => {
 		let { _id, subject, messages, sendingUser } = conversation;
 		return (
-			<div>
+			<article className='Conversation'>
 				<Conversation
 					conversationId={_id}
 					subject={subject}
@@ -28,7 +29,7 @@ const Messages = ({ conversations, connections, markAsRead }) => {
 					messages={messages}
 					markAsRead={markAsRead}
 				/>
-			</div>
+			</article>
 		);
 	});
 

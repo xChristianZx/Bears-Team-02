@@ -1,23 +1,31 @@
 import React from 'react';
 import Message from './Message';
 import ConversationReply from '../../../../../containers/Message/ConversationReply';
+import './Conversation.css';
 
 const Conversation = ({ conversationId, subject, messages, user, markAsRead }) => {
 	let { firstName, lastName } = user;
 	let messagesList = messages.map(message => {
-		return <Message message={message} firstName={firstName} markAsRead={markAsRead || null} />;
+		return <Message user={user} message={message} firstName={firstName} markAsRead={markAsRead || null} />;
 	});
-		return (
-			<div key={conversationId}>
-				<p>
+	return (
+		<React.Fragment>
+      <div key={conversationId} className="Conversation clearfix">
+			<header>
+				<h1>
 					Name: {firstName} {lastName}
-				</p>
-				<p>Subject: {subject}</p>
-				{messagesList}
-					<ConversationReply receivingUser={user._id} conversationId={conversationId} />
-				<button>Reply</button>
-			</div>
-		);
+				</h1>
+				<h2>Subject: {subject}</h2>
+			</header>
+			{messagesList}
+			{/* <ConversationReply receivingUser={user._id} conversationId={conversationId} /> */}
+			<button className='clearfix'>Reply</button>
+		</div>
+
+    <hr/>
+    </React.Fragment>
+    
+	);
 };
 
 export default Conversation;

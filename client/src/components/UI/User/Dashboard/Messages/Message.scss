@@ -1,0 +1,35 @@
+.Message {
+  background: white;
+  color: black;
+
+  .Body {
+    display: block;
+  }
+
+  .Status {
+    color: grey;
+    font-size: 0.75em;
+  }
+
+  .Left {
+    float: left;
+    clear: both;
+
+    p {
+      float: left;
+    clear: both;
+
+    }
+  }
+
+  .Right {
+    float: right;
+    clear: both;
+
+    p {
+      float: right;
+    clear: both;
+
+    }
+  }
+}

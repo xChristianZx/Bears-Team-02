@@ -1,21 +1,24 @@
 import React, { Fragment } from 'react';
+import './Message.css';
 
 // const Message = ({ message, user, markAsRead }) => {
-const Message = ({ message, markAsRead }) => {
+const Message = ({ user, message, markAsRead }) => {
 	const { _id, sendingUser, messageBody, read } = message;
+	const floatClass = user.username === sendingUser.username ? 'Left' : 'Right'
 	return (
-		<Fragment>
+		<div className='Message'>
+		<div className={['Body', floatClass].join(' ')}>
 			<p key={_id}>Thread: {messageBody}</p>
-			<p>Sender: {sendingUser.firstName}</p>
-	 		<p>Status: {read ? 'Read' : 'UNREAD'} </p>
+			<p className='Sender' > ({sendingUser.firstName})</p>
+	 		<p className='Status' >Status: {read ? 'Read' : 'UNREAD'} </p>
+		</div>
 
-			{markAsRead ? (
+			{/* {markAsRead ? (
 				<button hidden={read} onClick={() => markAsRead(_id)}>
 					Mark as Read
 				</button>
-			) : null}
-			<hr/>
-		</Fragment>
+			) : null} */}
+		</div>
 	);
 }; 
 
