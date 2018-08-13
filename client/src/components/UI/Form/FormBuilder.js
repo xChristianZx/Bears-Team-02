@@ -23,7 +23,7 @@ const FormBuilder = props => {
 
 	return (
 		<Form className='Form' onSubmit={handleSubmit}>
-      <h1 className="title" >{props.formTitle}</h1>
+      <h1 className="title" >{props.formTitle ? props.formTitle : null}</h1>
 			{fields}
 			<div className="buttons">			
 				<button className='button is-success' type="submit">{props.buttonText}</button>					

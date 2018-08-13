@@ -238,13 +238,23 @@ router.post('/readmessage', requireAuth, (req, res) => {
 					});
 				}
 			});
+
 		} else {
 			res.json({
 				success: false,
 				error: err
 			});
 		}
+		User.findByIdAndUpdate(req.user._id, { $pull: { messages: message._id }}, { new: true}, (err, success) => {
+			if(!success) {
+				res.json({
+					success: false,
+					error: err
+				});
+			}
+		});
 	});
+	
 	res.json({
 		success: true,
 	});
