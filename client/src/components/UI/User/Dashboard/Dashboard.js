@@ -29,6 +29,10 @@ const Dashboard = ({
 			"is-active": (tabName === displayingSection ? true : false),
 		})
 	}
+
+	const Capitalize = (string) => {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+		}
 	
 	return (
 		<React.Fragment>
@@ -42,7 +46,7 @@ const Dashboard = ({
 					<div className="column is-4-tablet is-10-mobile name">
 						<p>
 							<span className="title is-bold">
-								{user.firstName} {user.lastName}
+								{Capitalize(user.firstName)} {Capitalize(user.lastName)}
 							</span>
 							<br />
 							<a
