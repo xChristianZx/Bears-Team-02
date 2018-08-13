@@ -15,7 +15,7 @@ const userSchema = new Schema({
     required: [true, "Username is required"],
     lowercase: true
   },
-  userPhotoURL: { type: String, required: false, lowercase: true },
+  userPhotoURL: { type: String, required: false },
   email: { type: String, required: false, lowercase: true },
   location: {
     city: { type: String, required: false, lowercase: true },

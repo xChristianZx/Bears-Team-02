@@ -8,6 +8,7 @@ const Messages = ({ conversations, connections, markAsRead }) => {
 		if (_id !== undefined) {
 			return (
 				<Conversation 
+					key={_id}
 					conversationId={_id} 
 					subject={subject} 
 					user={receivingUser} 
@@ -22,15 +23,16 @@ const Messages = ({ conversations, connections, markAsRead }) => {
 	let listConversationsReceived = conversations.received.map(conversation => {
 		let { _id, subject, messages, sendingUser } = conversation;
 		return (
-			<article className='Conversation'>
+			<div key={_id} className='Conversation'>
 				<Conversation
+				key={_id}
 					conversationId={_id}
 					subject={subject}
 					user={sendingUser}
 					messages={messages}
 					markAsRead={markAsRead}
 				/>
-			</article>
+			</div>
 		);
 	});
 
@@ -38,18 +40,9 @@ const Messages = ({ conversations, connections, markAsRead }) => {
 
 	return (
 		<div>
-			{/* <div>
-				Testing filtering user for sending a message from here
-				<p>Connections</p>
-				<ul>
-					{filteredConnections.map(connection => {
-						return <li key={connection._id}>{connection.username}</li>;
-					})}
-				</ul>
-			</div> */}
-			<p>Conversations Started: {listConversationsStarted}</p>
+			<div>Conversations Started: {listConversationsStarted}</div>
 			<hr />
-			<p>Conversations Received: {listConversationsReceived}</p>
+			<div>Conversations Received: {listConversationsReceived}</div>
 		</div>
 	);
 };
