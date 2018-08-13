@@ -14,7 +14,6 @@ import Loader from '../../../components/UI/Enhancements/Loader';
 import StartConversation from '../../Message/StartConversation';
 import ModalHOC from '../../../hoc/ModalHOC';
 
-
 class Dashboard extends Component {
 	constructor(props) {
 		super(props);
@@ -83,7 +82,7 @@ class Dashboard extends Component {
 			);
 		}
 
-		if (this.props.user && this.props.connections) {
+		if (this.props.user && this.props.connections && this.props.conversations) {
 			return (
 				<Fragment>
 					<ModalHOC modalIsOpen={this.state.modalIsOpen} closeModal={this.closeModal}>

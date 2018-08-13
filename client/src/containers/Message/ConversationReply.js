@@ -1,17 +1,17 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux' 
 import * as messageActions from '../../actions/MessagingActions'
 
-import FormBuilder from '../../components/UI/Form/FormBuilder';
+import FormBuilder from '../../components/UI/Form/FormBuilder'
 import { withAlert } from 'react-alert'
 
 const Fields = [
-  { label: 'Subject', name: 'subject', type: 'text', errorMsg: 'Subject is required' },
-	{ label: 'Message', name: 'messageBody', type: 'text', errorMsg: 'Message is required' }
-];
+  { label: 'Message', name: 'messageBody', type: 'text', errorMsg: 'Message is required' }
+]
 
-  class StartConversation extends Component {
+  class ConversationReply extends Component {
+    
     constructor(props) {
       super(props)
 
@@ -19,10 +19,12 @@ const Fields = [
         receivingUser: '',
       }
     }
+
     onSubmit = values => {
       let receivingUserId = this.props.receivingUser
-      let data = { ...values , receivingUserId }
-      this.props.actions.startConversation(data)
+      let ConversationId = this.props.conversationId
+      let data = { ...values, receivingUserId, ConversationId }
+      this.props.actions.reply(data)
     }
 
     componentDidUpdate(prevProps) {
@@ -30,11 +32,11 @@ const Fields = [
         this.props.alert.show(this.props.flashMessage)
       }
     }
- 
+
     render() {
       return (
         <Fragment>
-          <FormBuilder fields={Fields} onSubmit={this.onSubmit} buttonText='Start Conversation' formTitle='Conversation' />
+          <FormBuilder fields={Fields} onSubmit={this.onSubmit} buttonText='Reply' formTitle='Conversation' />
         </Fragment>
       )
     }
@@ -50,6 +52,6 @@ const Fields = [
     }
   }
 
-  StartConversation = withAlert(StartConversation)
+  ConversationReply = withAlert(ConversationReply)
 
-export default connect(mapStateToProps, mapDispatchToProps)(StartConversation)
+export default connect(mapStateToProps, mapDispatchToProps)(ConversationReply)

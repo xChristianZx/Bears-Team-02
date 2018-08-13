@@ -1,0 +1,20 @@
+.Message {
+  background: white;
+  color: black; }
+  .Message .Body {
+    display: block; }
+  .Message .Status {
+    color: grey;
+    font-size: 0.75em; }
+  .Message .Left {
+    float: left;
+    clear: both; }
+    .Message .Left p {
+      float: left;
+      clear: both; }
+  .Message .Right {
+    float: right;
+    clear: both; }
+    .Message .Right p {
+      float: right;
+      clear: both; }

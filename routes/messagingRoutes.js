@@ -145,7 +145,6 @@ router.get('/conversations', requireAuth, (req, res) => {
 
 // Send a Message
 router.post('/sendmessage', requireAuth, (req, res) => {
-	console.log('USER', req.body);
 	let newMessage = new Message({
 		sendingUser: req.user,
 		receivingUser: req.body.receivingUser,
@@ -252,7 +251,7 @@ router.post('/readmessage', requireAuth, (req, res) => {
 });
 
 router.post('/reply', requireAuth, (req, res) => {
-	let conversationId = req.body.conversationId
+	let conversationId = req.body.ConversationId
 	let newMessage = new Message({
 		ConversationId: conversationId,
 		sendingUser: req.user._id,
@@ -260,25 +259,27 @@ router.post('/reply', requireAuth, (req, res) => {
 		messageBody: req.body.messageBody,
 	});
 
-	Conversation.findByIdAndUpdate(conversationId, { $push: { messages: newMessage }}, { new: true}, (err, conversation) => {
-		if(!conversation) {
+	newMessage.save((err, message) => {
+		if (err) {
 			res.json({
 				success: false,
-				error: err
+				error: err,
+			});
+		} else {
+			Conversation.findByIdAndUpdate(conversationId, { $push: { messages: message._id }}, { new: true}, (err, conversation) => {
+				if(!conversation) {
+					res.json({
+						success: false,
+						error: err
+					})
+				} else {
+					res.json({
+						success: true
+					}) 
+				}
+				
 			})
 		}
-		newMessage.save((err, message) => {
-			if (err) {
-				res.json({
-					success: false,
-					error: err,
-				});
-			}
-		})
-		res.json({
-			success: true, 
-			conversation
-		})
 	})
 })
 
