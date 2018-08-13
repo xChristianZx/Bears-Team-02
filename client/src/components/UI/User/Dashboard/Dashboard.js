@@ -6,6 +6,7 @@ import Profile from './Profile/Profile';
 import Loader from '../../Enhancements/Loader';
 import classNames from "classnames";
 import Conversations from './Messages/Conversations';
+import Capitalize from '../../Enhancements/Capitalize';
 
 const Dashboard = ({
 	user,
@@ -29,10 +30,6 @@ const Dashboard = ({
 			"is-active": (tabName === displayingSection ? true : false),
 		})
 	}
-
-	const Capitalize = (string) => {
-		return string.charAt(0).toUpperCase() + string.slice(1);
-		}
 	
 	return (
 		<React.Fragment>
