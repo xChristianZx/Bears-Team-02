@@ -9,3 +9,6 @@ User Image
 
 Styling
 - Restyle Landing Title and Navbar
+
+Delete
+- Update to delete all conversations, messages, pendingConnections etc
