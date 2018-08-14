@@ -34,7 +34,7 @@ const UpdateFormBuilder = props => {
               type="submit"
               disabled={pristine || submitting}
             >
-              Update Profile
+              Update User Info
             </button>
           </div>
           <div className="control">
