@@ -1,6 +1,5 @@
 Future Features
 - Add oAuth - Github/ Google
-- Delete User Profile
 
 Profile
 - Build Form
@@ -11,6 +10,5 @@ User Image
 Styling
 - Restyle Landing Title and Navbar
 
-Flash Messaging
-- Add to logout confirmation
-
+Delete
+- Update to delete all conversations, messages, pendingConnections etc

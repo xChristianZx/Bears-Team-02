@@ -1,5 +1,6 @@
 import React from 'react';
 import Capitalize from '../../../Enhancements/Capitalize';
+import { Link } from "react-router-dom";
 
 const Profile = ({ user }) => {
 	// console.log('USER', user);
@@ -25,6 +26,7 @@ const Profile = ({ user }) => {
 					</div>
 
 					<div className="content">Write your bio here someday.</div>
+					<Link to='/delete' className='button is-danger'>Delete Account</Link>
 				</div>
 			</div>
 		</div>

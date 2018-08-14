@@ -79,6 +79,7 @@ export function logout() {
 	return dispatch => {
 		localStorage.removeItem('token');
 		dispatch({ type: LOGGED_OUT })
+		dispatch({ type: FLASH_MESSAGE, payload: 'Successfully logged out.' })
 		history.push('/');
 	};
 }
@@ -95,3 +96,20 @@ export function toggleTechnical() {
 	}
 }
 
+export function deleteAccount({ username, password }) {
+	return dispatch => {	
+		let token = localStorage.getItem('token');
+		axios
+			.post(`/auth/delete-account`, { username, password }, { headers: { Authorization: `Bearer ${token}` } })
+			.then(response => {
+				localStorage.removeItem('token');
+				dispatch({ type: LOGGED_OUT })
+				dispatch({ type: FLASH_MESSAGE, payload: 'Account successfully deleted.' })
+				history.push('/')
+			})
+			.catch(error => {
+				dispatch({ type: FLASH_MESSAGE, payload: 'Something went wrong.' })
+				history.push('/dashboard')
+			});
+	};
+}
