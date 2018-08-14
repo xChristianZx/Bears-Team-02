@@ -22,7 +22,7 @@ const UpdateFormBuilder = props => {
 
   return (
     <Form className="Form" onSubmit={handleSubmit}>
-      <h1 className="title">Update Form</h1>
+      <h1 className="title">Update User Information</h1>
       {fields}
       <div className="level">
         {/* May need to readress this if it is the best way to handle Bulma styling for button group - Mix of level and is-pulls */}
