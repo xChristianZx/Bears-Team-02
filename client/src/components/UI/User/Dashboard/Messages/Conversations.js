@@ -5,18 +5,21 @@ import './Conversations.css';
 const Conversations = ({ conversations, connections, markAsRead }) => {
 	let listConversationsStarted = conversations.started.map(conversation => {
 		let { _id, subject, messages, receivingUser } = conversation;
-		if (_id !== undefined) {
-			return (
-				<Conversation 
-					key={_id}
-					conversationId={_id} 
-					subject={subject} 
-					user={receivingUser} 
-					messages={messages} 
-					markAsRead={markAsRead}
-				/>
-			)
+		if (_id === undefined || _id === null) {
+			return <p>No Messages</p>;
 		}
+
+		return (
+			<Conversation
+				key={_id}
+				conversationId={_id}
+				subject={subject}
+				user={receivingUser}
+				messages={messages}
+				markAsRead={markAsRead}
+			/>
+		)
+
 	});
 
 
@@ -36,7 +39,7 @@ const Conversations = ({ conversations, connections, markAsRead }) => {
 		);
 	});
 
-	let filteredConnections = connections.filter(connection => connection.username === 'sackfield');
+	// let filteredConnections = connections.filter(connection => connection.username === 'sackfield');
 
 	return (
 		<div>

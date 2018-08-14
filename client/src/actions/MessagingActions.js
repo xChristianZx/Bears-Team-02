@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import { GET_MESSAGES, FLASH_MESSAGE, GET_CONVERSATIONS } from './types';
-import { realpathSync } from 'fs';
 
 export function getMessages() {
 	return dispatch => {
