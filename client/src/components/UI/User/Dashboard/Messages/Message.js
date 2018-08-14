@@ -6,9 +6,9 @@ const Message = ({ user, message, markAsRead }) => {
 	const { _id, sendingUser, messageBody, read } = message;
 	const floatClass = user.username === sendingUser.username ? 'Left' : 'Right';
 	return (
-		<div className="Message">
+		<div key={_id} className="Message">
 			<div className={['Body', floatClass].join(' ')}>
-				<p key={_id}>Thread: {messageBody}</p>
+				<p>Thread: {messageBody}</p>
 				<p className="Sender"> ({sendingUser.username === user.username ? sendingUser.firstName : 'You'})</p>
 				<p className="Status">Status: {read ? 'Read' : 'UNREAD'} </p>
 				{sendingUser.username === user.username ? (

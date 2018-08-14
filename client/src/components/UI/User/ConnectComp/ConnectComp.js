@@ -2,6 +2,7 @@ import React from "react";
 import "./ConnectComp.css";
 import Header from "./Header/Header";
 import FilterBar from "./FilterBar/FilterBar";
+import Capitalize from "../../Enhancements/Capitalize";
 
 const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUsers }) => {
   /* Renders the list of potential connections */
@@ -89,7 +90,7 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
           <div className="media-content">
             <div className="media">
               <div className="media-content">
-                <p className="title is-4">{`${firstName} ${lastName}`}</p>
+                <p className="title is-4">{`${Capitalize(firstName)} ${Capitalize(lastName)}`}</p>
                 <p className="subtitle is-6">Username: {username}</p>
                 {/* <p className="subtitle is-6">ID: (for testing): {_id}</p> */}
               </div>

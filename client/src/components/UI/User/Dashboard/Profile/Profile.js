@@ -1,4 +1,5 @@
 import React from 'react';
+import Capitalize from '../../../Enhancements/Capitalize';
 
 const Profile = ({ user }) => {
 	// console.log('USER', user);
@@ -17,7 +18,7 @@ const Profile = ({ user }) => {
 						</div>
 						<div className="media-content">
 							<p className="title is-4">
-								{firstName} {lastName}
+								{Capitalize(firstName)} {Capitalize(firstName)}
 							</p>
 							<p className="subtitle is-6">@{username}</p>
 						</div>

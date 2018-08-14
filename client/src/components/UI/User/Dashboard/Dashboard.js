@@ -6,6 +6,7 @@ import Profile from './Profile/Profile';
 import Loader from '../../Enhancements/Loader';
 import classNames from "classnames";
 import Conversations from './Messages/Conversations';
+import Capitalize from '../../Enhancements/Capitalize';
 
 const Dashboard = ({
 	user,
@@ -42,7 +43,7 @@ const Dashboard = ({
 					<div className="column is-4-tablet is-10-mobile name">
 						<p>
 							<span className="title is-bold">
-								{user.firstName} {user.lastName}
+								{Capitalize(user.firstName)} {Capitalize(user.lastName)}
 							</span>
 							<br />
 							<a
