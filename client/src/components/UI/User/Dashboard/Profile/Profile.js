@@ -19,7 +19,7 @@ const Profile = ({ user }) => {
 						</div>
 						<div className="media-content">
 							<p className="title is-4">
-								{Capitalize(firstName)} {Capitalize(firstName)}
+								{Capitalize(firstName)} {Capitalize(lastName)}
 							</p>
 							<p className="subtitle is-6">@{username}</p>
 						</div>
