@@ -230,4 +230,18 @@ router.post('/readmessage', requireAuth, (req, res) => {
 	})
 })
 
+router.post('/delete-account', requireAuth, passport.authenticate('local'), (req, res) => {
+	User.findByIdAndRemove(req.user._id, (err, success) => {
+		if(!success) {
+			res.json({
+				success: false,
+				error: err
+			})
+		}
+		res.json({
+			success: true
+		})
+	})
+})
+
 module.exports = router;

@@ -5,7 +5,6 @@ import NavigationComp from '../../components/UI/Navigation/Navigation';
 import * as connectionActions from '../../actions/ConnectionActions';
 import * as messageActions from '../../actions/MessagingActions';
 import { bindActionCreators } from 'redux';
-import Loader from '../../components/UI/Enhancements/Loader';
 
 const linksIn = [
 	{ name: 'Connect', url: '/connect', class: 'navbar-item' },

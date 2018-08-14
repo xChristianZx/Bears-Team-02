@@ -4,9 +4,9 @@ import ConversationReply from '../../../../../containers/Message/ConversationRep
 import './Conversation.css';
 
 const Conversation = ({ conversationId, subject, messages, user, markAsRead }) => {
-	let { firstName, lastName } = user;
+	let { _id, firstName, lastName } = user;
 	let messagesList = messages.map(message => {
-		return <Message user={user} message={message} firstName={firstName} markAsRead={markAsRead || null} />;
+		return <Message user={user} message={message} firstName={firstName} markAsRead={markAsRead} />;
 	});
 	return (
 		<React.Fragment>
@@ -18,11 +18,8 @@ const Conversation = ({ conversationId, subject, messages, user, markAsRead }) =
 				<h2>Subject: {subject}</h2>
 			</header>
 			{messagesList}
-			{/* <ConversationReply receivingUser={user._id} conversationId={conversationId} /> */}
-			<button className='clearfix'>Reply</button>
 		</div>
-
-    <hr/>
+			<ConversationReply receivingUser={_id} conversationId={conversationId} />
     </React.Fragment>
     
 	);

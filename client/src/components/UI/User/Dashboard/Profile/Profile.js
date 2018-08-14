@@ -1,8 +1,11 @@
 import React from "react";
 import ProfileForm from "./ProfileForm";
+// import Capitalize from "../../../Enhancements/Capitalize";
+// import { Link } from "react-router-dom";
+
 const Profile = ({ user }) => {
   // console.log('USER', user);
-  // const { firstName, lastName, username } = user;
+  // const { firstName, lastName, username, email } = user;
   const { profileInfo } = user;
   return (
     <ProfileForm profileInfo={profileInfo} />
@@ -18,13 +21,14 @@ const Profile = ({ user }) => {
     // 				</div>
     // 				<div className="media-content">
     // 					<p className="title is-4">
-    // 						{firstName} {lastName}
+    // 						{Capitalize(firstName)} {Capitalize(firstName)}
     // 					</p>
     // 					<p className="subtitle is-6">@{username}</p>
     // 				</div>
     // 			</div>
 
     // 			<div className="content">Write your bio here someday.</div>
+    // 			<Link to='/delete' className='button is-danger'>Delete Account</Link>
     // 		</div>
     // 	</div>
     // </div>

@@ -2,54 +2,51 @@ import React from 'react';
 import Conversation from './Conversation';
 import './Conversations.css';
 
-const Messages = ({ conversations, connections, markAsRead }) => {
+const Conversations = ({ conversations, connections, markAsRead }) => {
 	let listConversationsStarted = conversations.started.map(conversation => {
 		let { _id, subject, messages, receivingUser } = conversation;
-		if (_id !== undefined) {
-			return (
-				<Conversation 
-					conversationId={_id} 
-					subject={subject} 
-					user={receivingUser} 
-					messages={messages} 
-				/>
-			)
+		if (_id === undefined || _id === null) {
+			return <p>No Messages</p>;
 		}
+
+		return (
+			<Conversation
+				key={_id}
+				conversationId={_id}
+				subject={subject}
+				user={receivingUser}
+				messages={messages}
+				markAsRead={markAsRead}
+			/>
+		)
+
 	});
 
 
 	let listConversationsReceived = conversations.received.map(conversation => {
 		let { _id, subject, messages, sendingUser } = conversation;
 		return (
-			<article className='Conversation'>
+			<div key={_id} className='Conversation'>
 				<Conversation
+				key={_id}
 					conversationId={_id}
 					subject={subject}
 					user={sendingUser}
 					messages={messages}
 					markAsRead={markAsRead}
 				/>
-			</article>
+			</div>
 		);
 	});
 
-	let filteredConnections = connections.filter(connection => connection.username === 'sackfield');
+	// let filteredConnections = connections.filter(connection => connection.username === 'sackfield');
 
 	return (
 		<div>
-			{/* <div>
-				Testing filtering user for sending a message from here
-				<p>Connections</p>
-				<ul>
-					{filteredConnections.map(connection => {
-						return <li key={connection._id}>{connection.username}</li>;
-					})}
-				</ul>
-			</div> */}
-			<p>Conversations Started: {listConversationsStarted}</p>
+			<div>Conversations Started: {listConversationsStarted}</div>
 			<hr />
-			<p>Conversations Received: {listConversationsReceived}</p>
+			<div>Conversations Received: {listConversationsReceived}</div>
 		</div>
 	);
 };
-export default Messages;
+export default Conversations;

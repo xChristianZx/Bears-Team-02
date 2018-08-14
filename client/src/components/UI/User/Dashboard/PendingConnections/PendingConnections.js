@@ -1,4 +1,5 @@
 import React from 'react';
+import Capitalize from '../../../Enhancements/Capitalize';
 
 const PendingConnections = ({ pendingConnections, pendingConnectionResponse }) => {
 	return (
@@ -19,7 +20,7 @@ const PendingConnections = ({ pendingConnections, pendingConnectionResponse }) =
 							<div className="media-content">
 								<div className="media">
 									<div className="media-content">
-										<p className="title is-4">{`${firstName} ${lastName}`}</p>
+										<p className="title is-4">{`${Capitalize(firstName)} ${Capitalize(lastName)}`}</p>
 										<p className="subtitle is-6">@{username}</p>
 										<p disabled className="subtitle is-6">
 											{isTechnical ? 'Technical' : 'Non-Technical'}

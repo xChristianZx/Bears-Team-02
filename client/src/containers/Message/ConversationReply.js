@@ -36,7 +36,7 @@ const Fields = [
     render() {
       return (
         <Fragment>
-          <FormBuilder fields={Fields} onSubmit={this.onSubmit} buttonText='Reply' formTitle='Conversation' />
+          <FormBuilder fields={Fields} onSubmit={this.onSubmit} buttonText='Reply' />
         </Fragment>
       )
     }
