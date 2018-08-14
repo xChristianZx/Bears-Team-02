@@ -12,7 +12,7 @@ import updateFields from '../../../misc/userUpdateFields';
 import DashboardComp from '../../../components/UI/User/Dashboard/Dashboard';
 import Loader from '../../../components/UI/Enhancements/Loader';
 import StartConversation from '../../Message/StartConversation';
-import ModalHOC from '../../../hoc/ModalHOC';
+import ModalHOC from '../../../hoc/ModalHOC/ModalHOC';
 
 class Dashboard extends Component {
 	constructor(props) {

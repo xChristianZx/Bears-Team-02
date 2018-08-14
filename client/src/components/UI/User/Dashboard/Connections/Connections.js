@@ -1,17 +1,19 @@
 import React from "react";
-import "./Connection.css";
+import "./Connections.css";
 import Capitalize from "../../../Enhancements/Capitalize";
+import { Link } from "react-router-dom";
 
 const Connections = ({ connections, blockConnection, messageButton }) => {
   let userConnections = connections.map(connection => {
-    const { _id, firstName, lastName, username, isTechnical } = connection;
+    const { _id, firstName, lastName, username, isTechnical, userPhotoURL } = connection;
     return (
       <li className="list-item-container" key={_id}>
         <div className="media">
           <div className="media-left">
             <figure className="image is-96x96">
               <img
-                src="https://bulma.io/images/placeholders/96x96.png"
+                className="is-rounded"
+                src={userPhotoURL || "https://bulma.io/images/placeholders/96x96.png"}
                 alt="Placeholder"
               />
             </figure>
@@ -24,16 +26,20 @@ const Connections = ({ connections, blockConnection, messageButton }) => {
                 <p disabled className="subtitle is-6">
                   {isTechnical ? "Technical" : "Non-Technical"}
                 </p>
-                <button className="button is-primary is-outlined" onClick={() => messageButton(_id)}>
-                  Message
-                </button>
-                <button
-                  className="button is-danger is-outlined"
-                  onClick={() => blockConnection(_id)}
-                >
-                  Remove Connection
-                </button>
-                {/* <p className="subtitle is-6">ID: (for testing): {_id}</p> */}
+                <div className="buttons">
+                  <button
+                    className="button is-primary is-outlined"
+                    onClick={() => messageButton(_id)}
+                  >
+                    Message
+                  </button>
+                  <button
+                    className="button is-danger is-outlined"
+                    onClick={() => blockConnection(_id)}
+                  >
+                    Remove Connection
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -43,8 +49,18 @@ const Connections = ({ connections, blockConnection, messageButton }) => {
   });
   return (
     <div className="container connect-container is-centered">
-      <h1>Connections</h1>
-      {userConnections}
+      <div className="header-container has-text-centered">
+        <h3 className="title is-3">Your Connections</h3>
+      </div>
+      <hr />
+      {userConnections < 1 ? (
+        <div className="has-text-centered">
+          <p>None yet!</p>
+          <Link to="/connect">Meet your future team</Link>
+        </div>
+      ) : (
+        <ul>{userConnections}</ul>
+      )}
     </div>
   );
 };
