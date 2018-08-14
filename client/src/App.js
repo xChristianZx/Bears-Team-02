@@ -10,7 +10,7 @@ import Logout from "./containers/User/Logout/Logout";
 import Login from "./containers/User/Login/Login";
 import Dashboard from "./containers/User/Dashboard/Dashboard";
 import Connect from "./containers/User/Connect/Connect";
-import DeleteAccount from "./containers/DeleteAccount/DeleteAccount";
+import DeleteAccount from "./containers/User/DeleteAccount/DeleteAccount";
 
 class App extends Component {
   render() {
