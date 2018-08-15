@@ -13,6 +13,7 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
 
   const connectionList = users.map((user, i) => {
     // console.log(`USER ${i} ${user._id}`);
+    // eslint-disable-next-line
     const { _id, firstName, lastName, username, userPhotoURL, location } = user;
     const renderConnectBtn = () => {
       if (pending.length > 0 || acceptable.length > 0) {
