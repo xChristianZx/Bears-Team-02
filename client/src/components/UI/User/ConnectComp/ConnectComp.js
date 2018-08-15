@@ -13,7 +13,7 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
 
   const connectionList = users.map((user, i) => {
     // console.log(`USER ${i} ${user._id}`);
-    const { _id, firstName, lastName, username, userPhotoURL } = user;
+    const { _id, firstName, lastName, username, userPhotoURL, location } = user;
     const renderConnectBtn = () => {
       if (pending.length > 0 || acceptable.length > 0) {
         // then filter and see if current request exists from logged in user
@@ -25,10 +25,7 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
             * 2. if current requestedUser === current user that is being mapped through 
             */
 
-            return (
-              request.requestingUser === loggedInUserId &&
-              request.requestedUser._id === _id
-            );
+            return request.requestingUser === loggedInUserId && request.requestedUser._id === _id;
           })
         ) {
           //* if true - return pending btn - currently disabled
@@ -40,10 +37,7 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
         } else if (
           pendingConnections.acceptable.some(request => {
             // console.log(`Acceptable Req ${i} ${request.requestedUser}`);
-            return (
-              request.requestingUser._id === _id &&
-              request.requestedUser === loggedInUserId
-            ); 
+            return request.requestingUser._id === _id && request.requestedUser === loggedInUserId;
           })
         ) {
           // if true - return acceptance button;
@@ -59,10 +53,7 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
         } else {
           // if false - render request btn
           return (
-            <button
-              className="button is-primary"
-              onClick={() => requestConnection(_id)}
-            >
+            <button className="button is-primary" onClick={() => requestConnection(_id)}>
               CONNECT
             </button>
           );
@@ -70,41 +61,44 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
       } else {
         // Connect Request Btn
         return (
-          <button
-            className="button is-primary"
-            onClick={() => requestConnection(_id)}
-          >
+          <button className="button is-primary" onClick={() => requestConnection(_id)}>
             CONNECT
           </button>
         );
       }
     };
 
-    return <li className="list-item-container" key={_id}>
+    return (
+      <li className="list-item-container" key={_id}>
         <div className="media">
           <div className="media-left">
             <figure className="image is-96x96">
-              <img className="is-rounded" src={userPhotoURL || "https://bulma.io/images/placeholders/96x96.png"} alt={firstName} />
+              <img
+                className="is-rounded"
+                src={userPhotoURL || "https://bulma.io/images/placeholders/96x96.png"}
+                alt={firstName}
+              />
             </figure>
           </div>
           <div className="media-content">
             <div className="media">
               <div className="media-content">
                 <p className="title is-4">{`${Capitalize(firstName)} ${Capitalize(lastName)}`}</p>
-                <p className="subtitle is-6">Username: {username}</p>
+                <p className="subtitle is-6">@{username}</p>
                 {/* <p className="subtitle is-6">ID: (for testing): {_id}</p> */}
               </div>
             </div>
           </div>
           <div className="media-right">{renderConnectBtn()}</div>
         </div>
-      </li>;
+      </li>
+    );
   });
   /* Returns both Header Component, Filter, and List */
   return (
     <div className="column is-three-quarters">
-      <Header/>
-      <FilterBar users={users} getUsers={getUsers}/>
+      <Header />
+      <FilterBar users={users} getUsers={getUsers} />
       <ul>{connectionList}</ul>
     </div>
   );
