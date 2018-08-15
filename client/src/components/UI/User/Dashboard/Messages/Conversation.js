@@ -1,13 +1,21 @@
 import React from "react";
 import Message from "./Message";
 import ConversationReply from "../../../../../containers/Message/ConversationReply";
+import classNames from "classnames";
 import "./Conversation.css";
 
-const Conversation = ({ conversation, user, markAsRead, loggedInUser }) => {
+const Conversation = ({
+  conversation,
+  user,
+  markAsRead,
+  loggedInUser,
+  iterator,
+  setConvoFocus
+}) => {
   const { _id, firstName, lastName, userPhotoURL } = user;
   const { messages, subject, updatedAt } = conversation;
   //   const { userPhotoURL } = loggedInUser;
-  console.log("cnv", conversation._id);
+  //   console.log("cnv", conversation._id);
   //   console.log("loggedInUser", loggedInUser);
   const messagesList = messages.map(message => {
     return (
@@ -20,10 +28,12 @@ const Conversation = ({ conversation, user, markAsRead, loggedInUser }) => {
       />
     );
   });
+  const isActive = classNames({
+    "is-active": iterator === 0 ? true : false
+  });
   return (
-    <div className="box">
-      {/* Message Header Container */}
-      <article key={conversation._id} className="media">
+    <a className={`panel-block ${isActive}`} onClick={() => setConvoFocus(conversation)}>
+      <article key={conversation._id} className="media media-panel-container">
         <figure className="media-left">
           <p className="image is-64x64">
             <img
@@ -35,36 +45,21 @@ const Conversation = ({ conversation, user, markAsRead, loggedInUser }) => {
         <div className="media-content">
           <div className="content">
             <p>
-              <strong>{`${firstName} ${lastName}`}</strong>{" "}
-              <span className="is-pulled-right">{getDate(updatedAt)}</span>
+              <span className="has-text-left">
+                <strong>{`${firstName} ${lastName}`}</strong>
+              </span>
             </p>
             <p>
-              Subject: <em>{subject}</em>
+              <em>{subject}</em>
             </p>
           </div>
-          {messagesList}
+          {/* {messagesList} */}
+        </div>
+        <div className="media-right">
+          <span className="has-text-right">{getDate(updatedAt)}</span>
         </div>
       </article>
-
-      {/* Messages */}
-
-      {/* {messagesList} */}
-
-      {/* Reply Area */}
-      <article className="media">
-        {/* <figure className="media-left">
-          <p className="image is-64x64">
-            <img src={"https://bulma.io/images/placeholders/128x128.png"} alt={"Placeholder"} />
-          </p>
-		</figure> */}
-        <div className="media-left">
-          <p>Reply</p>
-        </div>
-        <div className="media-content">
-          <ConversationReply receivingUser={_id} conversationId={conversation._id} />
-        </div>
-      </article>
-    </div>
+    </a>
   );
 };
 
@@ -74,3 +69,23 @@ function getDate(date) {
   date = new Date(date);
   return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
+
+/* Messages */
+
+/* {messagesList} */
+
+/* Reply Area */
+
+/* <article className="media">
+        <figure className="media-left">
+          <p className="image is-64x64">
+            <img src={"https://bulma.io/images/placeholders/128x128.png"} alt={"Placeholder"} />
+          </p>
+		</figure>
+        <div className="media-left">
+          <p>Reply</p>
+        </div>
+        <div className="media-content">
+          <ConversationReply receivingUser={_id} conversationId={conversation._id} />
+        </div>
+      </article> */

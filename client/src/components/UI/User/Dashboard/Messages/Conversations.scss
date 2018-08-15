@@ -1,5 +1,11 @@
-.Conversation {
-  display: block;
-  width: 800px;
-  margin: 0 auto;
+// .Conversation {
+//   display: block;
+//   width: 800px;
+//   margin: 0 auto;
+// }
+.panel-heading {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-end;
 }
