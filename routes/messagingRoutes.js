@@ -270,7 +270,7 @@ router.post('/reply', requireAuth, (req, res) => {
 
 	newMessage.save((err, message) => {
 		if (err) {
-			res.json({
+			res.json({ 
 				success: false,
 				error: err,
 			});
