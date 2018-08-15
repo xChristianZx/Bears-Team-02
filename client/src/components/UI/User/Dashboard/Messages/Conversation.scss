@@ -1,18 +1,22 @@
-.Conversation {
-  color: black;
+// .Conversation {
+//   color: black;
 
-  header {
-    background: #209cee;
+//   header {
+//     background: #209cee;
 
-  }
+//   }
 
-  button {
-    clear: both;
-  }
-}
+//   button {
+//     clear: both;
+//   }
+// }
 
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
+// .clearfix::after {
+//   content: "";
+//   clear: both;
+//   display: table;
+// }
+
+.content:first-child p {
+  margin-bottom: 0;
 }
