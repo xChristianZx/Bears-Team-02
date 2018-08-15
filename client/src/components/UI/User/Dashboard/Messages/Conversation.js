@@ -5,9 +5,9 @@ import "./Conversation.css";
 
 const Conversation = ({ conversation, user, markAsRead, loggedInUser }) => {
   const { _id, firstName, lastName, userPhotoURL } = user;
-  const { messages, conversationId, subject, updatedAt } = conversation;
+  const { messages, subject, updatedAt } = conversation;
   //   const { userPhotoURL } = loggedInUser;
-  console.log("messages", messages);
+  console.log("cnv", conversation._id);
   //   console.log("loggedInUser", loggedInUser);
   const messagesList = messages.map(message => {
     return (
@@ -23,7 +23,7 @@ const Conversation = ({ conversation, user, markAsRead, loggedInUser }) => {
   return (
     <div className="box">
       {/* Message Header Container */}
-      <article key={conversationId} className="media">
+      <article key={conversation._id} className="media">
         <figure className="media-left">
           <p className="image is-64x64">
             <img
@@ -61,7 +61,7 @@ const Conversation = ({ conversation, user, markAsRead, loggedInUser }) => {
           <p>Reply</p>
         </div>
         <div className="media-content">
-          <ConversationReply receivingUser={_id} conversationId={conversationId} />
+          <ConversationReply receivingUser={_id} conversationId={conversation._id} />
         </div>
       </article>
     </div>
