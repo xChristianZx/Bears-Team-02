@@ -90,12 +90,14 @@ class Dashboard extends Component {
 					</ModalHOC>
 					<DashboardComp
 						user={this.props.user}
+						initialValues={this.props.initialValues}
+						onSubmitProfile={this.handleSubmit}
 						toggleEditProfile={() => this.setState({ editProfile: true })}
 						connections={this.props.connections}
 						pendingConnections={this.props.pendingConnections}
 						pendingRequests={this.props.pendingRequests}
 						pendingConnectionResponse={this.pendingConnectionResponse}
-            conversations={this.props.conversations}
+						conversations={this.props.conversations}
 						messageButton={(_id) => this.setState({ modalIsOpen: true, receivingUser: _id })}
 						markAsRead={(messageId) => this.markAsRead(messageId)}
 						toggleTechnical={this.toggleTechnical}

@@ -10,6 +10,8 @@ import Capitalize from '../../Enhancements/Capitalize';
 
 const Dashboard = ({
 	user,
+	initialValues,
+	onSubmitProfile,
 	pendingRequests,
 	toggleTechnical,
 	toggleEditProfile,
@@ -35,17 +37,26 @@ const Dashboard = ({
 		<React.Fragment>
 			<div className="section profile-heading">
 				<div className="columns is-mobile is-multiline">
-					<div className="column is-2">
+					<div className="column is-2-tablet is-6-mobile">
 						<figure className="image is-rounded">
-							<img className="is-rounded" src={user.userPhotoURL || "http://placehold.it/250x250"} alt={user.firstName}/>
+							<img className="is-rounded" src={user.userPhotoURL || "http://placehold.it/250x250"} alt={user.firstName} />
 						</figure>
 					</div>
-					<div className="column is-4-tablet is-10-mobile name">
-						<p>
-							<span className="title is-bold">
+					<div className="column is-4-tablet is-12-mobile name">
+						<div>
+							<h1 className="title is-bold">
 								{Capitalize(user.firstName)} {Capitalize(user.lastName)}
-							</span>
-							<br />
+							</h1>
+
+							{user.profileInfo.currentRole ? <h4 className="subtitle is-5">{user.profileInfo.currentRole}</h4> : null}
+
+
+							{user.profileInfo.headline ? <h6 className="subtitle is-6"><em>{user.profileInfo.headline}</em></h6> : <p><em> Edit your profile to add your headline here</em></p>}
+
+						</div>
+						<br />
+						<div>
+
 							<a
 								className="button is-primary is-outlined"
 								style={{ margin: '5px 0' }}
@@ -60,13 +71,9 @@ const Dashboard = ({
 							>
 								{user.isTechnical ? 'Technical' : 'Non-Technical'}
 							</a>
-							<br />
-						</p>
-						<p className="tagline">
-							The users profile bio would go here, of course. It could be two lines or more or whatever.
-							We should probably limit the amount of characters to ~500 at most though.
-						</p>
+						</div>
 					</div>
+
 					<div className="column is-2-tablet is-4-mobile has-text-centered">
 						<p className="stat-val">{connections.length}</p>
 						<p className="stat-key">Connections</p>
@@ -141,7 +148,7 @@ const Dashboard = ({
 					{(conversations && conversations.started) || conversations.received ? <Conversations conversations={conversations} connections={connections} markAsRead={markAsRead} /> : <p>No Messages</p>}
 				</div>
 
-				<div className="container is-fluid display-section" hidden={displayingSection !== 'Profile'}>{user ? <Profile user={user} /> : <Loader />}</div>
+				<div className="container is-fluid display-section" hidden={displayingSection !== 'Profile'}>{user ? <Profile user={user} initialValues={initialValues} onSubmitProfile={onSubmitProfile}/> : <Loader />}</div>
 			</div>
 		</React.Fragment>
 	);

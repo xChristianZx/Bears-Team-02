@@ -11,7 +11,11 @@ const userUpdateFields = [
   },
   { label: "City", name: "location.city", type: "text" },
   { label: "State", name: "location.state", type: "text" },
-  { label: "Country", name: "location.countryCode", type: "text" }
+  { label: "Country", name: "location.countryCode", type: "text" },
+  { label: "Headline", name: "profileInfo.headline", type: "text" },
+  { label: "Current Role", name: "profileInfo.currentRole", type: "text" },
+  { label: "Sector Experience", name: "profileInfo.sectorExperience", type: "text" },
+  { label: "Looking For...", name: "profileInfo.lookingFor", type: "text" }
 
   // { label: 'Are you a Technical Founder?', name: 'isTechnical', type: "radio" }
   // { label: 'Old Password', name: 'oldPassword', type: 'password', errorMsg: 'Old Password is required' },
