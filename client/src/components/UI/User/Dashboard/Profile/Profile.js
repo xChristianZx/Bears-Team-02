@@ -1,11 +1,12 @@
 import React from "react";
-import ProfileForm from "./ProfileForm";
+// import ProfileForm from "./ProfileForm";
 // import Capitalize from "../../../Enhancements/Capitalize";
 // import { Link } from "react-router-dom";
+// eslint-disable-next-line
 import { reduxForm, Form, Field } from "redux-form";
 
 const Profile = props => {
-  const { onSubmitProfile } = props;
+  // const { onSubmitProfile } = props;
   const { currentRole, headline, sectorExperience, lookingFor } = props.user.profileInfo;
   // console.log("PROFILEINFO", props.user.profileInfo);
 

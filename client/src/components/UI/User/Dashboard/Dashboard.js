@@ -10,6 +10,8 @@ import Capitalize from '../../Enhancements/Capitalize';
 
 const Dashboard = ({
 	user,
+	initialValues,
+	onSubmitProfile,
 	pendingRequests,
 	toggleTechnical,
 	toggleEditProfile,
@@ -141,7 +143,7 @@ const Dashboard = ({
 					{(conversations && conversations.started) || conversations.received ? <Conversations conversations={conversations} connections={connections} markAsRead={markAsRead} /> : <p>No Messages</p>}
 				</div>
 
-				<div className="container is-fluid display-section" hidden={displayingSection !== 'Profile'}>{user ? <Profile user={user} /> : <Loader />}</div>
+				<div className="container is-fluid display-section" hidden={displayingSection !== 'Profile'}>{user ? <Profile user={user} initialValues={initialValues} onSubmitProfile={onSubmitProfile}/> : <Loader />}</div>
 			</div>
 		</React.Fragment>
 	);
