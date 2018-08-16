@@ -15,20 +15,20 @@ export function getMessages() {
 			});
 	};
 }
-
-export function sendMessage({ messageBody, receivingUser }) {
-	return dispatch => {
-		let token = localStorage.getItem('token');
-		axios
-			.post(`/auth/sendmessage`, { receivingUser, messageBody }, { headers: { Authorization: `Bearer ${token}` } })
-			.then(response => {
-				dispatch({ type: FLASH_MESSAGE, payload: 'Message Sent.' });
-			})
-			.catch(error => {
-				dispatch({ type: FLASH_MESSAGE, payload: 'Message Failed to Send.' });
-			})
-	};
-}
+/* Currently Unused */
+// export function sendMessage({ messageBody, receivingUser }) {
+// 	return dispatch => {
+// 		let token = localStorage.getItem('token');
+// 		axios
+// 			.post(`/auth/sendmessage`, { receivingUser, messageBody }, { headers: { Authorization: `Bearer ${token}` } })
+// 			.then(response => {
+// 				dispatch({ type: FLASH_MESSAGE, payload: 'Message Sent.' });
+// 			})
+// 			.catch(error => {
+// 				dispatch({ type: FLASH_MESSAGE, payload: 'Message Failed to Send.' });
+// 			})
+// 	};
+// }
 
 export function markAsRead({ messageId }) {
 	return dispatch => {
@@ -87,6 +87,7 @@ export function reply({
 			.post(`/message/reply`, { ConversationId, receivingUserId, messageBody }, { headers: { Authorization: `Bearer ${token}` }})
 			.then(response => {
 				console.log('response', response)
+				dispatch(getConversations());
 			})
 			.catch(error => {
 				console.log('error', error)
