@@ -18,18 +18,11 @@ const Fields = [
 ];
 
 class ConversationReply extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      receivingUser: ""
-    };
-  }
-
   onSubmit = values => {
     let receivingUserId = this.props.receivingUser;
     let ConversationId = this.props.conversationId;
     let data = { ...values, receivingUserId, ConversationId };
+    console.log("ON SUBMIT", data);
     this.props.actions.reply(data);
   };
 
