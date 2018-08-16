@@ -254,9 +254,18 @@ router.post('/delete-account', requireAuth, passport.authenticate('local'), (req
 						error: err
 					})
 				}
+			
+				User.updateMany({ $pull: { connections: req.user._id } }, (err, success) => {
+					if(!success) {
+						res.json({
+							success: false,
+							error: err
+						})
+					}
 
-				res.json({
-					success: true
+					res.json({
+						success: true
+					})
 				})
 			})
 		})
