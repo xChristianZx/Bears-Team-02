@@ -2,6 +2,7 @@ import React from "react";
 import "../FormBuilder.css";
 import { reduxForm, Field, Form } from "redux-form";
 import formFieldRender from "../formFieldRender";
+import { Link } from 'react-router-dom';
 
 let errorFields = [];
 
@@ -55,6 +56,10 @@ const UpdateFormBuilder = props => {
             Back
           </button>
         </div>
+
+        <div className="control">
+              <Link to='/delete' className="button is-danger">Delete Account</Link>
+            </div>
       </div>
       {/* </div> */}
       {props.errors}
