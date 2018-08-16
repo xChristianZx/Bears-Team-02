@@ -1,47 +1,33 @@
 import React, { Component } from "react";
 import "./Conversations.css";
-import Conversation from "./Conversation";
-import Message from "./Message";
 import { connect } from "react-redux";
+import Conversation from "./Conversation";
+// import MessageItem from "./MessageItem";
+import MessageList from "./MessageList";
 
 class Conversations extends Component {
   state = {
     conversationFocusData: null
   };
 
-  //   componentDidMount() {}
-
   setConvoFocus = convoID => {
-    console.log("convoID", convoID);
+    // console.log("convoID", convoID);
     this.setState({ conversationFocusData: convoID });
   };
 
-  renderMessages = () => {
-    const { messages } = this.state.conversationFocusData;
-    const messageList = messages.map(message => {
-      return (
-        <Message
-          key={message.dateSent}
-          user={this.props.user}
-          message={message}
-          markAsRead={this.props.markAsRead}
-        />
-      );
-    });
-    return messageList;
-  };
-
   render() {
+    // Need to flatten and sort on the backend
     console.log("PROPS", this.props);
-    const { conversations, connections, loggedInUser, markAsRead } = this.props;
-    console.log("Conversations", conversations);
+    const { Message, loggedInUser, markAsRead } = this.props;
+    const { conversations } = Message;
+    // console.log("Conversations", conversations);
     const flattendConversations = conversations.started.concat(conversations.received);
     // console.log("FLAT", flattendConversations);
     const listConversations = flattendConversations
       .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
       .map((conversation, i) => {
         //   const { _id, subject, messages, receivingUser } = conversation;
-        const { _id, receivingUser } = conversation;
+        const { _id } = conversation;
         if (_id === undefined || _id === null) {
           return <p>No Messages</p>;
         }
@@ -50,11 +36,11 @@ class Conversations extends Component {
           <Conversation
             key={_id}
             conversation={conversation}
-            user={receivingUser}
-            markAsRead={markAsRead}
-            loggedInUser={loggedInUser}
-            setConvoFocus={this.setConvoFocus}
             iterator={i}
+            loggedInUser={loggedInUser}
+            markAsRead={markAsRead}
+            setConvoFocus={this.setConvoFocus}
+            // 	 user={receivingUser}
             //   conversationId={_id}
             //   subject={subject}
             //   messages={messages}
@@ -76,10 +62,12 @@ class Conversations extends Component {
           </nav>
         </div>
         <div className="column is-half">
-          <h2>Messages here</h2>
-          {this.props.Message.conversations === null || this.state.conversationFocusData === null
-            ? null
-            : this.renderMessages()}
+          <MessageList
+            conversation={this.state.conversationFocusData}
+            loggedInUser={loggedInUser}
+            markAsRead={this.props.markAsRead}
+            user={this.props.user}
+          />
         </div>
       </div>
     );
@@ -92,39 +80,3 @@ function mapStateToProps({ Message, User }) {
   };
 }
 export default connect(mapStateToProps)(Conversations);
-
-/* <div className="columns is-mobile is-centered ">
-<div className="column is-half">
-  <div className="header-wrapper has-text-centered">
-	<h2 className="title is-5">Conversations Started:</h2>
-  </div>
-  {listConversationsStarted}
-</div>
-<div className="column is-half">
-  <div className="header-wrapper has-text-centered">
-	<h2 className="title is-5">Conversations Received:</h2>
-  </div>
-  {listConversationsReceived}
-</div>
-</div> */
-
-/* const listConversationsReceived = conversations.received
-    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-    .map(conversation => {
-      //   const { _id, subject, messages, sendingUser } = conversation;
-      const { _id, sendingUser } = conversation;
-      if (_id === undefined || _id === null) {
-        return <p>No Messages</p>;
-      }
-      return (
-        <Conversation
-          key={_id}
-          conversation={conversation}
-          user={sendingUser}
-          markAsRead={markAsRead}
-          // conversationId={_id}
-          // subject={subject}
-          // messages={messages}
-        />
-      );
-    }); */

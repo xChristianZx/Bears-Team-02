@@ -1,33 +1,26 @@
 import React from "react";
-import Message from "./Message";
-import ConversationReply from "../../../../../containers/Message/ConversationReply";
+// import ConversationReply from "../../../../../containers/Message/ConversationReply";
 import classNames from "classnames";
 import "./Conversation.css";
 
 const Conversation = ({
   conversation,
-  user,
-  markAsRead,
-  loggedInUser,
   iterator,
+  loggedInUser,
+  markAsRead,
   setConvoFocus
+  //   user
 }) => {
-  const { _id, firstName, lastName, userPhotoURL } = user;
-  const { messages, subject, updatedAt } = conversation;
-  //   const { userPhotoURL } = loggedInUser;
-  //   console.log("cnv", conversation._id);
-  //   console.log("loggedInUser", loggedInUser);
-  const messagesList = messages.map(message => {
-    return (
-      <Message
-        key={message.dateSent}
-        user={user}
-        message={message}
-        firstName={firstName}
-        markAsRead={markAsRead}
-      />
-    );
-  });
+  //   const { _id, firstName, lastName, username, userPhotoURL } = user;
+  const { subject, updatedAt } = conversation;
+  //   console.log("CONVERSATION", iterator, conversation);
+  const otherUser = conversation.receivingUser._id
+    ? conversation.receivingUser
+    : conversation.sendingUser;
+  const { firstName, lastName, userPhotoURL } = otherUser;
+  //   console.log("cnv", conversation.receivingUser._id);
+  //   console.log("loggedInUser", iterator, loggedInUser._id);
+  //   console.log("OTHER USER", iterator, otherUser);
   const isActive = classNames({
     "is-active": iterator === 0 ? true : false
   });
@@ -53,7 +46,6 @@ const Conversation = ({
               <em>{subject}</em>
             </p>
           </div>
-          {/* {messagesList} */}
         </div>
         <div className="media-right">
           <span className="has-text-right">{getDate(updatedAt)}</span>
@@ -69,23 +61,3 @@ function getDate(date) {
   date = new Date(date);
   return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
-
-/* Messages */
-
-/* {messagesList} */
-
-/* Reply Area */
-
-/* <article className="media">
-        <figure className="media-left">
-          <p className="image is-64x64">
-            <img src={"https://bulma.io/images/placeholders/128x128.png"} alt={"Placeholder"} />
-          </p>
-		</figure>
-        <div className="media-left">
-          <p>Reply</p>
-        </div>
-        <div className="media-content">
-          <ConversationReply receivingUser={_id} conversationId={conversation._id} />
-        </div>
-      </article> */
