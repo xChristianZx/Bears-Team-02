@@ -29,6 +29,7 @@ const Dashboard = ({
 	const tabStyle = tabName => {
 		return classNames({
 			"link": true,
+			"is-size-6-mobile": true,
 			"is-active": (tabName === displayingSection ? true : false),
 		})
 	}
@@ -37,8 +38,8 @@ const Dashboard = ({
 		<React.Fragment>
 			<div className="section profile-heading">
 				<div className="columns is-mobile is-multiline">
-					<div className="column is-2-tablet is-6-mobile">
-						<figure className="image is-rounded">
+					<div className="column is-2-tablet is-mobile">
+						<figure className="image is-1by1">
 							<img className="is-rounded" src={user.userPhotoURL || "http://placehold.it/250x250"} alt={user.firstName} />
 						</figure>
 					</div>
@@ -88,7 +89,7 @@ const Dashboard = ({
 					</div>
 				</div>
 				<div className="profile-options is-fullwidth">
-					<div className="tabs is-fullwidth is-medium">
+					<div className="tabs is-fullwidth is-medium is-centered">
 						<ul>
 							<li className={tabStyle("Connections")} onClick={() => toggleSection('Connections')}>
 								<a>
