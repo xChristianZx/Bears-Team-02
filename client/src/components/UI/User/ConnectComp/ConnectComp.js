@@ -2,7 +2,7 @@ import React from "react";
 import "./ConnectComp.css";
 import Header from "./Header/Header";
 import FilterBar from "./FilterBar/FilterBar";
-import Capitalize from "../../Enhancements/Capitalize";
+// import Capitalize from "../../Enhancements/Capitalize";
 
 const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUsers }) => {
   /* Renders the list of potential connections */
@@ -13,7 +13,7 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
 
   const connectionList = users.map((user, i) => {
     // console.log(`USER ${i} ${user._id}`);
-    const { _id, firstName, lastName, username, userPhotoURL, profileInfo } = user;
+    const { _id, firstName, lastName, userPhotoURL, profileInfo } = user;
     const renderConnectBtn = () => {
       if (pending.length > 0 || acceptable.length > 0) {
         // then filter and see if current request exists from logged in user
