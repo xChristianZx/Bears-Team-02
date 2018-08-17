@@ -13,8 +13,7 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
 
   const connectionList = users.map((user, i) => {
     // console.log(`USER ${i} ${user._id}`);
-    // eslint-disable-next-line
-    const { _id, firstName, lastName, username, userPhotoURL, location } = user;
+    const { _id, firstName, lastName, username, userPhotoURL, profileInfo } = user;
     const renderConnectBtn = () => {
       if (pending.length > 0 || acceptable.length > 0) {
         // then filter and see if current request exists from logged in user
@@ -84,8 +83,15 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
           <div className="media-content">
             <div className="media">
               <div className="media-content">
-                <p className="title is-4">{`${Capitalize(firstName)} ${Capitalize(lastName)}`}</p>
-                <p className="subtitle is-6">@{username}</p>
+                <p className="title is-4 is-capitalized">{`${firstName} ${lastName}`}</p>
+                <p className="subtitle is-6"> {profileInfo.currentRole}</p>
+                <p className="subtitle is-6">
+                  <em>{profileInfo.headline}</em>
+                </p>
+                {profileInfo.lookingFor ? (
+                  <p className="subtitle is-6"> Looking for: {profileInfo.lookingFor}</p>
+                ) : null}
+
                 {/* <p className="subtitle is-6">ID: (for testing): {_id}</p> */}
               </div>
             </div>
