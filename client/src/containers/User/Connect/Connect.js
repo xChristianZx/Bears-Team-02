@@ -50,7 +50,7 @@ class Connect extends Component {
   };
 
   render() {
-    console.log("PROPS", this.props);
+    // console.log("PROPS", this.props);
     return (
       <div className="container connect-container columns is-centered">
         {this.renderConnectionList()}
