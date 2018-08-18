@@ -4,7 +4,7 @@ class FilterBar extends Component {
   render() {
     const { users, getUsers } = this.props;
     return (
-      <div className="level">
+      <div className="level is-mobile">
         <div className="level-left">
           <div className="level-item has-text-centered">
             <div>
@@ -16,7 +16,6 @@ class FilterBar extends Component {
         <div className="level-right">
           <p className="level-item">
             <a
-              className=""
               onClick={() => {
                 getUsers("all");
               }}
@@ -26,7 +25,6 @@ class FilterBar extends Component {
           </p>
           <p className="level-item">
             <a
-              className=""
               onClick={() => {
                 getUsers("true");
               }}
@@ -36,7 +34,6 @@ class FilterBar extends Component {
           </p>
           <p className="level-item ">
             <a
-              className=""
               onClick={() => {
                 getUsers("false");
               }}

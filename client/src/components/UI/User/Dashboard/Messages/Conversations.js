@@ -49,19 +49,21 @@ class Conversations extends Component {
       });
 
     return (
-      <div className="columns is-mobile">
-        <div className="column is-half">
+      <div className="columns">
+        <div className="column is-half mobile-12">
           <nav className="panel">
             <div className="panel-heading">
               <p className="subtitle is-5 is-marginless">Conversations</p>
-              <span className="icon" title="New Message">
-                <i className="far fa-envelope" />
-              </span>
+              <button className="button is-text" onClick={() => alert("Create New Messages - coming soon!")}>
+                <span className="icon" title="New Message">
+                  <i className="far fa-envelope" />
+                </span>
+              </button>
             </div>
             {listConversations}
           </nav>
         </div>
-        <div className="column is-half">
+        <div className="column is-half mobile-12">
           <MessageList
             conversation={this.state.conversationFocusData}
             loggedInUser={loggedInUser}
