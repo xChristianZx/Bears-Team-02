@@ -54,7 +54,14 @@ class Conversations extends Component {
           <nav className="panel">
             <div className="panel-heading">
               <p className="subtitle is-5 is-marginless">Conversations</p>
-              <button className="button is-text" onClick={() => alert("Create New Messages - coming soon!")}>
+              <button
+                className="button is-text"
+                onClick={() =>
+                  alert(
+                    `Create New Messages - coming soon! \rUse the Connections tab to send a direct message`
+                  )
+                }
+              >
                 <span className="icon" title="New Message">
                   <i className="far fa-envelope" />
                 </span>

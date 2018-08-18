@@ -16,7 +16,7 @@ const MessageItem = ({ user, message, markAsRead }) => {
       <div className="media-content">
         <div className="content">
           <p className="Sender">
-            <strong>{sendingUser.firstName}</strong> <em>@{sendingUser.username}</em>
+            <strong className="is-capitalized">{sendingUser.firstName}</strong> <em>@{sendingUser.username}</em>
           </p>
           <p className="subtitle is-6">{messageBody}</p>
         </div>
