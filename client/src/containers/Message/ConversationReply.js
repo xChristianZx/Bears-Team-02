@@ -8,10 +8,8 @@ import { withAlert } from "react-alert";
 
 const Fields = [
   {
-    label: "Reply",
     name: "messageBody",
     type: "textarea",
-    className: "textarea",
     component: "textarea",
     errorMsg: "Message is required"
   }
@@ -35,7 +33,7 @@ class ConversationReply extends Component {
   render() {
     return (
       <Fragment>
-        <FormBuilder fields={Fields} onSubmit={this.onSubmit} buttonText="Reply" />
+        <FormBuilder fields={Fields} onSubmit={this.onSubmit} buttonText="Reply" style={this.props.style}/>
       </Fragment>
     );
   }

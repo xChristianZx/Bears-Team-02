@@ -7,7 +7,7 @@ import formFieldRender from './formFieldRender';
 let errorFields = [];
 
 const FormBuilder = props => {
-	const { handleSubmit } = props;
+	const { handleSubmit, style } = props;
 	const fields = props.fields.map(field => {
 		errorFields.push(field)
 		return (
@@ -22,7 +22,7 @@ const FormBuilder = props => {
 	});
 
 	return (
-		<Form className='Form' onSubmit={handleSubmit}>
+		<Form className='Form' onSubmit={handleSubmit} style={style}>
       <h1 className="title" >{props.formTitle ? props.formTitle : null}</h1>
 			{fields}
 			<div className="buttons">			

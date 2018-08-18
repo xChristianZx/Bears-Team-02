@@ -8,7 +8,7 @@ import { withAlert } from 'react-alert'
 
 const Fields = [
   { label: 'Subject', name: 'subject', type: 'text', errorMsg: 'Subject is required' },
-	{ label: 'Message', name: 'messageBody', type: 'text', errorMsg: 'Message is required' }
+	{ label: 'Message', name: 'messageBody', type: 'textarea', errorMsg: 'Message is required' }
 ];
 
   class StartConversation extends Component {
