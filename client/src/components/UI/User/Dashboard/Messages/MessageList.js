@@ -33,8 +33,9 @@ class MessageList extends Component {
     return (
       <React.Fragment>
         {conversation === null ? null : (
-          <div>
+          <div className="box">
             {this.renderMessages()}
+            <hr />
             <article className="media">
               <figure className="media-left">
                 <p className="image is-64x64">
@@ -53,6 +54,7 @@ class MessageList extends Component {
                   receivingUser={recUserId()}
                   conversationId={conversation._id}
                   conversation={conversation}
+                  style={{ width: "100%" }}
                 />
               </div>
             </article>
