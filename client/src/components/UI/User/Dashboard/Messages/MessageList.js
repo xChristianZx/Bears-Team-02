@@ -19,9 +19,9 @@ class MessageList extends Component {
   };
 
   render() {
-    console.log("PROPSEY PROPS", this.props);
+    // console.log("MESSAGELIST PROPS", this.props);
     const { conversation } = this.props;
-    console.log("Conversation", conversation);
+    // console.log("Conversation", conversation);
     function recUserId() {
       if (conversation) {
         const receivingUserID = conversation.receivingUser._id
@@ -40,6 +40,7 @@ class MessageList extends Component {
               <figure className="media-left">
                 <p className="image is-64x64">
                   <img
+                    className="is-rounded"
                     src={
                       this.props.user.userPhotoURL ||
                       "https://bulma.io/images/placeholders/128x128.png"

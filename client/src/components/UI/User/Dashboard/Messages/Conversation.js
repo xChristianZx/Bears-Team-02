@@ -21,6 +21,8 @@ const Conversation = ({
   //   console.log("cnv", conversation.receivingUser._id);
   //   console.log("loggedInUser", iterator, loggedInUser._id);
   //   console.log("OTHER USER", iterator, otherUser);
+  
+  // TODO - FIX
   const isActive = classNames({
     "is-active": iterator === 0 ? true : false
   });
