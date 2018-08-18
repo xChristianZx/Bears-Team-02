@@ -26,8 +26,7 @@ const FormBuilder = props => {
       <h1 className="title" >{props.formTitle ? props.formTitle : null}</h1>
 			{fields}
 			<div className="buttons">			
-				<button className='button is-success' type="submit">{props.buttonText}</button>					
-				<button className='button is-danger is-outlined'>Clear</button>			
+				<button className='button is-success' type="submit">{props.buttonText}</button>				
 			</div>
 			{props.errors}
 		</Form>
