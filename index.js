@@ -27,7 +27,7 @@ mongoose
   .catch(err => console.log("Error connecting to mLab", err));
 
 /* Express Middleware */
-app.use(cors()); // Used for testing. Client is on another port to server.
+// app.use(cors()); // Used for testing. Client is on another port to server.
 app.use(morgan("tiny")); // Used for testing. Logs requests to the console.
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
