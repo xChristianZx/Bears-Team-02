@@ -4,7 +4,12 @@ import ConversationReply from "../../../../../containers/Message/ConversationRep
 
 class MessageList extends Component {
   renderMessages = () => {
-    const { messages } = this.props.conversation;
+    if (this.props.conversationFocusData === null) {
+      return;
+    }
+    console.log("Render messages", this.props);
+    const { messages } = this.props.conversationFocusData;
+
     const messageList = messages.map(message => {
       return (
         <MessageItem
@@ -19,20 +24,18 @@ class MessageList extends Component {
   };
 
   render() {
-    // console.log("MESSAGELIST PROPS", this.props);
-    const { conversation } = this.props;
-    // console.log("Conversation", conversation);
+    const { conversationFocusData } = this.props;
     function recUserId() {
-      if (conversation) {
-        const receivingUserID = conversation.receivingUser._id
-          ? conversation.receivingUser._id
-          : conversation.sendingUser._id;
+      if (conversationFocusData) {
+        const receivingUserID = conversationFocusData.receivingUser._id
+          ? conversationFocusData.receivingUser._id
+          : conversationFocusData.sendingUser._id;
         return receivingUserID;
       }
     }
     return (
       <React.Fragment>
-        {conversation === null ? null : (
+        {conversationFocusData === null ? null : (
           <div className="box">
             {this.renderMessages()}
             <hr />
@@ -51,10 +54,9 @@ class MessageList extends Component {
               </figure>
               <div className="media-content">
                 <ConversationReply
-                  //   receivingUser={receivingUserID}
                   receivingUser={recUserId()}
-                  conversationId={conversation._id}
-                  conversation={conversation}
+                  conversationId={conversationFocusData._id}
+                  conversation={conversationFocusData}
                   style={{ width: "100%" }}
                 />
               </div>

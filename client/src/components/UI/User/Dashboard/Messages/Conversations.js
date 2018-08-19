@@ -1,32 +1,22 @@
 import React, { Component } from "react";
 import "./Conversations.css";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { getConversationFocusData } from "../../../../../actions/MessagingActions";
 import Conversation from "./Conversation";
-// import MessageItem from "./MessageItem";
 import MessageList from "./MessageList";
 
 class Conversations extends Component {
-  state = {
-    conversationFocusData: null
-  };
-
-  setConvoFocus = convoID => {
-    // console.log("convoID", convoID);
-    this.setState({ conversationFocusData: convoID });
-  };
-
   render() {
-    // Need to flatten and sort on the backend
-    console.log("PROPS", this.props);
+    // TODO - Need to flatten and sort on the backend
+    // console.log("PROPS", this.props);
     const { Message, loggedInUser, markAsRead } = this.props;
     const { conversations } = Message;
     // console.log("Conversations", conversations);
     const flattendConversations = conversations.started.concat(conversations.received);
-    // console.log("FLAT", flattendConversations);
     const listConversations = flattendConversations
       .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
       .map((conversation, i) => {
-        //   const { _id, subject, messages, receivingUser } = conversation;
         const { _id } = conversation;
         if (_id === undefined || _id === null) {
           return <p>No Messages</p>;
@@ -36,14 +26,10 @@ class Conversations extends Component {
           <Conversation
             key={_id}
             conversation={conversation}
-            iterator={i}
+            iterator={i} // Only for testing purposes
             loggedInUser={loggedInUser}
             markAsRead={markAsRead}
-            setConvoFocus={this.setConvoFocus}
-            // 	 user={receivingUser}
-            //   conversationId={_id}
-            //   subject={subject}
-            //   messages={messages}
+            setConvoFocus={this.props.getConversationFocusData}
           />
         );
       });
@@ -72,7 +58,7 @@ class Conversations extends Component {
         </div>
         <div className="column is-half mobile-12">
           <MessageList
-            conversation={this.state.conversationFocusData}
+            conversationFocusData={this.props.conversationFocusData}
             loggedInUser={loggedInUser}
             markAsRead={this.props.markAsRead}
             user={this.props.user}
@@ -85,7 +71,15 @@ class Conversations extends Component {
 function mapStateToProps({ Message, User }) {
   return {
     Message,
+    conversationFocusData: Message.conversationFocusData,
     user: User.user
   };
 }
-export default connect(mapStateToProps)(Conversations);
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getConversationFocusData }, dispatch);
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Conversations);
