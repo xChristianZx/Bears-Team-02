@@ -1,6 +1,11 @@
 import axios from "axios";
 
-import { GET_MESSAGES, FLASH_MESSAGE, GET_CONVERSATIONS } from "./types";
+import {
+  GET_MESSAGES,
+  FLASH_MESSAGE,
+  GET_CONVERSATIONS,
+  GET_CONVERSATION_FOCUS_DATA
+} from "./types";
 
 export function getMessages() {
   return dispatch => {
@@ -15,20 +20,6 @@ export function getMessages() {
       });
   };
 }
-/* Currently Unused */
-// export function sendMessage({ messageBody, receivingUser }) {
-// 	return dispatch => {
-// 		let token = localStorage.getItem('token');
-// 		axios
-// 			.post(`/auth/sendmessage`, { receivingUser, messageBody }, { headers: { Authorization: `Bearer ${token}` } })
-// 			.then(response => {
-// 				dispatch({ type: FLASH_MESSAGE, payload: 'Message Sent.' });
-// 			})
-// 			.catch(error => {
-// 				dispatch({ type: FLASH_MESSAGE, payload: 'Message Failed to Send.' });
-// 			})
-// 	};
-// }
 
 export function markAsRead({ messageId }) {
   return dispatch => {
@@ -57,6 +48,7 @@ export function getConversations() {
         dispatch({ type: GET_CONVERSATIONS, payload: response.data.conversations });
       })
       .catch(error => {
+        dispatch({ type: FLASH_MESSAGE, payload: "Error: getConversations" });
         console.log(error);
       });
   };
@@ -72,6 +64,7 @@ export function startConversation({ subject, receivingUserId, messageBody }) {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then(response => {
+        // TODO - Need to pass new conversation to Message.convo array
         dispatch({ type: FLASH_MESSAGE, payload: "Conversation Success" });
       })
       .catch(error => {
@@ -80,7 +73,6 @@ export function startConversation({ subject, receivingUserId, messageBody }) {
   };
 }
 
-/* Need to update this or server route to return new message list to re-render MessageList */
 export function reply({ ConversationId, receivingUserId, messageBody }) {
   return dispatch => {
     let token = localStorage.getItem("token");
@@ -91,11 +83,40 @@ export function reply({ ConversationId, receivingUserId, messageBody }) {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then(response => {
-        console.log("response", response);
-        dispatch(getConversations());
+        dispatch(getConversationFocusData(ConversationId)); // This re-renders MessageList to update the messages state
       })
       .catch(error => {
-        console.log("error", error);
+        dispatch({ type: FLASH_MESSAGE, payload: error });
+        console.log("Reply AC Error", error);
       });
   };
 }
+
+/* For MessageList convoFocus */
+export const getConversationFocusData = convoID => async dispatch => {
+  try {
+    let token = localStorage.getItem("token");
+    const res = await axios.get(`/message/conversation/${convoID}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    dispatch({ type: GET_CONVERSATION_FOCUS_DATA, payload: res.data.conversation });
+  } catch (error) {
+    dispatch({ type: FLASH_MESSAGE, payload: error });
+    console.log("getConversationsFocusData AC Error", error);
+  }
+};
+
+/* Currently Unused */
+// export function sendMessage({ messageBody, receivingUser }) {
+// 	return dispatch => {
+// 		let token = localStorage.getItem('token');
+// 		axios
+// 			.post(`/auth/sendmessage`, { receivingUser, messageBody }, { headers: { Authorization: `Bearer ${token}` } })
+// 			.then(response => {
+// 				dispatch({ type: FLASH_MESSAGE, payload: 'Message Sent.' });
+// 			})
+// 			.catch(error => {
+// 				dispatch({ type: FLASH_MESSAGE, payload: 'Message Failed to Send.' });
+// 			})
+// 	};
+// }

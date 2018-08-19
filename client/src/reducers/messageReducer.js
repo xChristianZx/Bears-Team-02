@@ -1,7 +1,14 @@
-import { GET_MESSAGES, LOGGED_OUT, GET_CONVERSATIONS } from "../actions/types";
+import {
+  GET_MESSAGES,
+  LOGGED_OUT,
+  GET_CONVERSATIONS,
+  GET_CONVERSATION_FOCUS_DATA
+} from "../actions/types";
 
 const initialState = {
-  messages: null
+  messages: null,
+  conversations: null,
+  conversationFocusData: null
 };
 
 export default function(state = initialState, action) {
@@ -10,6 +17,8 @@ export default function(state = initialState, action) {
       return { ...state, messages: action.payload };
     case GET_CONVERSATIONS:
       return { ...state, conversations: action.payload };
+    case GET_CONVERSATION_FOCUS_DATA:
+      return { ...state, conversationFocusData: action.payload };
     case LOGGED_OUT:
       return { ...state, ...initialState };
     default:
