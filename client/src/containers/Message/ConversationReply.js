@@ -1,57 +1,63 @@
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux' 
-import * as messageActions from '../../actions/MessagingActions'
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as messageActions from "../../actions/MessagingActions";
 
-import FormBuilder from '../../components/UI/Form/FormBuilder'
-import { withAlert } from 'react-alert'
+import FormBuilder from "../../components/UI/Form/FormBuilder";
+import { withAlert } from "react-alert";
 
 const Fields = [
-  { label: 'Message', name: 'messageBody', type: 'text', errorMsg: 'Message is required' }
-]
+  {
+    name: "messageBody",
+    type: "textarea",
+    component: "textarea",
+    errorMsg: "Message is required"
+  }
+];
 
-  class ConversationReply extends Component {
-    
-    constructor(props) {
-      super(props)
+class ConversationReply extends Component {
+  onSubmit = values => {
+    let receivingUserId = this.props.receivingUser;
+    let ConversationId = this.props.conversationId;
+    let data = { ...values, receivingUserId, ConversationId };
+    // console.log("ON SUBMIT", data);
+    this.props.actions.reply(data);
+  };
 
-      this.state = {
-        receivingUser: '',
-      }
-    }
-
-    onSubmit = values => {
-      let receivingUserId = this.props.receivingUser
-      let ConversationId = this.props.conversationId
-      let data = { ...values, receivingUserId, ConversationId }
-      this.props.actions.reply(data)
-    }
-
-    componentDidUpdate(prevProps) {
-      if(prevProps.flashMessage !== this.props.flashMessage){
-        this.props.alert.show(this.props.flashMessage)
-      }
-    }
-
-    render() {
-      return (
-        <Fragment>
-          <FormBuilder fields={Fields} onSubmit={this.onSubmit} buttonText='Reply' />
-        </Fragment>
-      )
+  componentDidUpdate(prevProps) {
+    if (prevProps.flashMessage !== this.props.flashMessage) {
+      this.props.alert.show(this.props.flashMessage);
     }
   }
 
-  const mapStateToProps = ({ UI }) => {
-    return { flashMessage: UI.flashMessage }
+  render() {
+    return (
+      <Fragment>
+        <FormBuilder
+          buttonText="Reply"
+          fields={Fields}
+          onSubmit={this.onSubmit}
+          resetOnSubmit={true}
+          style={this.props.style}
+        />
+      </Fragment>
+    );
   }
+}
 
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      actions: bindActionCreators(Object.assign(messageActions), dispatch)
-    }
-  }
+const mapStateToProps = ({ UI }) => {
+  return { flashMessage: UI.flashMessage };
+};
 
-  ConversationReply = withAlert(ConversationReply)
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(Object.assign(messageActions), dispatch)
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConversationReply)
+ConversationReply = withAlert(ConversationReply);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConversationReply);

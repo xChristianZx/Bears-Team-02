@@ -50,7 +50,7 @@ const Connections = ({ connections, blockConnection, messageButton }) => {
   return (
     <div className="container connect-container is-centered">
       <div className="header-container has-text-centered">
-        <h3 className="title is-3">Your Connections</h3>
+        <h3 className="subtitle is-4">Connections</h3>
       </div>
       <hr />
       {userConnections < 1 ? (

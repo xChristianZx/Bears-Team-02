@@ -146,7 +146,7 @@ const Dashboard = ({
 				</div>
 
 				<div className="container is-fluid display-section" hidden={displayingSection !== 'Messages'}>
-					{(conversations && conversations.started) || conversations.received ? <Conversations conversations={conversations} connections={connections} markAsRead={markAsRead} /> : <p>No Messages</p>}
+					{(conversations && conversations.started) || conversations.received ? <Conversations markAsRead={markAsRead} loggedInUser={user} /> : <p>No Messages</p>}
 				</div>
 
 				<div className="container is-fluid display-section" hidden={displayingSection !== 'Profile'}>{user ? <Profile user={user} initialValues={initialValues} onSubmitProfile={onSubmitProfile}/> : <Loader />}</div>
