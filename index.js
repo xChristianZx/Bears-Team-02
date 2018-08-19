@@ -6,8 +6,8 @@ const keys = require("./config/keys");
 const passport = require("passport");
 const path = require("path");
 // const cookieSession = require('cookie-session');
-const cors = require("cors");
-const morgan = require("morgan");
+// const cors = require("cors");
+// const morgan = require("morgan");
 
 const connectionRoutes = require("./routes/connectionRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -28,7 +28,7 @@ mongoose
 
 /* Express Middleware */
 // app.use(cors()); // Used for testing. Client is on another port to server.
-app.use(morgan("tiny")); // Used for testing. Logs requests to the console.
+// app.use(morgan("tiny")); // Used for testing. Logs requests to the console.
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // Commenting out for now to test JWT only
