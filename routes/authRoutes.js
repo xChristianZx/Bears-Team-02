@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const mongoose = require('mongoose');
-const ConnectionRequest = mongoose.model('ConnectionRequest');
+const Message = require('../models/Message');
+const Conversation = require('../models/Conversation');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const jwt = require('jwt-simple');
@@ -31,10 +31,29 @@ router.post('/register', (req, res) => {
 		if (err) {
 			return res.status(400).send(err);
 		}
-		passport.authenticate('local')(req, res, () => {
-
-			const { _id, firstName, lastName, username, email, connections, pendingConnectionRequests } = req.user;
-			const foundUser = { _id, firstName, lastName, username, email, connections, pendingConnectionRequests };
+		passport.authenticate('local')(req, res, () => {						
+			const {
+				_id,
+				firstName,
+				lastName,
+				username,
+				email,
+				connections,
+				pendingConnectionRequests,
+				messages,
+				userPhotoURL
+			} = req.user;
+			const foundUser = {
+				_id,
+				firstName,
+				lastName,
+				username,
+				email,
+				connections,
+				pendingConnectionRequests,
+				messages,
+				userPhotoURL
+			};
 
 			return res.status(200).send({
 				user: foundUser,
@@ -46,7 +65,7 @@ router.post('/register', (req, res) => {
 });
 
 // == Login == //
-router.post('/login', passport.authenticate('local'), (req, res) => {
+router.post('/login', passport.authenticate('local'), (req, res) => {	
 	const {
 		_id,
 		firstName,
@@ -57,6 +76,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 		isTechnical,
 		connections,
 		pendingConnectionRequests,
+		userPhotoURL
 	} = req.user;
 	// using founderUser to prevent exposure of password salt/hash
 	const foundUser = {
@@ -69,6 +89,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 		isTechnical,
 		pendingConnectionRequests,
 		location,
+		userPhotoURL
 	};
 	return res.status(200).send({
 		user: foundUser,
@@ -88,6 +109,7 @@ router.get('/logout', (req, res) => {
 router.get('/dashboard', requireAuth, (req, res) => {
 	User.findById(req.user._id)
 		.populate('connections')
+		.populate('unreadMessages')
 		.exec((err, user) => {
 			if (err) {
 				console.log(err);
@@ -106,130 +128,148 @@ router.get('/istechnical', requireAuth, (req, res) => {
 	updateIsTechnical.save(() => res.status(200).send({ user: updateIsTechnical }));
 });
 
-// Send Connection Request
-router.post('/connectionrequest', requireAuth, (req, res) => {
-	let newConnectionRequest = {
-		requestingUser: req.user._id,
-		requestedUser: req.body.requestedUser,
-	};
-	// console.log(`NOTE to self: newConnectionRequest .create is commented out; not creating new requests`)
-	ConnectionRequest.create(newConnectionRequest, (err, conReq) => {
-		if (conReq) {
-			res.json({
-				success: true,
-				conReq,
-			});
-		}
+// Send a Message
+router.post('/sendmessage', requireAuth, (req, res) => {
+	console.log('USER', req.body)
+	let newMessage = new Message({
+		sendingUser: req.user, 
+		receivingUser: req.body.receivingUser,
+		messageBody: req.body.messageBody,
 	});
-});
 
-/*  Endpoint for getPendingConnections() Action Creator*/
-router.get('/pendingconnections', requireAuth, (req, res) => {
-	let connectionRequests = {
-		pending: [],
-		acceptable: [],
-	};
-
-	ConnectionRequest.find({ requestingUser: req.user._id })
-		.populate('requestedUser')
-		.exec((err, connReqs) => {
-			let error = null;
-
-			if (err) {
-				error = err;
-			}
-
-			connReqs.map(connReq => {
-				if (connReq.status === 'Pending') {
-					connectionRequests.pending.push(connReq);
+	Message.create(newMessage, (err, message) => {
+		if (message) {
+			User.findById(newMessage.sendingUser._id, (err, user) => {
+				if(err) {
+					res.json({
+						err
+					})
 				}
-			});
-
-			ConnectionRequest.find({ requestedUser: req.user._id })
-				.populate('requestingUser')
-				.exec((err, connReqs) => {
-					if (err) {
-						error = err;
-					}
-					connReqs.map(connReq => {
-						if (connReq.status === 'Pending') {
-							connectionRequests.acceptable.push(connReq);
+				if(user) {
+					user.messages.push(message._id)
+					user.save()
+					
+					User.findById(newMessage.receivingUser, (err, receivingUser) => {
+						if(err) {
+							res.json({
+								err
+							})
 						}
-					});
 
-					let count = connectionRequests.pending.length + connectionRequests.acceptable.length;
-					if (error) {
-						res.json({
-							success: false,
-							error,
-						});
-					} else {
-						res.json({
-							success: true,
-							connectionRequests,
-							pendingRequests: count,
-						});
-					}
-				});
-		});
-});
+						if(receivingUser) {
+							receivingUser.messages.push(message._id)
+							receivingUser.save()
 
-/*
-	Takes a connection request ID the requesting user and action. It then finds the connection
-	changes the status to the given action. If the action is accepted it will add the new
-	connection to each users connections array.
-*/
-router.post('/pendingconnectionresponse', requireAuth, (req, res) => {
-	let connectionRequest = req.body.connectionRequest.toString();
-	let acceptingUser = req.user._id.toString();
-	let action = req.body.action;
-
-	ConnectionRequest.findById(connectionRequest, (err, connReq) => {
-		if (err) {
-			res.json({
-				success: false,
-				error: err,
-			});
-		}
-
-		connReq.status = action;
-		connReq.save();
-
-		if(action === 'Accepted') {
-			User.findById(acceptingUser, (err, user) => {
-				if (err) {
-					res.json({
-						success: false,
-						error: err,
-					});
+							res.json({
+								success: true
+							});
+						}
+					})
 				}
-				user.connections.push(connReq.requestingUser);
-				user.save();
-
-				User.findById(connReq.requestingUser, (err, user) => {
-					if (err) {
-						res.json({
-							success: false,
-							error: err,
-						});
-					}
-
-					user.connections.push(acceptingUser);
-					user.save();
-					res.json({
-						success: true,
-						message: 'Connection request accepted.',
-					});
-				});
-			});
+			})
 		} else {
 			res.json({
-				success: true,
-				message: 'Connection request declined.'
+				success: false,
+				error: err
 			})
 		}
 	});
 });
 
-module.exports = router;
+/*  Endpoint for getMessages() Action Creator*/
+router.get('/messages', requireAuth, (req, res) => { 
+	let messages = {
+		sent: null,
+		received: null
+	}
 
+	Message.find({ receivingUser: req.user._id })
+		.populate('sendingUser', '-pendingConnectionRequests -messages -email')
+		.exec((err, message) => {
+			if(!message) {
+				res.json({
+					success: false
+				}) 
+			}
+			messages.received = message
+			Message.find({ sendingUser: req.user._id })
+				.populate('receivingUser', '-pendingConnections -messages -email')
+				.exec((err, message) => {
+					if(message) {
+						messages.sent = message
+						return res.json({   
+							success: true,
+							messages 
+						})
+					}
+					 else {
+						 res.json({
+							 success: false,
+							 err
+						 })
+					 }
+				})
+		})
+});
+
+router.post('/readmessage', requireAuth, (req, res) => {
+	let messageId = req.body.messageId
+	Message.findById(messageId, (err, message) => {
+		if(message) {
+			message.read = true
+			message.save((err, message) => {
+				if(!message) {
+					res.json({
+						success: false
+					})
+				}
+			})
+		}
+	})
+	res.json({
+		success: true
+	})
+})
+
+router.post('/delete-account', requireAuth, passport.authenticate('local'), (req, res) => {
+	User.findByIdAndRemove(req.user._id, (err, success) => {
+		if(!success) {
+			res.json({
+				success: false,
+				error: err
+			})
+		}
+		Message.deleteMany({ $or: [{ sendingUser: req.user._id }, { receivingUser: req.user._id }]}, (err, success) => {
+			if(!success) {
+				res.json({
+					success: false,
+					error: err
+				})
+			}
+
+			Conversation.deleteMany({ $or: [{ sendingUser: req.user._id }, { receivingUser: req.user._id }]}, (err, success) => {
+				if(!success) {
+					res.json({
+						success: false,
+						error: err
+					})
+				}
+			
+				User.updateMany({ $pull: { connections: req.user._id } }, (err, success) => {
+					if(!success) {
+						res.json({
+							success: false,
+							error: err
+						})
+					}
+
+					res.json({
+						success: true
+					})
+				})
+			})
+		})
+	})
+})
+
+module.exports = router;

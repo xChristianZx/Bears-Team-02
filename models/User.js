@@ -4,26 +4,36 @@ const connectRequest = require("./connectionRequest");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new Schema({
-  firstName: { type: String, required: false },
-  lastName: { type: String, required: false },
+  firstName: { type: String, required: false, lowercase: true },
+  lastName: { type: String, required: false, lowercase: true },
   username: {
     type: String,
     validate: {
       validator: username => username.length > 2,
       message: "username must be longer than 2 characters"
     },
-    required: [true, "Username is required"]
+    required: [true, "Username is required"],
+    lowercase: true
   },
   userPhotoURL: { type: String, required: false },
-  email: { type: String, required: false },
+  email: { type: String, required: false, lowercase: true },
   location: {
-    city: { type: String, required: false },
-    state: { type: String, required: false },
-    countryCode: { type: String, required: false }
+    city: { type: String, required: false, lowercase: true },
+    state: { type: String, required: false, lowercase: true },
+    countryCode: { type: String, required: false, lowercase: true }
   },
   isTechnical: { type: Boolean, required: true, default: false },
+  profileInfo: {
+    headline: { type: String, maxlength: 160 },
+    currentRole: { type: String, maxlength: 100 },
+    sectorExperience: [{ type: String }],
+    lookingFor: { type: String }
+  },
   pendingConnectionRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: "ConnectionRequest" }],
-  connections: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
+  connections: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  blockedConnections: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  hiddenUsers: [{ type: Schema.Types.ObjectId, ref: "User" }], // Hidden Users is for other users that have blocked this user
+  unreadMessages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }]
 });
 
 userSchema.plugin(passportLocalMongoose);

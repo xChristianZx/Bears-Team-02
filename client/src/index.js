@@ -1,43 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import 'bulma/css/bulma.css';
+import "bulma-badge/dist/css/bulma-badge.min.css"; // Both Bulma imports need to be before index.css
 import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
-
-// Router
 import { Router } from "react-router-dom";
 import history from "./hoc/history"; // Allows us to programmatically redirect the user, on signIn for example.
-
-// Flash Messages
+import { Provider } from "react-redux";
+import store from './store/store';
 import { Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from './hoc/flashMessageTemplate'
-
-// Redux
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose } from "redux";
-import reduxThunk from "redux-thunk";
-import Async from "./middleware/async";
-import rootReducer from "./reducers/rootReducer";
-import { createLogger } from "redux-logger";
 import { dashboard } from './actions/UserActions';
-
 import { AUTHENTICATED, LOGGED_OUT } from "./actions/types";
 
-// Wrapper for Redux DevTools Extension for Chrome
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-// Currently filtering reduxForm actions, comment out predicate line to disable
-const reduxLogger = createLogger({
-  predicate: (getState, action) => !action.type.includes("@@redux-form")
-});
-
-// Create Store - Note: reduxLogger needs to be the last middleware in chain
-const storeMiddleware = composeEnhancers(
-  applyMiddleware(Async, reduxThunk, reduxLogger)
-)(createStore);
-const store = storeMiddleware(rootReducer);
-
-// Load JWT if exists
 const token = localStorage.getItem("token");
 if (token) {
   dashboard();

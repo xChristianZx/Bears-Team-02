@@ -1,11 +1,15 @@
 import { combineReducers } from "redux";
-import userReducer from "./User/userReducer";
+import userReducer from "./userReducer";
+import connectionReducer from './connectionReducer';
+import messageReducer from './messageReducer';
+import uiReducer from "./uiReducer";
 import { reducer as form } from "redux-form";
-
-/* Moved initial state inside of User; letting form handle it's own initial state for now */
 
 const rootReducer = combineReducers({
   User: userReducer,
+  Connection: connectionReducer,
+  Message: messageReducer,
+  UI: uiReducer,
   form
 });
 

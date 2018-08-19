@@ -1,0 +1,334 @@
+const express = require("express");
+const router = express.Router();
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const jwt = require("jwt-simple");
+
+const User = require("../models/User");
+const Conversation = require("../models/Conversation");
+const Message = require("../models/Message");
+
+const requireAuth = passport.authenticate("jwt", { session: false });
+
+// Start a Conversation - startConversation AC
+router.post("/conversation", requireAuth, (req, res) => {
+  let newConversation = new Conversation({
+    sendingUser: req.user._id,
+    receivingUser: req.body.receivingUserId,
+    subject: req.body.subject
+  });
+
+  let newMessage = new Message({
+    ConversationId: null,
+    sendingUser: req.user,
+    receivingUser: req.body.receivingUserId,
+    messageBody: req.body.messageBody
+  });
+
+  // Initial save of conversation, sans message
+  newConversation.save((err, conversation) => {
+    if (err) {
+      res.json({
+        success: false,
+        error: err
+      });
+    }
+    // Once conversation is saved, add the ID to the message and save
+    newMessage.ConversationId = conversation._id;
+    newMessage.save((err, message) => {
+      if (err) {
+        res.json({
+          success: false,
+          error: err
+        });
+      }
+      // Once message is saved, push to conversation messages array the messageID and save
+      newConversation.messages.push(message._id);
+      newConversation.save((err, updatedConversation) => {
+        if (err) {
+          res.json({
+            success: false,
+            error: err
+          });
+        }
+        // Add the messageID to the sendingUsers messages array and save
+        User.findById(newMessage.sendingUser, (err, user) => {
+          if (err) {
+            res.json({
+              success: false,
+              error: err
+            });
+          }
+          // TODO - Remove commented line once confirmed it does not cause other bugs
+          // user.unreadMessages.push(message._id);
+          user.save((err, updatedUser) => {
+            if (err) {
+              res.json({
+                success: false,
+                error: err
+              });
+            }
+            // Add the messageID to the receivingUsers messages array and save
+            User.findById(newMessage.receivingUser, (err, user) => {
+              user.unreadMessages.push(message._id);
+              user.save((err, updatedUser) => {
+                if (err) {
+                  res.json({
+                    success: false,
+                    error: err
+                  });
+                }
+                res.json({
+                  success: true,
+                  conversation: updatedConversation
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+});
+
+// Get Conversations - AC
+router.get("/conversations", requireAuth, (req, res) => {
+  let conversations = {
+    started: null,
+    received: null
+  };
+
+  Conversation.find({ receivingUser: req.user._id })
+    .populate("sendingUser", "-pendingConnectionRequests -messages -email")
+    .populate({
+      path: "messages",
+      model: "Message",
+      populate: {
+        path: "sendingUser",
+        model: "User"
+      }
+    })
+    .exec((err, conversation) => {
+      if (!conversation) {
+        res.json({
+          success: false,
+          error: err
+        });
+      }
+
+      conversations.received = conversation;
+
+      Conversation.find({ sendingUser: req.user._id })
+        .populate("receivingUser", "-pendingConnectionRequests -messages -email")
+        .populate({
+          path: "messages",
+          model: "Message",
+          populate: {
+            path: "sendingUser",
+            model: "User"
+          }
+        })
+        .exec((err, conversation) => {
+          if (!conversation) {
+            res.json({
+              success: false,
+              error: err
+            });
+          }
+          conversations.started = conversation;
+          return res.json({
+            success: true,
+            conversations
+          });
+        });
+    });
+});
+
+// Send a Message
+router.post("/sendmessage", requireAuth, (req, res) => {
+  let newMessage = new Message({
+    sendingUser: req.user,
+    receivingUser: req.body.receivingUser,
+    messageBody: req.body.messageBody
+  });
+
+  Message.create(newMessage, (err, message) => {
+    if (message) {
+      // TODO - need to remove as sendingUser does not need this in unreadMessages
+      User.findById(newMessage.sendingUser._id, (err, user) => {
+        if (err) {
+          res.json({
+            err
+          });
+        }
+        if (user) {
+          user.unreadMessages.push(message._id);
+          user.save();
+
+          User.findById(newMessage.receivingUser, (err, receivingUser) => {
+            if (err) {
+              res.json({
+                err
+              });
+            }
+
+            if (receivingUser) {
+              receivingUser.unreadMessages.push(message._id);
+              receivingUser.save();
+
+              res.json({
+                success: true
+              });
+            }
+          });
+        }
+      });
+    } else {
+      res.json({
+        success: false,
+        error: err
+      });
+    }
+  });
+});
+
+/*  Endpoint for getMessages() AC*/
+router.get("/messages", requireAuth, (req, res) => {
+  let messages = {
+    sent: null,
+    received: null
+  };
+
+  Message.find({ receivingUser: req.user._id })
+    .populate("sendingUser", "-pendingConnectionRequests -messages -email")
+    .exec((err, message) => {
+      if (!message) {
+        res.json({
+          success: false
+        });
+      }
+      messages.received = message;
+      Message.find({ sendingUser: req.user._id })
+        .populate("receivingUser", "-pendingConnections -messages -email")
+        .exec((err, message) => {
+          if (message) {
+            messages.sent = message;
+            return res.json({
+              success: true,
+              messages
+            });
+          } else {
+            res.json({
+              success: false,
+              err
+            });
+          }
+        });
+    });
+});
+
+// MarkAsRead AC
+router.post("/readmessage", requireAuth, (req, res) => {
+  let messageId = req.body.messageId;
+  Message.findById(messageId, (err, message) => {
+    if (message) {
+      message.read = true;
+      message.save((err, message) => {
+        if (!message) {
+          res.json({
+            success: false,
+            error: err
+          });
+        }
+
+        User.findByIdAndUpdate(
+          req.user._id,
+          { $pull: { unreadMessages: message._id } },
+          (err, success) => {
+            if (!success) {
+              res.json({
+                success: false,
+                error: err
+              });
+            }
+            res.json({
+              success: true
+            });
+          }
+        );
+      });
+    }
+  });
+});
+
+router.post("/reply", requireAuth, (req, res) => {
+  let conversationId = req.body.ConversationId;
+  let newMessage = new Message({
+    ConversationId: conversationId,
+    sendingUser: req.user._id,
+    receivingUser: req.body.receivingUserId,
+    messageBody: req.body.messageBody
+  });
+
+  // console.log("conversationId", conversationId);
+  // console.log("newMessage", newMessage)
+
+  newMessage.save((err, message) => {
+    if (err) {
+      res.json({
+        success: false,
+        error: err
+      });
+    } else {
+      Conversation.findByIdAndUpdate(
+        conversationId,
+        { $push: { messages: message._id } },
+        { new: true },
+        (err, conversation) => {
+          if (!conversation) {
+            res.json({
+              success: false,
+              error: err
+            });
+          }
+
+          User.findByIdAndUpdate(
+            newMessage.receivingUser,
+            { $push: { unreadMessages: message._id } },
+            (err, success) => {
+              if (!success) {
+                res.json({
+                  success: false,
+                  error: err
+                });
+              }
+              res.json({
+                success: true
+              });
+            }
+          );
+        }
+      );
+    }
+  });
+});
+
+/* Handles getConversationFocusData AC */
+router.get("/conversation/:id", requireAuth, (req, res) => {
+  const requestedConvoID = req.params.id;
+  Conversation.findById(requestedConvoID)
+    .populate({
+      path: "messages",
+      model: "Message",
+      populate: {
+        path: "sendingUser",
+        model: "User"
+      }
+    })
+    .populate("sendingUser")
+    .populate("receivingUser")
+    .then(conversation => res.status(200).send({ conversation }))
+    .catch(error => res.status(400).send({ error: error.message }));
+});
+
+module.exports = router;

@@ -1,25 +1,22 @@
-- Dashboard
-  - Add functionality to update form
-
-- Global
-  - Add ability to remove connection
-
 Future Features
-- Notifications
-- Message a Connection
-- Delete User Profile
 - Add oAuth - Github/ Google
 
-Sign up/ Login Form
- - Sanitize username to Remove case sensitivity
+Profile
+- Build Form
+
+User Image
+- What about image upload??
 
 Styling
-  - Restyle Landing Title and Navbar
-  - Icons? - Do we need a package for icons to render?
-  
-Revisit 
-- Refactor Connect/Dashboard re-render after getPendingRequest update
+- Restyle Landing Title and Navbar
 
-Possible Refactor
-- The list for rendering: connection, pendingConnection and connect users is the same except the buttons
-- perhaps I will refactor this as a function to return JSX and map over any buttons passed in.
+Messaging
+- MarkAsRead not triggering a re-render of MessageList
+- Create a New Message from the New Message Icon on Conversations page. (Use Modal)
+- Fix is-active conversation
+
+Update form
+- Need to handle or remove Character Limit on Headline.  Either client validate or return error.
+
+FlashMessage
+- Need to decouple and refactor so that other AC's don't depend on it to dispatch via props change (Dashboard)

@@ -8,6 +8,17 @@ const Links = props => {
     //   console.log('props', props)
     //   link.name = props.user.username
     // }
+    if (link.name === 'Dashboard') {
+      return (
+        <Link to={`${link.url}`} className={link.class} key={i}>
+          {props.notifications < 1 ? (link.name) : (
+            <span className="badge is-badge-small" data-badge={props.notifications}>
+              {link.name}
+            </span>)}
+        </Link>
+      )
+    }
+
     return (
       <Link to={`${link.url}`} className={link.class} key={i}>
         {link.name}

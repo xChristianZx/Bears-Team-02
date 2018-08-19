@@ -1,14 +1,12 @@
 import axios from 'axios';
 import history from '../hoc/history';
 
-import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, GET_USERS, FLASH_MESSAGE, GET_CONNECTIONS } from './types';
-
-const ROOT_URL = 'http://localhost:5000';
+import { SIGN_UP, LOG_IN, USER_DASHBOARD, LOGGED_OUT, FLASH_MESSAGE, USER_UPDATE } from './types';
 
 export function signUp({ firstName, lastName, username, email, password }) {
 	return dispatch => {
 		axios
-			.post(`${ROOT_URL}/auth/register`, { firstName, lastName, username, email, password })
+			.post(`/auth/register`, { firstName, lastName, username, email, password })
 			.then(response => {
 				if (response.status === 200) {
 					localStorage.setItem('token', response.data.token);
@@ -28,10 +26,27 @@ export function signUp({ firstName, lastName, username, email, password }) {
 	};
 }
 
-export function login({ username, password }) {
+export function updateUser(updatedUser) {
 	return dispatch => {
+		let token = localStorage.getItem('token');
 		axios
-			.post(`${ROOT_URL}/auth/login`, { username, password })
+			.put(`/user`, updatedUser, { headers: { Authorization: `Bearer ${token}` } })
+			.then(response => {
+				dispatch({ type: USER_UPDATE, payload: response.data });
+				dispatch({ type: FLASH_MESSAGE, payload: response.data.message })
+				history.push('/dashboard');
+			})
+			.catch(error => {
+				dispatch({ type: FLASH_MESSAGE, payload: error.response.data.message })
+				console.log(error)
+			});
+	};
+}
+
+export function login({ username, password }) {
+	return dispatch => {		
+		axios
+			.post(`/auth/login`, { username, password })
 			.then(response => {
 				if (response.status === 200) {
 					localStorage.setItem('token', response.data.token);
@@ -51,7 +66,8 @@ export function login({ username, password }) {
 export function dashboard() {
 	return dispatch => {
 		let token = localStorage.getItem('token');
-		axios.get(`${ROOT_URL}/auth/dashboard`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
+		axios.get(`/auth/dashboard`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
+			console.log('DATA', response.data)
 			dispatch({ type: USER_DASHBOARD, payload: response.data });
 		}).catch(error => {
 			dispatch({ type: USER_DASHBOARD, payload: 'Failed to load Dashboard'})
@@ -63,64 +79,37 @@ export function logout() {
 	return dispatch => {
 		localStorage.removeItem('token');
 		dispatch({ type: LOGGED_OUT })
+		dispatch({ type: FLASH_MESSAGE, payload: 'Successfully logged out.' })
 		history.push('/');
-	};
-}
-/* Populates /connect potential Connections list */
-export function getUsers(filterParams) {
-	return dispatch => {
-		let token = localStorage.getItem('token');
-		axios.get(`${ROOT_URL}/founders`, { params:{ isTechnical : filterParams || "all" }, headers: { Authorization: `Bearer ${token}` } }).then(response => {
-			dispatch({ type: GET_USERS, payload: response.data })
-		}).catch(error => {
-				dispatch({ type: FLASH_MESSAGE, payload: 'Failed to load users'})
-		})
 	};
 }
 
 export function toggleTechnical() {
 	return dispatch => {
 		let token = localStorage.getItem('token');
-		axios.get(`${ROOT_URL}/auth/istechnical`, { headers: { Authorization: `Bearer ${token}`} }).then(response => {
+		axios.get(`/auth/istechnical`, { headers: { Authorization: `Bearer ${token}`} }).then(response => {
 			dispatch({ type: FLASH_MESSAGE, payload: 'Successfully updated'})
 			dispatch({ type: USER_DASHBOARD, payload: response.data });
 		}).catch(error => {
-				dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})
+				dispatch({ type: FLASH_MESSAGE, payload: 'ERROR: toggleTechnical'})
 		})
 	}
 }
 
-export function requestConnection(requestedUser) {
-	return dispatch => {
+export function deleteAccount({ username, password }) {
+	return dispatch => {	
 		let token = localStorage.getItem('token');
-		axios.post(`${ROOT_URL}/auth/connectionrequest`, { requestedUser }, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
-			dispatch({ type: FLASH_MESSAGE, payload: 'Connected request sent' })
-			history.push('/connect')
-		}).catch(error => {
-			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})
-	})
-	}
-}
-
-export function getPendingConnections() {
-	return dispatch => {
-		let token = localStorage.getItem('token');
-		axios.get(`${ROOT_URL}/auth/pendingconnections`, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
-			dispatch({ type: GET_CONNECTIONS, payload: response.data })
-		}).catch(error => {
-			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again.'})			
-		})
-	}
-}
-
-export function pendingConnectionResponse({ connectionRequest, action }) {
-	return dispatch => {
-		let token = localStorage.getItem('token');
-		axios.post(`${ROOT_URL}/auth/pendingconnectionresponse`, { connectionRequest, action }, { headers: { Authorization: `Bearer ${token}`}}).then(response => {
-			dispatch({ type: FLASH_MESSAGE, payload: response.data.message  })
-			history.push('/dashboard')
-		}).catch(error => {
-			dispatch({ type: FLASH_MESSAGE, payload: 'Request failed. Please try again' })
-		})
-	}
+		axios
+			.post(`/auth/delete-account`, { username, password }, { headers: { Authorization: `Bearer ${token}` } })
+			.then(response => {
+				localStorage.removeItem('token');
+				dispatch({ type: LOGGED_OUT })
+				dispatch({ type: FLASH_MESSAGE, payload: 'Account successfully deleted.' })
+				history.push('/')
+			})
+			.catch(error => {
+				dispatch({ type: FLASH_MESSAGE, payload: 'Something went wrong.' })
+				history.push('/dashboard')
+			});
+	};
 }
