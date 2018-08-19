@@ -58,9 +58,9 @@ router.post("/conversation", requireAuth, (req, res) => {
               success: false,
               error: err
             });
-		  }
-		  // TODO - Remove commented line once confirmed it does not cause other bugs
-        //   user.unreadMessages.push(message._id);
+          }
+          // TODO - Remove commented line once confirmed it does not cause other bugs
+          // user.unreadMessages.push(message._id);
           user.save((err, updatedUser) => {
             if (err) {
               res.json({
@@ -154,7 +154,7 @@ router.post("/sendmessage", requireAuth, (req, res) => {
 
   Message.create(newMessage, (err, message) => {
     if (message) {
-		// TODO - need to remove as sendingUser does not need this in unreadMessages
+      // TODO - need to remove as sendingUser does not need this in unreadMessages
       User.findById(newMessage.sendingUser._id, (err, user) => {
         if (err) {
           res.json({
@@ -226,6 +226,7 @@ router.get("/messages", requireAuth, (req, res) => {
         });
     });
 });
+
 // MarkAsRead AC
 router.post("/readmessage", requireAuth, (req, res) => {
   let messageId = req.body.messageId;
@@ -310,6 +311,24 @@ router.post("/reply", requireAuth, (req, res) => {
       );
     }
   });
+});
+
+/* Handles getConversationFocusData AC */
+router.get("/conversation/:id", requireAuth, (req, res) => {
+  const requestedConvoID = req.params.id;
+  Conversation.findById(requestedConvoID)
+    .populate({
+      path: "messages",
+      model: "Message",
+      populate: {
+        path: "sendingUser",
+        model: "User"
+      }
+    })
+    .populate("sendingUser")
+    .populate("receivingUser")
+    .then(conversation => res.status(200).send({ conversation }))
+    .catch(error => res.status(400).send({ error: error.message }));
 });
 
 module.exports = router;
