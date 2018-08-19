@@ -15,7 +15,7 @@ class Connect extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    /* Todo - Need to figure out dispatching multiple flashMessages with each connectRequest*/ 
+    //  Todo - Need to figure out dispatching multiple flashMessages with each connectRequest 
     if (prevProps.flashMessage !== this.props.flashMessage) {
       this.props.alert.show(this.props.flashMessage);  
     }
