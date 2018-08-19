@@ -20,7 +20,7 @@ class ConversationReply extends Component {
     let receivingUserId = this.props.receivingUser;
     let ConversationId = this.props.conversationId;
     let data = { ...values, receivingUserId, ConversationId };
-    console.log("ON SUBMIT", data);
+    // console.log("ON SUBMIT", data);
     this.props.actions.reply(data);
   };
 
@@ -33,7 +33,13 @@ class ConversationReply extends Component {
   render() {
     return (
       <Fragment>
-        <FormBuilder fields={Fields} onSubmit={this.onSubmit} buttonText="Reply" style={this.props.style}/>
+        <FormBuilder
+          buttonText="Reply"
+          fields={Fields}
+          onSubmit={this.onSubmit}
+          resetOnSubmit={true}
+          style={this.props.style}
+        />
       </Fragment>
     );
   }
