@@ -67,7 +67,7 @@ export function dashboard() {
 	return dispatch => {
 		let token = localStorage.getItem('token');
 		axios.get(`/auth/dashboard`, { headers: { Authorization: `Bearer ${token}` } }).then(response => {
-			console.log('DATA', response.data)
+			// console.log('DATA', response.data)
 			dispatch({ type: USER_DASHBOARD, payload: response.data });
 		}).catch(error => {
 			dispatch({ type: USER_DASHBOARD, payload: 'Failed to load Dashboard'})
