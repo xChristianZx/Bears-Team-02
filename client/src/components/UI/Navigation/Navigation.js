@@ -1,22 +1,40 @@
-import React from 'react'
-import Links from './Links'
+import React from "react";
+import Links from "./Links";
 import classNames from "classnames";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
-const NavigationComp = ({ handleBurgerClick, toggleBurger, authenticated, linksIn, linksOut, notifications }) => {
+const NavigationComp = ({
+  authenticated,
+  handleBurgerClick,
+  linksIn,
+  linksOut,
+  location,
+  notifications,
+  toggleBurger
+}) => {
   let navBurger = classNames("navbar-burger", {
     "is-active": toggleBurger
   });
   let navMenu = classNames("navbar-menu", {
     "is-active": toggleBurger
   });
+
+  /* Style overrides for home page */
+  const navbarWrapper = location.pathname !== "/" ? "is-info" : "is-transparent";
+  const navbarWrapperStyle =
+    location.pathname === "/"
+      ? { backgroundColor: "transparent", position: "absolute", width: "100%" }
+      : null;
+
   return (
-    <nav className="navbar is-info is-spaced">
+    <nav className={`navbar is-spaced ${navbarWrapper}`} style={navbarWrapperStyle}>
       <div className="container">
         <div className="navbar-brand">
-          <Link to="/" className="navbar-item">
-            FC
-          </Link>
+          {location.pathname === "/" ? null : (
+            <Link to="/" className="navbar-item">
+              <h2 className="subtitle is-5 has-text-white">Founder Connect</h2>
+            </Link>
+          )}
           <a
             role="button"
             className={navBurger}
@@ -33,7 +51,7 @@ const NavigationComp = ({ handleBurgerClick, toggleBurger, authenticated, linksI
         <div id="navMenu" className={navMenu}>
           <div className="navbar-end">
             {authenticated ? (
-              <Links links={linksIn} notifications={notifications} />
+              <Links links={linksIn} notifications={notifications} location={location.pathname} />
             ) : (
               <Links links={linksOut} />
             )}
@@ -41,7 +59,7 @@ const NavigationComp = ({ handleBurgerClick, toggleBurger, authenticated, linksI
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default NavigationComp
+export default NavigationComp;
