@@ -4,23 +4,24 @@ import "./Links.css";
 
 const Links = props => {
   const NavLink = props.links.map((link, i) => {
-    // if(link.name === 'User') {
-    //   console.log('props', props)
-    //   link.name = props.user.username
-    // }
-    if (link.name === 'Dashboard') {
+    const isActive = link.url === props.location ? "is-active" : "";
+
+    if (link.name === "Dashboard") {
       return (
-        <Link to={`${link.url}`} className={link.class} key={i}>
-          {props.notifications < 1 ? (link.name) : (
+        <Link to={`${link.url}`} className={`${link.class} ${isActive}`} key={i}>
+          {props.notifications < 1 ? (
+            link.name
+          ) : (
             <span className="badge is-badge-small" data-badge={props.notifications}>
               {link.name}
-            </span>)}
+            </span>
+          )}
         </Link>
-      )
+      );
     }
 
     return (
-      <Link to={`${link.url}`} className={link.class} key={i}>
+      <Link to={`${link.url}`} className={`${link.class} ${isActive}`} key={i}>
         {link.name}
       </Link>
     );
