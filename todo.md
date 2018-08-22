@@ -7,9 +7,6 @@ Profile
 User Image
 - What about image upload??
 
-Styling
-- Restyle Landing Title and Navbar
-
 Messaging
 - MarkAsRead not triggering a re-render of MessageList
 - Create a New Message from the New Message Icon on Conversations page. (Use Modal)
