@@ -25,7 +25,7 @@ const UpdateFormBuilder = props => {
     <div className="columns is-mobile">
       <div className="column">
         <Form className="Form box" onSubmit={handleSubmit}>
-          <h1 className="title">Update User Information</h1>
+          <h1 className="title">Update Information</h1>
           <hr />
           {fields}
           <div className="level">
