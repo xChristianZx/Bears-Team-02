@@ -106,7 +106,7 @@ const ConnectComp = ({ users, pendingConnections, requestConnection, user, getUs
     <div className="column is-three-quarters">
       <Header />
       <FilterBar users={users} getUsers={getUsers} />
-      <ul>{connectionList}</ul>
+      <ul className="box">{connectionList}</ul>
     </div>
   );
 };

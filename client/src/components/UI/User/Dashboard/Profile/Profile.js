@@ -14,7 +14,9 @@ const Profile = props => {
     <div className="columns">
       <div className="container column is-three-quarters">
         <div className="box">
-          <h4 className="subtitle is-4 has-text-centered">Your Profile</h4>
+          <div className="header-container has-text-centered">
+            <h4 className="subtitle is-4">Your Profile</h4>
+          </div>
           <hr />
           <div className="box">
             <h6 className="title is-6">Current Role</h6>

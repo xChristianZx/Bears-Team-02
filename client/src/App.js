@@ -18,7 +18,7 @@ class App extends Component {
       <div className="App">
         <Fragment>
           <Navigation />
-          <div className="content-layout-wrapper">
+          <div className="content-layout-wrapper has-background-white-ter">
             <Switch>
               <Route exact path="/" component={Landing} />
               <Route path="/connect" component={Connect} />

@@ -48,19 +48,21 @@ const Connections = ({ connections, blockConnection, messageButton }) => {
     );
   });
   return (
-    <div className="container connect-container is-centered">
-      <div className="header-container has-text-centered">
-        <h3 className="subtitle is-4">Connections</h3>
-      </div>
-      <hr />
-      {userConnections < 1 ? (
-        <div className="has-text-centered">
-          <p>None yet!</p>
-          <Link to="/connect">Meet your future team</Link>
+    <div className="columns box">
+      <div className="column container is-three-quarters">
+        <div className="header-container has-text-centered">
+          <h3 className="subtitle is-4">Connections</h3>
         </div>
-      ) : (
-        <ul>{userConnections}</ul>
-      )}
+        <hr />
+        {userConnections < 1 ? (
+          <div className="has-text-centered">
+            <p>None yet!</p>
+            <Link to="/connect">Meet your future team</Link>
+          </div>
+        ) : (
+          <ul>{userConnections}</ul>
+        )}
+      </div>
     </div>
   );
 };
