@@ -35,7 +35,7 @@ class Conversations extends Component {
       });
 
     return (
-      <div className="columns">
+      <div className="columns box">
         <div className="column is-half mobile-12">
           <nav className="panel">
             <div className="panel-heading">

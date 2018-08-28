@@ -1,3 +1,9 @@
+// Bulma overrides
+
 .connect-container {
   margin: 2rem auto;
+}
+
+.connect-container.columns:last-child {
+  margin-bottom: 1rem;
 }

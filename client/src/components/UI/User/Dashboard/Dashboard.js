@@ -37,8 +37,8 @@ const Dashboard = ({
 	return (
 		<React.Fragment>
 			<div className="section profile-heading">
-				<div className="columns is-mobile is-multiline">
-					<div className="column is-2-tablet is-mobile">
+				<div className="columns is-mobile is-multiline box">
+					<div className="column is-2-tablet">
 						<figure className="image is-1by1">
 							<img className="is-rounded" src={user.userPhotoURL || "http://placehold.it/250x250"} alt={user.firstName} />
 						</figure>
