@@ -31,7 +31,7 @@ npm run dev
 ### Server Only - [localhost:5000](http://localhost:5000)
 
 ```
-npm run server  
+npm run server
 ```
 
 ### Client Only - [localhost:3000](http://localhost:3000)
@@ -40,41 +40,35 @@ npm run server
 npm run client
 ```
 
-### Testing - 
-##### *Currently only on server* 
+### Testing -
 
-Before running script, in a separate terminal tab, run a local instance of 
-MongoDb - 
+##### _Currently only on server_
+
+Before running script, in a separate terminal tab, run a local instance of
+MongoDB -
+
 ```
 $ mongod
 ```
-Then in a separate terminal run - 
+
+Then in a separate terminal run -
+
 ```
 $ npm run test
 ```
 
 ## MVP User Stories
 
-| Goal                                                                     | Status         |
-| ------------------------------------------------------------------------ | -------------- |
-| User can create and/or update a member profile                           | 🚧 In progress |
-| User can log into app and access features                                | 🚧 In progress |
-| User can choose either technical or non-technical founder                | 🚧 In progress |
-| User can render a list of all members in the database                    | 🚧 In progress |
-| User can filter members by technical or non-technical                    | 🚧 In progress |
-| User can make a connection request                                       | 🚧 In progress |
-| User can access contact information after connection request is accepted | 🚧 In progress |
-
-### Future User Stories
-
-This is a list of proposed features to add after MVP is completed.
-
-| Goal                                   | Status          |
-| -------------------------------------- | --------------- |
-| Incorporate Django into the project    | Not yet started |
-| Add a discussion forum                 | Not yet started |
-| Enable direct messaging among founders | Not yet started |
-| Display data visualization features    | Not yet started |
+| Goal                                                                     | Status |
+| ------------------------------------------------------------------------ | ------ |
+| User can create and/or update a member profile                           | Done   |
+| User can log into app and access features                                | Done   |
+| User can choose either technical or non-technical founder                | Done   |
+| User can render a list of all members in the database                    | Done   |
+| User can filter members by technical or non-technical                    | Done   |
+| User can make a connection request                                       | Done   |
+| User can access contact information after connection request is accepted | Done   |
+| User can send a message and start a conversation with another user       | Done   |
 
 ### Contributors
 
@@ -85,5 +79,3 @@ This is a list of proposed features to add after MVP is completed.
 @mbabaian
 
 @rmorabia
-
-@adamsackfield
