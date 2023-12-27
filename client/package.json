@@ -5,7 +5,7 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^1.6.3",
     "bulma": "^0.7.1",
     "bulma-badge": "^2.0.0",
     "classnames": "^2.2.6",
