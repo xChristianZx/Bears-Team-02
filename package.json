@@ -30,7 +30,7 @@
     "bulma": "^0.7.1",
     "bulma-badge": "^2.0.0",
     "chalk": "^2.4.1",
-    "cookie-session": "^2.0.0-beta.3",
+    "cookie-session": "^2.1.1",
     "express": "^4.16.3",
     "jwt-simple": "^0.5.3",
     "mongoose": "^5.2.12",
